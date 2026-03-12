@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NM Alpha Tribe — Web3 Intelligence Dashboard v5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<style>
+/* ══════════════════════════════════════════════════
+   DESIGN TOKENS — Premium Light Cream Theme v5
+══════════════════════════════════════════════════ */
+:root{
+  /* Backgrounds — warm cream & sand */
+  --bg:#F5F1EB;--bg2:#EDE8E0;--bg3:#E6DFD4;--bg4:#DDD4C6;
+  --surface:#FFFFFF;--surface2:#F8F4EE;--surface3:#EDE8E0;--surface4:#E2DAD0;
+  /* Accent — rich amber gold */
+  --gold:#B8860B;--gold-lt:#D4A843;--gold-dk:#8B6508;
+  --gold-dim:rgba(184,134,11,.10);--gold-glow:rgba(184,134,11,.20);
+  /* Status — vivid on light */
+  --green:#0A8A4E;--green-dim:rgba(10,138,78,.10);
+  --red:#C8192E;--red-dim:rgba(200,25,46,.10);
+  --blue:#1A6FD4;--blue-dim:rgba(26,111,212,.10);
+  --purple:#6B3CC4;--purple-dim:rgba(107,60,196,.10);
+  --cyan:#0B8A7A;--cyan-dim:rgba(11,138,122,.10);
+  --orange:#C45A00;
+  /* Text — dark charcoal on light */
+  --ink:#1A1410;--ink2:#3D3525;--ink3:#7A6E5A;--ink4:#B5A890;
+  /* Borders — subtle warm */
+  --border:rgba(184,134,11,.15);--border2:rgba(0,0,0,.07);
+  --border3:rgba(184,134,11,.30);
+  /* Fonts */
+  --font-b:'Space Grotesk',sans-serif;--font-m:'IBM Plex Mono',monospace;
+  /* Layout */
+  --sidebar-w:230px;--header-h:60px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --r:8px;--r2:12px;--r3:16px;--r4:20px;
+  /* Effects — lighter shadows */
+  --shadow:0 2px 16px rgba(0,0,0,.08);
+  --shadow-gold:0 0 24px rgba(184,134,11,.12);
+  --glow-green:0 0 12px rgba(10,138,78,.15);
+  --glow-red:0 0 12px rgba(200,25,46,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--font-b);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -10%,rgba(184,134,11,.04),transparent),
+    radial-gradient(ellipse 50% 30% at 100% 60%,rgba(107,60,196,.025),transparent);
+}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+ul{list-style:none}
+input,select{font-family:inherit}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* ══════════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════════ */
+#app{display:flex;min-height:100vh}
+
+/* ══════════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════════ */
+#sidebar{
+  width:var(--sidebar-w);
+  background:linear-gradient(180deg,#FFFFFF 0%,#F5F0E8 100%);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transition:transform .3s var(--ease);overflow-y:auto;overflow-x:hidden;
+  box-shadow:2px 0 20px rgba(0,0,0,.06);
+}
+/* ── NM LOGO ── */
+.sb-header{
+  padding:16px 14px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:11px;flex-shrink:0;
+  background:rgba(255,255,255,.8);
+}
+.nm-logo-wrap{display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
+.nm-logo-wrap svg{display:block}
+.logo-text{line-height:1.25}
+.logo-name{font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
+.logo-name b{color:var(--gold)}
+.logo-sub{font-family:var(--font-m);font-size:8px;color:var(--ink3);letter-spacing:.18em;text-transform:uppercase;margin-top:3px}
+
+.nav-label{
+  font-family:var(--font-m);font-size:8px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink4);
+  padding:14px 16px 6px;flex-shrink:0;
+}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 12px 9px 14px;margin:1px 8px;
+  font-size:12.5px;font-weight:500;color:var(--ink3);
+  cursor:pointer;border-radius:var(--r);
+  transition:all .18s;position:relative;
+}
+.ni-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;opacity:.45;transition:opacity .18s}
+.nav-item:hover{background:rgba(184,134,11,.07);color:var(--ink)}
+.nav-item:hover .ni-icon{opacity:.9}
+.nav-item.active{background:rgba(184,134,11,.12);color:var(--gold);box-shadow:inset 1px 0 0 0 rgba(184,134,11,.4)}
+.nav-item.active .ni-icon{opacity:1}
+.nav-item.active::before{
+  content:'';position:absolute;left:-8px;top:20%;bottom:20%;
+  width:2px;background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+  border-radius:1px;box-shadow:0 0 10px var(--gold);
+}
+.nav-badge{
+  margin-left:auto;font-size:8.5px;font-weight:600;
+  padding:2px 7px;border-radius:5px;font-family:var(--font-m);letter-spacing:.04em;
+}
+.nav-badge.gold{background:rgba(184,134,11,.12);color:var(--gold);border:1px solid rgba(184,134,11,.25)}
+.nav-badge.live{background:rgba(10,138,78,.10);color:var(--green);border:1px solid rgba(10,138,78,.22)}
+.nav-badge.new{background:rgba(107,60,196,.10);color:var(--purple);border:1px solid rgba(107,60,196,.22)}
+.nav-badge.soon{background:rgba(0,0,0,.04);color:var(--ink3);border:1px solid var(--border2)}
+.nav-divider{height:1px;background:var(--border);margin:6px 14px}
+
+.sb-footer{
+  margin-top:auto;padding:12px;border-top:1px solid var(--border);
+  flex-shrink:0;background:rgba(245,241,235,.8);
+}
+.sb-user{
+  display:flex;align-items:center;gap:9px;padding:8px 10px;
+  border-radius:var(--r);cursor:pointer;
+  transition:all .18s;border:1px solid transparent;
+}
+.sb-user:hover{background:rgba(184,134,11,.08);border-color:var(--border)}
+.sb-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(184,134,11,.12);border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;
+}
+.sb-uname{font-size:12px;font-weight:600;color:var(--ink2)}
+.sb-urole{font-size:9px;color:var(--ink3);font-family:var(--font-m);margin-top:1px}
+.sb-exit{margin-left:auto;font-size:14px;color:var(--ink4)}
+.connected-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--green);
+  margin-right:3px;animation:pulse-dot 2s infinite;display:inline-block;
+}
+@keyframes pulse-dot{
+  0%,100%{box-shadow:0 0 0 0 rgba(10,138,78,.5)}
+  70%{box-shadow:0 0 0 5px rgba(10,138,78,0)}
+}
+
+/* ══════════════════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════════════════ */
+#main{margin-left:var(--sidebar-w);flex:1;min-width:0;display:flex;flex-direction:column}
+
+/* ── TOPBAR ── */
+#topbar{
+  height:var(--header-h);
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 24px;gap:12px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 16px rgba(0,0,0,.06);
+}
+.tb-title{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.tb-sub{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);letter-spacing:.1em;margin-top:2px;text-transform:uppercase}
+.tb-spacer{flex:1}
+.ticker-bar{
+  display:flex;border:1px solid var(--border);border-radius:var(--r);
+  background:var(--surface2);overflow:hidden;
+}
+.tick-item{
+  display:flex;align-items:center;gap:6px;padding:6px 14px;
+  border-right:1px solid var(--border);white-space:nowrap;
+  transition:background .18s;cursor:default;
+}
+.tick-item:hover{background:rgba(184,134,11,.06)}
+.tick-item:last-child{border-right:none}
+.tick-sym{font-family:var(--font-m);font-size:9.5px;font-weight:600;color:var(--ink3)}
+.tick-price{font-family:var(--font-m);font-size:11px;font-weight:600;color:var(--ink)}
+.tick-ch{font-family:var(--font-m);font-size:9.5px;font-weight:600}
+.tick-ch.up{color:var(--green)}.tick-ch.dn{color:var(--red)}
+.tb-actions{display:flex;align-items:center;gap:8px}
+.ico-btn{
+  width:36px;height:36px;border-radius:var(--r);
+  background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;transition:all .18s;color:var(--ink3);
+}
+.ico-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.search-box{
+  display:flex;align-items:center;gap:7px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:7px 12px;
+  cursor:text;transition:all .2s;min-width:180px;
+}
+.search-box:focus-within{border-color:rgba(184,134,11,.6);background:#fff;box-shadow:0 0 0 3px rgba(184,134,11,.08)}
+.search-box input{background:none;border:none;outline:none;font-size:12px;color:var(--ink);width:100%}
+.search-box input::placeholder{color:var(--ink4)}
+.live-pill{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--font-m);font-size:9.5px;color:var(--green);font-weight:600;
+  background:rgba(10,138,78,.08);border:1px solid rgba(10,138,78,.2);
+  padding:6px 12px;border-radius:20px;cursor:pointer;transition:all .2s;
+  letter-spacing:.04em;
+}
+.live-pill:hover{background:rgba(10,138,78,.14)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 1.5s infinite;flex-shrink:0}
+
+/* ── PAGES ── */
+.page{display:none;flex:1;animation:fadeIn .3s ease}
+.page.active{display:flex;flex-direction:column}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.page-inner{padding:22px;flex:1;overflow-y:auto}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r3);overflow:hidden;
+  box-shadow:var(--shadow);transition:border-color .25s;
+}
+.card:hover{border-color:rgba(184,134,11,.3)}
+.card-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--border);gap:10px;
+  background:var(--surface2);
+}
+.card-title{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.card-sub{font-family:var(--font-m);font-size:9px;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase}
+.card-body{padding:18px}
+
+/* ── STAT CARDS ── */
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r3);padding:18px 20px;position:relative;overflow:hidden;
+  transition:all .25s;cursor:default;box-shadow:var(--shadow);
+}
+.stat-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,134,11,.5),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.stat-card:hover{border-color:rgba(184,134,11,.4);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.12),0 0 0 1px rgba(184,134,11,.1)}
+.stat-card:hover::after{opacity:1}
+.sc-label{font-family:var(--font-m);font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px}
+.sc-val{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.02em;line-height:1}
+.sc-ch{font-size:10px;margin-top:6px;font-family:var(--font-m);display:flex;align-items:center;gap:3px;font-weight:600}
+.sc-ch.up{color:var(--green)}.sc-ch.dn{color:var(--red)}.sc-ch.neutral{color:var(--ink3)}
+.sc-icon{position:absolute;right:16px;top:14px;font-size:26px;opacity:.08;pointer-events:none}
+.sc-bar{position:absolute;bottom:0;left:0;height:1.5px;background:linear-gradient(90deg,var(--gold),var(--gold-lt),transparent);width:55%;opacity:.7}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.g-main{display:grid;grid-template-columns:1fr 320px;gap:14px}
+.gap-y{display:flex;flex-direction:column;gap:14px}
+.mt{margin-top:14px}
+
+/* ══════════════════════════════════════════════════
+   MARKET TABLE
+══════════════════════════════════════════════════ */
+.mkt-table{width:100%;border-collapse:collapse}
+.mkt-table th{
+  font-family:var(--font-m);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  text-align:left;font-weight:600;white-space:nowrap;cursor:pointer;user-select:none;
+  transition:color .2s;background:var(--surface2);
+}
+.mkt-table th:hover{color:var(--ink)}
+.mkt-table td{
+  padding:11px 14px;border-bottom:1px solid rgba(0,0,0,.04);
+  font-size:12.5px;color:var(--ink);vertical-align:middle;white-space:nowrap;
+}
+.mkt-table tr:hover td{background:rgba(184,134,11,.03)}
+.mkt-table tr:last-child td{border-bottom:none}
+.coin-cell{display:flex;align-items:center;gap:10px}
+.coin-ico{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--ink2);flex-shrink:0;
+}
+.coin-name{font-weight:700;font-size:12.5px}
+.coin-sym{font-family:var(--font-m);font-size:9.5px;color:var(--ink3)}
+.up-c{color:var(--green)}.dn-c{color:var(--red)}
+.mono{font-family:var(--font-m);font-weight:500}
+.rank-num{font-family:var(--font-m);font-size:10px;color:var(--ink4)}
+
+/* ══════════════════════════════════════════════════
+   NEWS
+══════════════════════════════════════════════════ */
+.news-page-header{padding:20px 24px 0;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.news-ph-title{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.news-ph-sub{font-size:12px;color:var(--ink3);margin-top:3px}
+.news-source-tabs{display:flex;overflow-x:auto;margin-top:16px}
+.ns-tab{
+  padding:9px 14px;font-size:12px;font-weight:600;color:var(--ink3);
+  cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;
+  transition:all .2s;
+}
+.ns-tab:hover{color:var(--ink)}
+.ns-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.ns-tab-count{
+  font-family:var(--font-m);font-size:9px;color:var(--ink3);
+  background:var(--surface3);padding:1px 5px;border-radius:4px;margin-left:4px;
+}
+.ns-tab.active .ns-tab-count{background:rgba(184,134,11,.12);color:var(--gold)}
+.ns-filter-icon{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3);padding:8px 12px;cursor:pointer;flex-shrink:0}
+.news-featured{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-radius:var(--r3);overflow:hidden;border:1px solid var(--border);
+  min-height:280px;cursor:pointer;transition:border-color .25s;
+}
+.news-featured:hover{border-color:rgba(184,134,11,.4)}
+.nf-image{background:var(--surface2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:220px}
+.nf-image-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:linear-gradient(135deg,var(--surface3),var(--bg3))}
+.nf-src-watermark{font-family:var(--font-m);font-size:11px;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase}
+.nf-body{background:var(--surface);padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between}
+.nf-tags{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.featured-tag{background:var(--gold);color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase}
+.nf-time{font-family:var(--font-m);font-size:10.5px;color:var(--ink3);display:flex;align-items:center;gap:4px}
+.nf-title{font-size:20px;font-weight:700;color:var(--ink);line-height:1.35;letter-spacing:-.02em;padding-bottom:20px}
+.nf-source-row{display:flex;align-items:center;gap:10px;border-top:1px solid var(--border);padding-top:14px;margin-top:auto}
+.nf-src-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
+.nf-src-name{font-size:13px;font-weight:600;color:var(--ink2)}
+.news-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ng-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);
+  overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;
+}
+.ng-card:hover{border-color:rgba(184,134,11,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.ng-top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 0;gap:6px}
+.ng-src-pill{display:flex;align-items:center;gap:5px}
+.ng-src-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff}
+.ng-src-name{font-size:10.5px;font-weight:600;color:var(--ink3)}
+.ng-time{font-family:var(--font-m);font-size:9.5px;color:var(--ink4);display:flex;align-items:center;gap:3px}
+.ng-title{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.5;padding:10px 12px;flex:1}
+.ng-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-top:1px solid var(--border);background:var(--surface2)}
+.ng-cat{font-family:var(--font-m);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase}
+.ng-ext{color:var(--ink4);font-size:12px;cursor:pointer;transition:color .2s}
+.ng-ext:hover{color:var(--gold)}
+.news-search-box{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:6px 12px;flex:1;max-width:240px}
+.news-search-box input{background:none;border:none;outline:none;font-size:12px;color:var(--ink);width:100%}
+.news-search-box input::placeholder{color:var(--ink4)}
+.news-live-ind{display:flex;align-items:center;gap:6px;font-family:var(--font-m);font-size:9.5px;color:var(--green)}
+
+/* ══════════════════════════════════════════════════
+   CAPITAL ROTATION TERMINAL
+══════════════════════════════════════════════════ */
+.rot-hero{
+  background:linear-gradient(135deg,rgba(107,60,196,.06) 0%,rgba(184,134,11,.05) 50%,rgba(11,138,122,.04) 100%);
+  border:1px solid rgba(107,60,196,.15);border-radius:var(--r4);
+  padding:28px 32px;margin-bottom:18px;position:relative;overflow:hidden;
+}
+.rot-hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+  border-radius:50%;background:radial-gradient(circle,rgba(107,60,196,.06),transparent 70%);
+}
+.rot-hero-title{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;color:var(--ink)}
+.rot-hero-title span{color:var(--gold)}
+.rot-hero-sub{font-size:13px;color:var(--ink2);max-width:700px;line-height:1.7}
+.rot-hero-pills{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.rot-hero-pill{
+  padding:5px 12px;border-radius:20px;font-family:var(--font-m);font-size:10px;
+  font-weight:600;letter-spacing:.06em;border:1px solid;cursor:default;
+}
+
+.dom-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);
+  padding:16px 18px;position:relative;overflow:hidden;cursor:default;
+  transition:all .25s;
+}
+.dom-card:hover{border-color:var(--border3);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+.dom-card-label{font-family:var(--font-m);font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.dom-card-val{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px}
+.dom-card-sub{font-size:11px;color:var(--ink2);line-height:1.5}
+.dom-card-bar{height:3px;border-radius:2px;margin-top:10px;background:var(--surface3)}
+.dom-card-bar-fill{height:100%;border-radius:2px;transition:width 1.2s var(--ease)}
+
+.flow-diagram{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);
+  padding:24px;margin-bottom:18px;
+}
+.flow-nodes{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:20px 0;align-items:center}
+.flow-node{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:12px 10px;text-align:center;
+  position:relative;transition:all .3s;
+}
+.flow-node.active-flow{border-color:var(--green);box-shadow:0 0 16px rgba(10,138,78,.12)}
+.flow-node.risk-off{border-color:var(--gold);box-shadow:0 0 16px rgba(184,134,11,.12)}
+.flow-node-icon{font-size:24px;margin-bottom:6px}
+.flow-node-name{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.flow-node-val{font-family:var(--font-m);font-size:10px;color:var(--ink3)}
+.flow-arr{font-size:22px;opacity:.3;transition:all .3s;color:var(--ink3)}
+.flow-arr.active{opacity:1;color:var(--green);animation:flow-pulse 1.5s infinite}
+.flow-arr.reverse{color:var(--red);opacity:1;animation:flow-pulse 1.5s infinite}
+@keyframes flow-pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+.signal-explain-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);
+  overflow:hidden;
+}
+.sec-head{
+  padding:14px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface2);
+}
+.sec-head-icon{font-size:20px}
+.sec-head-title{font-size:13.5px;font-weight:700;color:var(--ink)}
+.sec-head-badge{
+  margin-left:auto;padding:3px 10px;border-radius:20px;
+  font-family:var(--font-m);font-size:9px;font-weight:700;letter-spacing:.08em;
+}
+.sec-body{padding:18px}
+.sec-desc{font-size:12.5px;line-height:1.8;color:var(--ink2)}
+.sec-formula{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r2);padding:14px 16px;margin:12px 0;
+  font-family:var(--font-m);font-size:12px;color:var(--gold-dk);
+  text-align:center;letter-spacing:.04em;line-height:1.8;
+}
+.sec-rules{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.sec-rule{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  border-radius:var(--r);border:1px solid var(--border2);
+  background:var(--surface2);
+}
+.sec-rule-arrow{
+  width:28px;height:28px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  font-weight:800;font-family:var(--font-m);
+}
+.sec-rule-text{font-size:12px;line-height:1.6;color:var(--ink2)}
+.sec-rule-text strong{color:var(--ink);font-weight:700}
+
+.tv-embed-wrap{
+  background:var(--surface2);border-radius:var(--r2);
+  overflow:hidden;border:1px solid var(--border);
+  margin-top:12px;
+}
+.tv-embed-label{
+  padding:9px 14px;background:var(--surface3);border-bottom:1px solid var(--border);
+  font-family:var(--font-m);font-size:9px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.tv-btn{
+  padding:5px 12px;background:var(--gold-dim);border:1px solid var(--border3);
+  color:var(--gold-dk);font-size:10.5px;font-weight:600;border-radius:6px;
+  cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px;
+  text-decoration:none;
+}
+.tv-btn:hover{background:rgba(184,134,11,.2)}
+
+.sector-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid rgba(0,0,0,.04);cursor:default;transition:background .2s}
+.sector-row:hover{background:rgba(184,134,11,.04)}
+.sector-row:last-child{border-bottom:none}
+.sector-rank{font-family:var(--font-m);font-size:10px;color:var(--ink4);width:16px;flex-shrink:0}
+.sector-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sector-name{font-size:12.5px;font-weight:600;color:var(--ink);flex:1}
+.sector-cap{font-family:var(--font-m);font-size:11px;color:var(--ink3)}
+.sector-ch{font-family:var(--font-m);font-size:11px;font-weight:600}
+.sector-bar-wrap{width:80px;height:4px;background:var(--surface3);border-radius:2px;overflow:hidden}
+.sector-bar{height:100%;border-radius:2px;transition:width 1.2s var(--ease)}
+.flow-ico{font-size:14px;flex-shrink:0}
+
+.nuance-box{
+  background:rgba(184,134,11,.05);border:1px solid rgba(184,134,11,.2);
+  border-radius:var(--r2);padding:14px 16px;
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:12px;color:var(--ink2);line-height:1.7;
+}
+.nuance-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+
+/* phase indicator */
+.phase-row{display:flex;gap:3px;margin:16px 0}
+.phase-cell{
+  flex:1;height:36px;border-radius:6px;display:flex;align-items:center;
+  justify-content:center;font-size:9px;font-weight:700;font-family:var(--font-m);
+  letter-spacing:.08em;text-transform:uppercase;cursor:default;
+  transition:all .2s;
+}
+.phase-cell.active{transform:scaleY(1.12);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+
+/* ══════════════════════════════════════════════════
+   LIVE INTEL (heatmap page)
+══════════════════════════════════════════════════ */
+.hmap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.hmap-cell{border-radius:8px;padding:9px 6px;text-align:center;cursor:pointer;transition:transform .15s;position:relative}
+.hmap-cell:hover{transform:scale(1.06);z-index:1}
+.hmap-sym{font-size:11px;font-weight:700;color:rgba(255,255,255,.95)}
+.hmap-ch{font-size:10px;font-family:var(--font-m);color:rgba(255,255,255,.85);margin-top:2px}
+.hmap-price{font-size:8.5px;font-family:var(--font-m);color:rgba(255,255,255,.6);margin-top:1px}
+
+/* intel module card (like screenshot) */
+.intel-module{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);
+  overflow:hidden;flex:1;
+}
+.intel-mod-head{
+  padding:11px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface2);
+}
+.intel-mod-title{font-size:12.5px;font-weight:700;color:var(--ink)}
+.intel-mod-tfs{display:flex;gap:2px}
+.intel-tf{
+  padding:3px 8px;border-radius:5px;font-family:var(--font-m);font-size:9.5px;
+  font-weight:600;cursor:pointer;transition:all .15s;color:var(--ink3);
+}
+.intel-tf:hover{color:var(--ink);background:var(--surface3)}
+.intel-tf.active{background:var(--gold);color:#fff}
+.intel-tabs{display:flex;border-bottom:1px solid var(--border)}
+.intel-tab{
+  flex:1;padding:8px;text-align:center;font-size:11.5px;font-weight:600;
+  color:var(--ink3);cursor:pointer;transition:all .15s;border-bottom:2px solid transparent;
+}
+.intel-tab:hover{color:var(--ink);background:rgba(184,134,11,.04)}
+.intel-tab.active{color:var(--gold);border-bottom-color:var(--gold);background:rgba(184,134,11,.05)}
+.intel-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;border-bottom:1px solid rgba(0,0,0,.04);
+  transition:background .15s;
+}
+.intel-item:hover{background:rgba(184,134,11,.04)}
+.intel-item:last-child{border-bottom:none}
+.intel-rank{font-family:var(--font-m);font-size:10px;color:var(--ink4);width:20px;flex-shrink:0}
+.intel-ico{
+  width:28px;height:28px;border-radius:6px;background:var(--surface2);
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--ink2);flex-shrink:0;
+}
+.intel-name{flex:1;margin-left:8px}
+.intel-sym{font-size:12px;font-weight:700;color:var(--ink)}
+.intel-val{font-family:var(--font-m);font-size:9.5px;color:var(--ink3)}
+.intel-chg{font-family:var(--font-m);font-size:12px;font-weight:700;min-width:70px;text-align:right}
+.intel-extra{font-family:var(--font-m);font-size:9.5px;color:var(--ink3)}
+
+/* ══════════════════════════════════════════════════
+   STRATEGIES
+══════════════════════════════════════════════════ */
+.strat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);
+  overflow:hidden;cursor:pointer;transition:all .25s;
+}
+.strat-card:hover{border-color:rgba(184,134,11,.45);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,.1)}
+.strat-card.selected{border-color:rgba(184,134,11,.6);box-shadow:0 0 0 2px rgba(184,134,11,.12)}
+.strat-hero{height:90px;display:flex;align-items:center;justify-content:center;position:relative;font-size:38px}
+.strat-tag{position:absolute;top:10px;right:10px;font-family:var(--font-m);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:600}
+.strat-body{padding:14px 16px}
+.strat-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:-.01em}
+.strat-desc{font-size:12px;line-height:1.6;color:var(--ink2);margin-bottom:12px}
+.strat-metrics{display:flex;gap:14px;padding-top:12px;border-top:1px solid var(--border)}
+.sm-item{display:flex;flex-direction:column;gap:1px}
+.sm-label{font-family:var(--font-m);font-size:8px;color:var(--ink4);text-transform:uppercase;letter-spacing:.1em}
+.sm-val{font-size:12.5px;font-weight:700;color:var(--ink)}
+.sm-val.g{color:var(--green)}
+.dtab-nav{display:flex;border-bottom:1px solid var(--border);padding:0 18px}
+.dtab-btn{padding:11px 14px;font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .18s;white-space:nowrap;background:none}
+.dtab-btn:hover{color:var(--ink)}
+.dtab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.dtab-panel{display:none;padding:20px 18px}
+.dtab-panel.active{display:block}
+.detail-prose{font-size:13px;line-height:1.85;color:var(--ink2);white-space:pre-line}
+.detail-prose h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:10px}
+
+/* ══════════════════════════════════════════════════
+   PLAYBOOK
+══════════════════════════════════════════════════ */
+.pb-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);padding:18px;transition:all .2s;box-shadow:var(--shadow)}
+.pb-card:hover{border-color:rgba(184,134,11,.35);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.pb-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.pb-ico{width:36px;height:36px;border-radius:var(--r);background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.pb-analyst{font-size:12.5px;font-weight:700;color:var(--gold)}
+.pb-pair{font-family:var(--font-m);font-size:10.5px;color:var(--ink2);margin-top:1px}
+.pb-date{font-family:var(--font-m);font-size:9.5px;color:var(--ink3)}
+.pb-bias{display:inline-flex;align-items:center;gap:4px;margin-left:auto;padding:4px 10px;border-radius:20px;font-family:var(--font-m);font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.pb-bias.long{background:var(--green-dim);border:1px solid rgba(0,208,132,.22);color:var(--green)}
+.pb-bias.short{background:var(--red-dim);border:1px solid rgba(255,51,102,.22);color:var(--red)}
+.pb-bias.neutral{background:var(--gold-dim);border:1px solid rgba(212,168,67,.22);color:var(--gold)}
+.pb-analysis{font-size:12.5px;line-height:1.75;color:var(--ink2);margin-bottom:14px}
+.pb-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pbl{background:var(--surface2);border-radius:var(--r);padding:9px 11px;border:1px solid var(--border)}
+.pbl-lbl{font-family:var(--font-m);font-size:8px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:3px}
+.pbl-val{font-family:var(--font-m);font-size:12px;font-weight:600}
+.pbl-entry{color:var(--blue)}.pbl-tp{color:var(--green)}.pbl-sl{color:var(--red)}
+
+/* ══════════════════════════════════════════════════
+   EDUCATION
+══════════════════════════════════════════════════ */
+.edu-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;cursor:pointer;transition:all .25s}
+.edu-card:hover{border-color:rgba(184,134,11,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.edu-img{height:90px;display:flex;align-items:center;justify-content:center;font-size:34px;position:relative;background:linear-gradient(135deg,var(--surface2),var(--surface3))}
+.edu-prog-line{position:absolute;bottom:0;left:0;height:2px;background:var(--gold);transition:width .6s var(--ease)}
+.edu-body{padding:14px 15px}
+.edu-lvl{font-family:var(--font-m);font-size:8px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:5px;font-weight:600}
+.edu-lvl.b{color:var(--green)}.edu-lvl.i{color:var(--gold)}.edu-lvl.a{color:var(--red)}
+.edu-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.edu-desc{font-size:11.5px;line-height:1.55;color:var(--ink2)}
+.edu-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 15px;border-top:1px solid var(--border)}
+.edu-lessons{font-family:var(--font-m);font-size:9.5px;color:var(--ink3)}
+.edu-start{font-size:11px;font-weight:700;color:var(--gold)}
+
+/* ══════════════════════════════════════════════════
+   COMMUNITY
+══════════════════════════════════════════════════ */
+.comm-link{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);padding:22px;text-align:center;cursor:pointer;transition:all .25s}
+.comm-link:hover{border-color:rgba(184,134,11,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.comm-icon{font-size:30px;margin-bottom:12px}
+.comm-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.comm-desc{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:16px}
+
+/* ══════════════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════════════ */
+.settings-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;margin-bottom:14px}
+.settings-section-header{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;background:var(--surface2)}
+.settings-section-icon{font-size:16px}
+.settings-section-title{font-size:13px;font-weight:700;color:var(--ink)}
+.settings-section-desc{font-size:11px;color:var(--ink3);margin-left:auto}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid rgba(0,0,0,.04);gap:16px}
+.settings-row:last-child{border-bottom:none}
+.sr-label{font-size:13px;font-weight:600;color:var(--ink)}
+.sr-hint{font-size:11px;color:var(--ink3);margin-top:2px}
+.settings-control select{background:var(--surface2);border:1px solid var(--border);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-size:12px;outline:none;min-width:140px}
+.settings-control select:focus{border-color:var(--gold)}
+.toggle-switch{position:relative;width:40px;height:22px;cursor:pointer}
+.toggle-switch input{display:none}
+.toggle-track{position:absolute;inset:0;background:var(--surface3);border-radius:11px;border:1px solid var(--border);transition:all .25s}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:14px;height:14px;background:var(--ink3);border-radius:50%;transition:all .25s}
+.toggle-switch input:checked + .toggle-track{background:rgba(184,134,11,.15);border-color:rgba(184,134,11,.4)}
+.toggle-switch input:checked + .toggle-track + .toggle-thumb{left:21px;background:var(--gold)}
+.settings-btn{background:var(--surface2);border:1px solid var(--border);color:var(--ink2);padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.settings-btn:hover{border-color:var(--gold);color:var(--gold)}
+.settings-btn.danger{border-color:rgba(200,25,46,.25);color:var(--red)}
+.settings-btn.danger:hover{background:var(--red-dim)}
+
+/* ══════════════════════════════════════════════════
+   MISC UTILITIES
+══════════════════════════════════════════════════ */
+.flex-r{display:flex;align-items:center;gap:10px}
+.flex-b{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.btn-gold{
+  background:var(--gold);color:#fff;padding:9px 18px;border-radius:var(--r);
+  font-size:12px;font-weight:700;letter-spacing:.03em;cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;border:none;
+}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-1px);box-shadow:0 4px 16px rgba(184,134,11,.25)}
+.btn-outline{
+  background:transparent;border:1px solid var(--border);color:var(--ink2);
+  padding:7px 14px;border-radius:var(--r);font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .2s;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.overline{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:10px;padding:4px 10px;border-radius:20px;font-weight:600}
+.sb-ok{background:rgba(10,138,78,.08);border:1px solid rgba(10,138,78,.2);color:var(--green)}
+.sb-warn{background:rgba(196,90,0,.08);border:1px solid rgba(196,90,0,.22);color:var(--orange)}
+
+.feed-item{display:flex;gap:9px;padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05)}
+.feed-item:last-child{border-bottom:none}
+.fi-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff}
+.fi-name{font-size:12px;font-weight:700;color:var(--ink)}
+.fi-badge{background:rgba(184,134,11,.12);border:1px solid rgba(184,134,11,.22);padding:1px 6px;border-radius:4px;font-size:8px;font-family:var(--font-m);color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
+.fi-time{font-family:var(--font-m);font-size:9.5px;color:var(--ink4);margin-left:auto}
+.fi-text{font-size:12px;color:var(--ink2);line-height:1.55;margin-top:3px}
+
+.dominance-legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.dl-item{display:flex;align-items:center;gap:5px;font-size:11px}
+.dl-dot{width:9px;height:9px;border-radius:50%}
+.dl-name{color:var(--ink2);font-weight:600}
+.dl-pct{color:var(--ink3);font-family:var(--font-m)}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media(max-width:1100px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g-main{grid-template-columns:1fr}
+  .news-grid-4{grid-template-columns:repeat(2,1fr)}
+  .news-featured{grid-template-columns:1fr}
+  .flow-nodes{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  :root{--sidebar-w:0px}
+  #sidebar{transform:translateX(-230px);width:230px}
+  #sidebar.open{transform:none}
+  #main{margin-left:0}
+  #mob-btn{display:flex}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g2{grid-template-columns:1fr}
+  .hmap-grid{grid-template-columns:repeat(3,1fr)}
+  .news-featured{grid-template-columns:1fr}
+  .news-grid-4{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr}
+  .page-inner{padding:12px}
+  .pb-levels{grid-template-columns:1fr 1fr}
+}
+#mob-btn{
+  display:none;position:fixed;bottom:20px;right:20px;z-index:300;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--gold);color:#000;font-size:18px;
+  box-shadow:0 4px 20px rgba(212,168,67,.4);
+  align-items:center;justify-content:center;cursor:pointer;border:none;
+}
+
+/* ══ CHART COIN SEARCH ══ */
+.chart-search-wrap{position:relative;display:flex;align-items:center;gap:6px}
+.chart-coin-input{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:5px 10px;font-size:12px;
+  color:var(--ink);font-family:var(--font-b);outline:none;
+  width:160px;transition:all .2s;
+}
+.chart-coin-input:focus{border-color:rgba(184,134,11,.6);background:#fff;box-shadow:0 0 0 3px rgba(184,134,11,.08)}
+.chart-coin-input::placeholder{color:var(--ink4)}
+.coin-dropdown{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);box-shadow:0 8px 32px rgba(0,0,0,.14);
+  z-index:500;max-height:280px;overflow-y:auto;min-width:260px;
+}
+.coin-suggest{
+  display:flex;align-items:center;gap:8px;padding:9px 12px;
+  cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(0,0,0,.04);
+}
+.coin-suggest:hover{background:rgba(184,134,11,.06)}
+.coin-suggest:last-child{border-bottom:none}
+.cs-icon{
+  width:26px;height:26px;border-radius:50%;background:var(--surface2);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:700;
+  color:var(--ink2);flex-shrink:0;
+}
+.cs-info{flex:1;min-width:0}
+.cs-sym{font-size:12px;font-weight:700;color:var(--ink);font-family:var(--font-m)}
+.cs-name{font-size:10px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-price{font-family:var(--font-m);font-size:11px;font-weight:600;color:var(--ink2);text-align:right}
+.cs-ch{font-family:var(--font-m);font-size:9.5px;font-weight:600;text-align:right;min-width:52px}
+.tv-chart-container{
+  height:300px;border-radius:0 0 var(--r3) var(--r3);
+  overflow:hidden;background:var(--surface2);
+}
+.chart-tf-btns{display:flex;gap:2px}
+.chart-tf-btn{
+  padding:4px 9px;border-radius:5px;font-family:var(--font-m);font-size:9.5px;
+  font-weight:600;cursor:pointer;transition:all .15s;
+  color:var(--ink3);background:var(--surface2);border:1px solid var(--border);
+}
+.chart-tf-btn:hover{color:var(--ink);border-color:rgba(184,134,11,.3)}
+.chart-tf-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+/* ══ MARKET CAP INTELLIGENCE ROW ══ */
+.mcap-section{margin-bottom:16px}
+.mcap-section-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+}
+.mcap-section-title{font-size:13px;font-weight:700;color:var(--ink)}
+.mcap-section-sub{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:1px}
+.mcap-scroll-row{
+  display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;
+  scrollbar-width:thin;scrollbar-color:var(--ink4) transparent;
+}
+.mcap-scroll-row::-webkit-scrollbar{height:3px}
+.mcap-scroll-row::-webkit-scrollbar-track{background:transparent}
+.mcap-scroll-row::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:2px}
+.mcap-pill{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);padding:13px 15px 11px;min-width:150px;
+  cursor:default;transition:all .22s;flex-shrink:0;
+  position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.mcap-pill:hover{
+  border-color:rgba(184,134,11,.38);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.1);
+}
+.mcap-pill::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--pill-c,var(--gold)),transparent);
+  opacity:.7;
+}
+.mcap-pill.featured{
+  background:linear-gradient(135deg,rgba(184,134,11,.06),rgba(184,134,11,.02));
+  border-color:rgba(184,134,11,.28);
+}
+.mp-icon{font-size:16px;margin-bottom:5px;line-height:1}
+.mp-label{
+  font-family:var(--font-m);font-size:8px;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink3);margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mp-value{
+  font-size:17px;font-weight:700;color:var(--ink);
+  letter-spacing:-.02em;line-height:1;font-family:var(--font-m);
+}
+.mp-change{
+  font-family:var(--font-m);font-size:9.5px;font-weight:600;
+  margin-top:5px;display:flex;align-items:center;gap:2px;
+}
+.mp-change.up{color:var(--green)}.mp-change.dn{color:var(--red)}.mp-change.neu{color:var(--ink4)}
+.mcap-loading{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  color:var(--ink3);font-family:var(--font-m);font-size:10px;
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav id="sidebar">
+  <div class="sb-header">
+    <div class="nm-logo-wrap" id="sidebarLogo" data-size="42"></div>
+    <div class="logo-text">
+      <div class="logo-name">NM <b>Alpha</b> Tribe</div>
+      <div class="logo-sub">Web3 Intelligence</div>
+    </div>
+  </div>
+
+  <div class="nav-label" style="margin-top:6px">Navigation</div>
+  <div class="nav-item active" onclick="nav('dashboard')"><span class="ni-icon">⬛</span>Overview</div>
+  <div class="nav-item" onclick="nav('markets')"><span class="ni-icon">📈</span>Markets</div>
+  <div class="nav-item" onclick="nav('heatmap')"><span class="ni-icon">📡</span>Live Intel <span class="nav-badge live">Live</span></div>
+  <div class="nav-item" onclick="nav('strategies')"><span class="ni-icon">♟</span>Strategies</div>
+  <div class="nav-item" onclick="nav('playbook')"><span class="ni-icon">📋</span>Trading Journal</div>
+  <div class="nav-item" onclick="nav('news')"><span class="ni-icon">🗞</span>News <span class="nav-badge live" id="news-dot">Live</span></div>
+
+  <div class="nav-label" style="margin-top:4px">Tools</div>
+  <div class="nav-item" onclick="nav('rotation')"><span class="ni-icon">🔄</span>Capital Rotation <span class="nav-badge new">New</span></div>
+  <div class="nav-item" onclick="nav('education')"><span class="ni-icon">🎓</span>Education</div>
+  <div class="nav-item" onclick="nav('community')"><span class="ni-icon">🌐</span>Community</div>
+  <div class="nav-divider"></div>
+  <div class="nav-item" onclick="nav('settings')"><span class="ni-icon">⚙️</span>Settings</div>
+  <a href="index.html" class="nav-item" style="text-decoration:none;color:inherit;margin-top:4px"><span class="ni-icon">🏠</span>Back to Home</a>
+
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar">NM</div>
+      <div>
+        <div class="sb-uname">NM Alpha</div>
+        <div class="sb-urole"><span class="connected-dot"></span>Connected · Premium</div>
+      </div>
+      <span class="sb-exit" style="font-size:12px">↗</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ TOPBAR ═══════════ -->
+<div id="main">
+<header id="topbar">
+  <div>
+    <div class="tb-title" id="tb-title">Overview</div>
+    <div class="tb-sub" id="tb-sub">NM Alpha Tribe · Dashboard</div>
+  </div>
+  <div class="ticker-bar" id="ticker-bar">
+    <div class="tick-item"><span class="tick-sym">BTC</span><span class="tick-price" id="tk-btc">—</span><span class="tick-ch" id="tk-btc-c">—</span></div>
+    <div class="tick-item"><span class="tick-sym">ETH</span><span class="tick-price" id="tk-eth">—</span><span class="tick-ch" id="tk-eth-c">—</span></div>
+    <div class="tick-item"><span class="tick-sym">SOL</span><span class="tick-price" id="tk-sol">—</span><span class="tick-ch" id="tk-sol-c">—</span></div>
+    <div class="tick-item"><span class="tick-sym">BNB</span><span class="tick-price" id="tk-bnb">—</span><span class="tick-ch" id="tk-bnb-c">—</span></div>
+  </div>
+  <div class="tb-spacer"></div>
+  <div class="tb-actions">
+    <div class="search-box"><span style="color:var(--ink4);font-size:13px">🔍</span><input type="text" placeholder="Search coins..." id="global-search" oninput="globalSearch(this.value)"/><span style="font-family:var(--font-m);font-size:9px;color:var(--ink4);background:var(--surface2);padding:2px 5px;border-radius:4px">⌘K</span></div>
+    <div class="live-pill" onclick="refreshAll()"><div class="live-dot"></div>Live</div>
+    <div class="ico-btn" onclick="refreshAll()" title="Refresh">↻</div>
+    <a href="index.html" class="ico-btn" title="Back to Home" style="text-decoration:none;color:inherit">🏠</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: DASHBOARD
+════════════════════════════════════════════════ -->
+<div class="page active" id="page-dashboard">
+<div class="page-inner">
+  <div class="flex-b" style="margin-bottom:16px">
+    <div>
+      <div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Market Overview</div>
+      <div style="font-size:11.5px;color:var(--ink3);margin-top:3px;font-family:var(--font-m)">Real-time intelligence · <span id="last-upd">Updating...</span></div>
+    </div>
+    <span class="status-badge sb-ok" id="api-status">● All systems live</span>
+  </div>
+  <div class="g4" style="margin-bottom:16px">
+    <div class="stat-card"><div class="sc-icon">₿</div><div class="sc-label">Bitcoin (BTC)</div><div class="sc-val" id="d-btc">—</div><div class="sc-ch" id="d-btc-c">—</div><div class="sc-bar"></div></div>
+    <div class="stat-card"><div class="sc-icon">Ξ</div><div class="sc-label">Ethereum (ETH)</div><div class="sc-val" id="d-eth">—</div><div class="sc-ch" id="d-eth-c">—</div><div class="sc-bar"></div></div>
+    <div class="stat-card"><div class="sc-icon">🌍</div><div class="sc-label">Total Market Cap</div><div class="sc-val" id="d-mcap">—</div><div class="sc-ch" id="d-mcap-c">—</div><div class="sc-bar"></div></div>
+    <div class="stat-card"><div class="sc-icon">😨</div><div class="sc-label">Fear & Greed Index</div><div class="sc-val" id="d-fng">—</div><div class="sc-ch neutral" id="d-fng-l" style="font-family:var(--font-m);font-size:10px">Loading...</div><div class="sc-bar"></div></div>
+  </div>
+  <!-- ── MARKET CAP INTELLIGENCE ── -->
+  <div class="mcap-section">
+    <div class="mcap-section-hd">
+      <div>
+        <div class="mcap-section-title">Market Cap Intelligence</div>
+        <div class="mcap-section-sub">Live sector &amp; category data · CoinGecko</div>
+      </div>
+      <span class="status-badge" id="mcap-status" style="font-family:var(--font-m);font-size:9px;padding:4px 10px">Fetching…</span>
+    </div>
+    <div class="mcap-scroll-row" id="mcap-row">
+      <div class="mcap-loading">
+        <span style="animation:pulse-dot 1.5s infinite;width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block"></span>
+        Loading live market cap data…
+      </div>
+    </div>
+  </div>
+
+  <div class="g-main">
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-hd">
+          <div>
+            <div class="card-title" id="main-chart-title">BTC / USDT</div>
+            <div class="card-sub" id="main-chart-sub">Live chart · TradingView · Real-time</div>
+          </div>
+          <div class="flex-r" style="gap:8px">
+            <div class="chart-tf-btns">
+              <button class="chart-tf-btn active" id="tf-btn-60" onclick="setTVChartTF('60',this)">1H</button>
+              <button class="chart-tf-btn" id="tf-btn-240" onclick="setTVChartTF('240',this)">4H</button>
+              <button class="chart-tf-btn" id="tf-btn-D" onclick="setTVChartTF('D',this)">1D</button>
+              <button class="chart-tf-btn" id="tf-btn-W" onclick="setTVChartTF('W',this)">1W</button>
+            </div>
+            <div class="chart-search-wrap" id="chart-search-wrap">
+              <input
+                type="text"
+                id="chart-coin-input"
+                class="chart-coin-input"
+                placeholder="🔍 Search any coin…"
+                autocomplete="off"
+                oninput="chartCoinSearch(this.value)"
+                onkeydown="if(event.key==='Enter')chartPickFirst();if(event.key==='Escape')closeChartDD()"
+                onfocus="if(this.value)chartCoinSearch(this.value)"
+              />
+              <div id="chart-coin-dropdown" class="coin-dropdown" style="display:none"></div>
+            </div>
+          </div>
+        </div>
+        <div id="home-chart" class="tv-chart-container"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Latest Headlines</div><button class="btn-outline" style="padding:5px 12px;font-size:11px" onclick="nav('news')">View All →</button></div>
+        <div id="dash-news"></div>
+      </div>
+    </div>
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Market Sentiment</div></div>
+        <div style="padding:16px;text-align:center">
+          <canvas id="fng-canvas" width="200" height="110" style="display:block;margin:0 auto"></canvas>
+          <div style="font-family:var(--font-m);font-size:28px;font-weight:700;color:var(--ink);margin-top:-8px" id="fng-num">—</div>
+          <div style="font-family:var(--font-m);font-size:10px;color:var(--ink3);margin-top:4px;text-transform:uppercase;letter-spacing:.12em" id="fng-lbl">Fear & Greed</div>
+        </div>
+      </div>
+      <div class="card" style="flex:1">
+        <div class="card-hd"><div class="card-title">Top Movers</div><span style="font-family:var(--font-m);font-size:9.5px;color:var(--ink3)">24h</span></div>
+        <div id="top-movers"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">BTC Dominance</div></div>
+        <div style="padding:14px"><canvas id="dom-canvas" width="280" height="140" style="display:block;margin:0 auto"></canvas></div>
+        <div id="dom-legend" style="padding:0 14px 14px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: MARKETS
+════════════════════════════════════════════════ -->
+<div class="page" id="page-markets">
+<div class="page-inner">
+  <div class="flex-b" style="margin-bottom:16px">
+    <div><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Markets</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Live data · Top 100 by market cap</div></div>
+    <input type="text" id="mkt-search" placeholder="🔍  Search assets..." oninput="filterMkt(this.value)" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);padding:8px 14px;border-radius:var(--r);font-size:12px;outline:none;width:220px"/>
+  </div>
+  <div class="g4" style="margin-bottom:16px">
+    <div class="stat-card"><div class="sc-icon">💰</div><div class="sc-label">Total Market Cap</div><div class="sc-val" id="m-mcap">—</div><div class="sc-ch" id="m-mcap-c">—</div></div>
+    <div class="stat-card"><div class="sc-icon">💧</div><div class="sc-label">24h Volume</div><div class="sc-val" id="m-vol">—</div><div class="sc-ch up">+Active</div></div>
+    <div class="stat-card"><div class="sc-icon">🔢</div><div class="sc-label">Active Coins</div><div class="sc-val" id="m-coins">—</div><div class="sc-ch neutral">Tracked</div></div>
+    <div class="stat-card"><div class="sc-icon">₿</div><div class="sc-label">BTC Dominance</div><div class="sc-val" id="m-dom">—</div><div class="sc-ch neutral">Dominance</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="mkt-table">
+      <thead><tr>
+        <th onclick="sortMkt('rank')"># ↕</th><th>Asset</th>
+        <th onclick="sortMkt('price')">Price ↕</th>
+        <th onclick="sortMkt('ch24')">24h % ↕</th>
+        <th onclick="sortMkt('ch7')">7d % ↕</th>
+        <th onclick="sortMkt('mcap')">Mkt Cap ↕</th>
+        <th>Volume (24h)</th><th>7d Trend</th>
+      </tr></thead>
+      <tbody id="mkt-body"><tr><td colspan="8" style="padding:28px;text-align:center;color:var(--ink3);font-family:var(--font-m)">Loading...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: LIVE INTEL (heatmap)
+════════════════════════════════════════════════ -->
+<div class="page" id="page-heatmap">
+<div class="page-inner">
+  <div class="flex-b" style="margin-bottom:16px">
+    <div><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Live Intel</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Real-time market analysis · Live data · 30s refresh</div></div>
+    <span class="status-badge sb-ok">● Live data · 30s refresh</span>
+  </div>
+
+  <!-- Row 1: Market Movers + Top Volume + Funding Rates -->
+  <div class="g3" style="margin-bottom:14px">
+    <div class="intel-module">
+      <div class="intel-mod-head">
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">📊</span><span class="intel-mod-title">Market Movers</span></div>
+        <div class="intel-mod-tfs">
+          <span class="intel-tf active" onclick="setIntelTF(this,'mm')">1h</span>
+          <span class="intel-tf" onclick="setIntelTF(this,'mm')">4h</span>
+          <span class="intel-tf" onclick="setIntelTF(this,'mm')">1d</span>
+        </div>
+      </div>
+      <div class="intel-tabs">
+        <div class="intel-tab active" id="mm-gainers-tab" onclick="showIntelTab('gainers')">Gainers</div>
+        <div class="intel-tab" id="mm-losers-tab" onclick="showIntelTab('losers')">Losers</div>
+      </div>
+      <div id="mm-gainers-list"></div>
+      <div id="mm-losers-list" style="display:none"></div>
+    </div>
+
+    <div class="intel-module">
+      <div class="intel-mod-head">
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">📈</span><span class="intel-mod-title">Top Volume</span></div>
+        <div class="intel-mod-tfs">
+          <span class="intel-tf active" onclick="setIntelTF(this,'tv')">5m</span>
+          <span class="intel-tf" onclick="setIntelTF(this,'tv')">1h</span>
+          <span class="intel-tf" onclick="setIntelTF(this,'tv')">4h</span>
+        </div>
+      </div>
+      <div class="intel-tabs">
+        <div class="intel-tab active" id="tv-up-tab" onclick="showVolTab('up')">Vol Up</div>
+        <div class="intel-tab" id="tv-dn-tab" onclick="showVolTab('down')">Vol Down</div>
+      </div>
+      <div id="tv-up-list"></div>
+      <div id="tv-dn-list" style="display:none"></div>
+    </div>
+
+    <div class="intel-module">
+      <div class="intel-mod-head">
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:14px">💰</span><span class="intel-mod-title">Funding Rates</span></div>
+      </div>
+      <div class="intel-tabs">
+        <div class="intel-tab active" onclick="showFRTab('pos',this)">Positive</div>
+        <div class="intel-tab" onclick="showFRTab('neg',this)">Negative</div>
+      </div>
+      <div id="fr-list"></div>
+    </div>
+  </div>
+
+  <!-- Row 2: Heatmap + Gainers/Losers -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-hd"><div class="card-title">Market Heatmap</div><span class="card-sub">24h performance · click to navigate</span></div>
+    <div class="card-body"><div class="hmap-grid" id="hmap-grid"></div></div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><div class="card-title">Biggest Gainers</div><span style="font-family:var(--font-m);font-size:9.5px;color:var(--green)">24h</span></div>
+      <div id="gainers-list"></div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-title">Biggest Losers</div><span style="font-family:var(--font-m);font-size:9.5px;color:var(--red)">24h</span></div>
+      <div id="losers-list"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: STRATEGIES
+════════════════════════════════════════════════ -->
+<div class="page" id="page-strategies">
+<div class="page-inner">
+  <div style="margin-bottom:16px"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Strategies</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Professional trading methodologies — learn, practice, execute</div></div>
+  <div class="g3" id="strat-grid" style="margin-bottom:16px"></div>
+  <div class="card" id="strat-detail" style="display:none">
+    <div class="dtab-nav" id="strat-dtabs">
+      <button class="dtab-btn active" onclick="switchDTab('overview',this)">Overview</button>
+      <button class="dtab-btn" onclick="switchDTab('entry',this)">Entry Rules</button>
+      <button class="dtab-btn" onclick="switchDTab('exit',this)">Exit Rules</button>
+      <button class="dtab-btn" onclick="switchDTab('risk',this)">Risk Mgmt</button>
+      <button class="dtab-btn" onclick="switchDTab('examples',this)">Examples</button>
+    </div>
+    <div id="strat-dtab-overview" class="dtab-panel active"></div>
+    <div id="strat-dtab-entry" class="dtab-panel"></div>
+    <div id="strat-dtab-exit" class="dtab-panel"></div>
+    <div id="strat-dtab-risk" class="dtab-panel"></div>
+    <div id="strat-dtab-examples" class="dtab-panel"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: TRADING JOURNAL / PLAYBOOK
+════════════════════════════════════════════════ -->
+<div class="page" id="page-playbook">
+<div class="page-inner">
+  <div class="flex-b" style="margin-bottom:16px">
+    <div><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Trading Journal & Playbook</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Trade setups and analysis by Analyst: NM Alpha</div></div>
+    <div class="flex-r">
+      <select id="pb-filter" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-size:12px;outline:none" onchange="filterPlaybook()">
+        <option value="all">All Pairs</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="SOL">SOL</option>
+      </select>
+      <select id="pb-bias-filter" style="background:var(--surface);border:1px solid var(--border);color:var(--ink);padding:6px 10px;border-radius:var(--r);font-size:12px;outline:none" onchange="filterPlaybook()">
+        <option value="all">All Bias</option><option value="long">Long</option><option value="short">Short</option><option value="neutral">Neutral</option>
+      </select>
+    </div>
+  </div>
+  <div class="g2" id="pb-grid"></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: NEWS
+════════════════════════════════════════════════ -->
+<div class="page" id="page-news">
+  <div class="news-page-header">
+    <div class="flex-b">
+      <div><div class="news-ph-title">Market Intelligence</div><div class="news-ph-sub">Real-time updates from top crypto sources</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="news-live-ind"><div class="live-dot"></div>Live</div>
+        <div class="news-search-box"><span style="color:var(--ink4)">🔍</span><input type="text" id="news-search" placeholder="Search news..." oninput="searchNews(this.value)"/></div>
+        <div class="ico-btn" onclick="fetchNews()" title="Refresh">↻</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;margin-top:4px">
+      <div class="ns-filter-icon">▼ SOURCE</div>
+      <div class="news-source-tabs" id="news-tabs">
+        <div class="ns-tab active" onclick="filterNewsSrc('all',this)">All <span class="ns-tab-count" id="ntc-all">0</span></div>
+        <div class="ns-tab" onclick="filterNewsSrc('TheDefiant',this)">The Defiant <span class="ns-tab-count" id="ntc-td">0</span></div>
+        <div class="ns-tab" onclick="filterNewsSrc('CoinDesk',this)">CoinDesk <span class="ns-tab-count" id="ntc-cd">0</span></div>
+        <div class="ns-tab" onclick="filterNewsSrc('CryptoPotato',this)">CryptoPotato <span class="ns-tab-count" id="ntc-cp">0</span></div>
+        <div class="ns-tab" onclick="filterNewsSrc('Cointelegraph',this)">Cointelegraph <span class="ns-tab-count" id="ntc-ct">0</span></div>
+        <div class="ns-tab" onclick="filterNewsSrc('CryptoPanic',this)">CryptoPanic <span class="ns-tab-count" id="ntc-cpan">0</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:16px 22px;flex:1;overflow-y:auto;background:var(--bg)">
+    <div id="news-featured-wrap"></div>
+    <div class="news-grid-4" id="news-grid-4" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: CAPITAL ROTATION TERMINAL (full rebuild)
+════════════════════════════════════════════════ -->
+<div class="page" id="page-rotation">
+<div class="page-inner">
+
+  <!-- Hero banner -->
+  <div class="rot-hero">
+    <div class="rot-hero-title">Capital Rotation <span>Terminal</span></div>
+    <div class="rot-hero-sub">Track where smart money moves across the crypto ecosystem. Understanding capital rotation between Bitcoin, stablecoins, altcoins and sectors is the edge most traders never develop. This terminal decodes those flows in real time.</div>
+    <div class="rot-hero-pills">
+      <span class="rot-hero-pill" style="color:var(--gold);border-color:rgba(212,168,67,.3);background:rgba(212,168,67,.06)">$BTC.D — Bitcoin Dominance</span>
+      <span class="rot-hero-pill" style="color:var(--purple);border-color:rgba(155,109,255,.3);background:rgba(155,109,255,.06)">$STABLE.C.D — Stablecoin Dominance</span>
+      <span class="rot-hero-pill" style="color:var(--cyan);border-color:rgba(0,229,204,.3);background:rgba(0,229,204,.06)">OTHERS.D — Altcoin Dominance</span>
+      <span class="rot-hero-pill" style="color:var(--blue);border-color:rgba(77,159,255,.3);background:rgba(77,159,255,.06)">TOTAL Market Cap</span>
+    </div>
+  </div>
+
+  <!-- Live dominance cards from API -->
+  <div class="g4" style="margin-bottom:18px">
+    <div class="dom-card">
+      <div class="dom-card-label" style="color:var(--gold)">₿ BTC Dominance</div>
+      <div class="dom-card-val" id="r-btc-dom" style="color:var(--gold)">—</div>
+      <div class="dom-card-sub">When rising → capital leaving altcoins for Bitcoin. <strong style="color:var(--ink)">Risk-off signal</strong> for alts.</div>
+      <div class="dom-card-bar"><div class="dom-card-bar-fill" id="r-btc-dom-bar" style="background:var(--gold)"></div></div>
+    </div>
+    <div class="dom-card">
+      <div class="dom-card-label" style="color:var(--purple)">🪙 STABLE Dominance</div>
+      <div class="dom-card-val" id="r-stable-dom" style="color:var(--purple)">—</div>
+      <div class="dom-card-sub">When rising → traders fleeing to cash. Dry powder accumulating. <strong style="color:var(--ink)">Future bull fuel.</strong></div>
+      <div class="dom-card-bar"><div class="dom-card-bar-fill" id="r-stable-dom-bar" style="background:var(--purple)"></div></div>
+    </div>
+    <div class="dom-card">
+      <div class="dom-card-label" style="color:var(--cyan)">⚡ Alt Season Index</div>
+      <div class="dom-card-val" id="r-alt-season" style="color:var(--cyan)">—</div>
+      <div class="dom-card-sub">Score > 75 = <strong style="color:var(--green)">Alt Season</strong>. Score < 25 = <strong style="color:var(--gold)">BTC Season</strong>. Based on 90d perf vs BTC.</div>
+      <div class="dom-card-bar"><div class="dom-card-bar-fill" id="r-alt-bar" style="background:var(--cyan)"></div></div>
+    </div>
+    <div class="dom-card">
+      <div class="dom-card-label" style="color:var(--blue)">🌍 Total Market Cap</div>
+      <div class="dom-card-val" id="r-total-mcap" style="color:var(--blue)">—</div>
+      <div class="dom-card-sub">The denominator that drives all dominance calculations. Growing = new capital entering crypto.</div>
+      <div class="dom-card-bar"><div class="dom-card-bar-fill" id="r-mcap-bar" style="background:var(--blue);width:70%"></div></div>
+    </div>
+  </div>
+
+  <!-- Capital Flow Diagram -->
+  <div class="flow-diagram">
+    <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">How Capital Rotates in Crypto</div>
+    <div style="font-size:12px;color:var(--ink2);margin-bottom:18px;line-height:1.6">Crypto capital moves in predictable cycles. Understanding these rotations is how smart money consistently outperforms the market. The diagram below shows the typical rotation path — watch for transitions to spot opportunities early.</div>
+    <div id="flow-cycle-stage" style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+      <span style="font-family:var(--font-m);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em">Current Phase:</span>
+      <span id="flow-phase-badge" style="padding:5px 14px;border-radius:20px;font-family:var(--font-m);font-size:10.5px;font-weight:700">Detecting...</span>
+    </div>
+    <div class="flow-nodes" id="flow-nodes">
+      <div class="flow-node" id="fn-stable">
+        <div class="flow-node-icon">💵</div>
+        <div class="flow-node-name">Stablecoins</div>
+        <div class="flow-node-val">$USDT · $USDC</div>
+        <div style="font-family:var(--font-m);font-size:8.5px;color:var(--purple);margin-top:4px" id="fn-stable-dom">—%</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px">
+        <div class="flow-arr" id="fa1">→</div>
+        <div style="font-family:var(--font-m);font-size:8px;color:var(--ink4);text-align:center">Risk-On<br>Deploy</div>
+        <div class="flow-arr" id="fa1r" style="transform:rotate(180deg)">→</div>
+      </div>
+      <div class="flow-node" id="fn-btc">
+        <div class="flow-node-icon">₿</div>
+        <div class="flow-node-name">Bitcoin</div>
+        <div class="flow-node-val">BTC Dominance</div>
+        <div style="font-family:var(--font-m);font-size:8.5px;color:var(--gold);margin-top:4px" id="fn-btc-dom">—%</div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px">
+        <div class="flow-arr" id="fa2">→</div>
+        <div style="font-family:var(--font-m);font-size:8px;color:var(--ink4);text-align:center">BTC leads<br>Alts follow</div>
+        <div class="flow-arr" id="fa2r" style="transform:rotate(180deg)">→</div>
+      </div>
+      <div class="flow-node" id="fn-alts">
+        <div class="flow-node-icon">⚡</div>
+        <div class="flow-node-name">Altcoins</div>
+        <div class="flow-node-val">ETH · SOL · Others</div>
+        <div style="font-family:var(--font-m);font-size:8.5px;color:var(--cyan);margin-top:4px" id="fn-alts-dom">—%</div>
+      </div>
+    </div>
+    <!-- Phase bar -->
+    <div class="phase-row" id="phase-bar">
+      <div class="phase-cell" style="background:rgba(107,60,196,.1);border:1px solid rgba(107,60,196,.2);color:var(--purple)" id="ph-accumulation">Accumulation</div>
+      <div style="font-size:16px;color:var(--ink4);display:flex;align-items:center">→</div>
+      <div class="phase-cell" style="background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.22);color:var(--gold-dk)" id="ph-btc-markup">BTC Markup</div>
+      <div style="font-size:16px;color:var(--ink4);display:flex;align-items:center">→</div>
+      <div class="phase-cell" style="background:rgba(10,138,78,.08);border:1px solid rgba(10,138,78,.18);color:var(--green)" id="ph-alt-season">Alt Season</div>
+      <div style="font-size:16px;color:var(--ink4);display:flex;align-items:center">→</div>
+      <div class="phase-cell" style="background:rgba(200,25,46,.08);border:1px solid rgba(200,25,46,.18);color:var(--red)" id="ph-distribution">Distribution</div>
+      <div style="font-size:16px;color:var(--ink4);display:flex;align-items:center">→</div>
+      <div class="phase-cell" style="background:rgba(196,90,0,.08);border:1px solid rgba(196,90,0,.18);color:var(--orange)" id="ph-correction">Correction</div>
+    </div>
+  </div>
+
+  <!-- Deep explanations of each dominance metric -->
+  <div class="g2" style="margin-bottom:18px">
+
+    <!-- BTC.D explanation -->
+    <div class="signal-explain-card">
+      <div class="sec-head">
+        <div class="sec-head-icon">₿</div>
+        <div>
+          <div class="sec-head-title">$BTC.D — Bitcoin Dominance</div>
+          <div style="font-size:10.5px;color:var(--ink3);margin-top:2px;font-family:var(--font-m)">The Market Cycle Clock</div>
+        </div>
+        <span class="sec-head-badge" style="background:rgba(212,168,67,.12);border:1px solid rgba(212,168,67,.2);color:var(--gold)">LIVE <span id="btc-dom-badge">—%</span></span>
+      </div>
+      <div class="sec-body">
+        <div class="sec-desc">Bitcoin dominance measures BTC's market cap as a percentage of the total crypto market cap. It's the single most important macro signal in all of crypto — it tells you whether the market is in a risk-on or risk-off phase.</div>
+        <div class="sec-formula">BTC.D = (BTC Market Cap ÷ Total Crypto Market Cap) × 100</div>
+        <div class="sec-rules">
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(0,208,132,.2)">↑</div>
+            <div class="sec-rule-text"><strong>BTC.D Rising:</strong> Capital flowing from altcoins INTO Bitcoin. Market is in risk-off mode. Bitcoin is outperforming. Typical in early bull markets and bear market recoveries. <strong>Strategy:</strong> Reduce alt exposure, add BTC.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(255,51,102,.2)">↓</div>
+            <div class="sec-rule-text"><strong>BTC.D Falling:</strong> Capital rotating from Bitcoin INTO altcoins. Classic alt season setup. The longer BTC.D falls, the deeper the alt season. <strong>Strategy:</strong> Increase alt exposure, rotate into high-beta plays.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--gold-dim);color:var(--gold);border:1px solid rgba(212,168,67,.2)">⚠</div>
+            <div class="sec-rule-text"><strong>BTC.D at Key Levels:</strong> Watch 50%, 55%, 60% as major support/resistance zones. A breakout above 60% = severe bear season for alts. Below 40% = deep alt season territory.</div>
+          </div>
+        </div>
+        <div class="tv-embed-wrap">
+          <div class="tv-embed-label">
+            <span>View $BTC.D on TradingView</span>
+            <a href="https://www.tradingview.com/symbols/CRYPTOCAP-BTC.D/" target="_blank" class="tv-btn">Open Chart ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STABLE.C.D explanation based on PDF -->
+    <div class="signal-explain-card">
+      <div class="sec-head">
+        <div class="sec-head-icon">💵</div>
+        <div>
+          <div class="sec-head-title">$STABLE.C.D — Stablecoin Dominance</div>
+          <div style="font-size:10.5px;color:var(--ink3);margin-top:2px;font-family:var(--font-m)">The Inverse Bitcoin Indicator</div>
+        </div>
+        <span class="sec-head-badge" style="background:rgba(155,109,255,.12);border:1px solid rgba(155,109,255,.2);color:var(--purple)">INVERSE SIGNAL</span>
+      </div>
+      <div class="sec-body">
+        <div class="sec-desc">$STABLE.C.D tracks the percentage of total crypto market cap sitting in stablecoins ($USDT + $USDC + $TUSD + etc.). Stablecoins are the "cash balance" of crypto — where traders park capital during uncertainty. This makes it a powerful <em>inverse</em> indicator for Bitcoin price.</div>
+        <div class="sec-formula">STABLE.D = (Total Stablecoin Market Cap ÷ Total Crypto Market Cap) × 100<br><br>Stablecoins = $USDT + $USDC + $TUSD + $FDUSD + others</div>
+        <div class="sec-rules">
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(0,208,132,.2)">↓</div>
+            <div class="sec-rule-text"><strong>STABLE.D Falling = Bullish BTC:</strong> Traders deploying stablecoins into risk assets. Money leaving "crypto cash" means buying pressure. <strong>Risk-on mode</strong> — go long BTC/ETH/alts.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(255,51,102,.2)">↑</div>
+            <div class="sec-rule-text"><strong>STABLE.D Rising = Bearish BTC:</strong> Traders rotating out of risk assets INTO stablecoins. Capital accumulating as "dry powder." Short-term bearish but <strong>building future buy pressure</strong>.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--purple-dim);color:var(--purple);border:1px solid rgba(155,109,255,.2)">⊕</div>
+            <div class="sec-rule-text"><strong>The Denominator Effect:</strong> When crypto prices pump, total market cap grows — so even if stablecoin supply stays constant, STABLE.D falls mathematically. This amplifies the inverse signal.</div>
+          </div>
+        </div>
+        <div class="nuance-box" style="margin-top:12px">
+          <div class="nuance-icon">⚠️</div>
+          <div><strong style="color:var(--ink)">Key Nuances:</strong> A large USDT mint doesn't always mean immediate buying — market makers often load inventory first. Depegs make STABLE.D fall (looks bullish, isn't). Use 4H+ timeframes to filter noise.</div>
+        </div>
+        <div class="tv-embed-wrap">
+          <div class="tv-embed-label">
+            <span>View $USDT.D on TradingView (proxy for STABLE.D)</span>
+            <a href="https://www.tradingview.com/symbols/CRYPTOCAP-USDT.D/" target="_blank" class="tv-btn">Open Chart ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:18px">
+    <!-- OTHERS.D explanation -->
+    <div class="signal-explain-card">
+      <div class="sec-head">
+        <div class="sec-head-icon">⚡</div>
+        <div>
+          <div class="sec-head-title">OTHERS.D — Altcoin Dominance</div>
+          <div style="font-size:10.5px;color:var(--ink3);margin-top:2px;font-family:var(--font-m)">Alt Season Radar</div>
+        </div>
+        <span class="sec-head-badge" style="background:rgba(0,229,204,.1);border:1px solid rgba(0,229,204,.2);color:var(--cyan)">LIVE <span id="others-dom-badge">—%</span></span>
+      </div>
+      <div class="sec-body">
+        <div class="sec-desc">OTHERS.D = Total market cap excluding BTC and ETH, as a % of total market cap. It represents the health of "small cap" altcoins — the highest beta, highest risk, and potentially highest reward segment of the market.</div>
+        <div class="sec-formula">OTHERS.D = (Total MCAP − BTC MCAP − ETH MCAP − Stables) ÷ Total MCAP × 100</div>
+        <div class="sec-rules">
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--green-dim);color:var(--green);border:1px solid rgba(0,208,132,.2)">↑</div>
+            <div class="sec-rule-text"><strong>OTHERS.D Rising:</strong> Deep alt season in progress. Small caps outperforming BTC and ETH. Highest risk/reward window. Usually the final and most explosive phase of a bull cycle.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(255,51,102,.2)">↓</div>
+            <div class="sec-rule-text"><strong>OTHERS.D Falling:</strong> Capital rotating out of small caps. Flight to quality (BTC/ETH) or into stables. Reduce high-risk alt exposure significantly.</div>
+          </div>
+        </div>
+        <div class="tv-embed-wrap">
+          <div class="tv-embed-label">
+            <span>View OTHERS.D on TradingView</span>
+            <a href="https://www.tradingview.com/symbols/CRYPTOCAP-OTHERS.D/" target="_blank" class="tv-btn">Open Chart ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOTAL market cap -->
+    <div class="signal-explain-card">
+      <div class="sec-head">
+        <div class="sec-head-icon">🌍</div>
+        <div>
+          <div class="sec-head-title">TOTAL & TOTAL2 — The Denominator</div>
+          <div style="font-size:10.5px;color:var(--ink3);margin-top:2px;font-family:var(--font-m)">Market Cap Context</div>
+        </div>
+        <span class="sec-head-badge" style="background:var(--blue-dim);border:1px solid rgba(77,159,255,.2);color:var(--blue)">CONTEXT</span>
+      </div>
+      <div class="sec-body">
+        <div class="sec-desc">TOTAL is the entire crypto market cap. It's the denominator in all dominance calculations. When TOTAL grows rapidly, it dilutes all dominance percentages — even if Bitcoin is rising, BTC.D can fall if alts are rising faster.</div>
+        <div class="sec-formula">TOTAL = BTC + ETH + All Altcoins + All Stablecoins<br><br>TOTAL2 = TOTAL minus BTC (ETH + Alts only)<br>TOTAL3 = TOTAL2 minus ETH (pure altcoin market)</div>
+        <div class="sec-rules">
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,.2)">📊</div>
+            <div class="sec-rule-text"><strong>TOTAL Rising + BTC.D Falling:</strong> Most bullish scenario. Total market growing AND capital rotating into alts = bull market in full swing.</div>
+          </div>
+          <div class="sec-rule">
+            <div class="sec-rule-arrow" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(255,51,102,.2)">⚠</div>
+            <div class="sec-rule-text"><strong>TOTAL Falling + STABLE.D Rising:</strong> Bear market capitulation. Traders selling everything into stablecoins. Wait for STABLE.D to peak and reverse before re-entering.</div>
+          </div>
+        </div>
+        <div class="tv-embed-wrap">
+          <div class="tv-embed-label">
+            <span>View TOTAL on TradingView</span>
+            <a href="https://www.tradingview.com/symbols/CRYPTOCAP-TOTAL/" target="_blank" class="tv-btn">Open Chart ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sector rotation + dominance donut + flow signals -->
+  <div class="g-main">
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Sector Rotation Flow</div><span class="card-sub">7d capital flow by sector</span></div>
+        <div id="sector-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Live Dominance Chart</div><div class="card-sub">30-day simulated trend</div></div>
+        <div id="rotation-chart-wrap" style="height:220px"></div>
+      </div>
+    </div>
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Dominance Breakdown</div><span class="card-sub">Live</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px">
+          <canvas id="dom-donut" width="200" height="200"></canvas>
+          <div class="dominance-legend" id="dom-donut-legend"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-title">Rotation Signals</div></div>
+        <div id="flow-signals" style="padding:12px;display:flex;flex-direction:column;gap:2px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to use section -->
+  <div class="card" style="margin-top:18px">
+    <div class="card-hd"><div class="card-title">🎯 How to Use This Terminal to Make Trading Decisions</div></div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div style="background:rgba(10,138,78,.06);border-radius:var(--r2);padding:16px;border:1px solid rgba(10,138,78,.15)">
+          <div style="font-size:15px;margin-bottom:8px">📈</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:6px">LONG SETUP SIGNALS</div>
+          <div style="font-size:11.5px;color:var(--ink2);line-height:1.8">
+            ✓ STABLE.D at resistance &amp; rejecting<br>
+            ✓ BTC.D holding support or breaking up<br>
+            ✓ TOTAL breaking above key resistance<br>
+            ✓ Fear &amp; Greed turning from extreme fear<br>
+            ✓ BTC.D starting to fall = rotate alts
+          </div>
+        </div>
+        <div style="background:rgba(200,25,46,.05);border-radius:var(--r2);padding:16px;border:1px solid rgba(200,25,46,.12)">
+          <div style="font-size:15px;margin-bottom:8px">📉</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--red);margin-bottom:6px">SHORT / AVOID SIGNALS</div>
+          <div style="font-size:11.5px;color:var(--ink2);line-height:1.8">
+            ✗ STABLE.D breaking above resistance<br>
+            ✗ BTC.D in strong uptrend (alts bleeding)<br>
+            ✗ TOTAL breaking key support<br>
+            ✗ Fear &amp; Greed at extreme greed (>85)<br>
+            ✗ OTHERS.D rolling over from highs
+          </div>
+        </div>
+        <div style="background:rgba(184,134,11,.06);border-radius:var(--r2);padding:16px;border:1px solid rgba(184,134,11,.15)">
+          <div style="font-size:15px;margin-bottom:8px">🔄</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--gold);margin-bottom:6px">ROTATION PLAYBOOK</div>
+          <div style="font-size:11.5px;color:var(--ink2);line-height:1.8">
+            1. Stables → BTC (BTC.D rising)<br>
+            2. BTC → ETH (ETH.D breaking out)<br>
+            3. ETH → Large caps (SOL, BNB, etc.)<br>
+            4. Large caps → Mid/Small caps<br>
+            5. Alts peak → Rotate back to stables
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: EDUCATION
+════════════════════════════════════════════════ -->
+<div class="page" id="page-education">
+<div class="page-inner">
+  <div style="margin-bottom:16px"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Education Center</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Structured paths for crypto, Web3, and professional trading</div></div>
+  <div class="g3" id="edu-grid" style="margin-bottom:16px"></div>
+  <div class="card">
+    <div style="display:flex;border-bottom:1px solid var(--border);padding:0 16px">
+      <button class="dtab-btn active" onclick="switchEduTab('glossary',this)">Glossary</button>
+      <button class="dtab-btn" onclick="switchEduTab('concepts',this)">Key Concepts</button>
+      <button class="dtab-btn" onclick="switchEduTab('faqs',this)">FAQs</button>
+      <button class="dtab-btn" onclick="switchEduTab('formulas',this)">Formulas</button>
+    </div>
+    <div id="edu-tab-glossary" class="dtab-panel active" style="padding:18px"></div>
+    <div id="edu-tab-concepts" class="dtab-panel" style="padding:18px"></div>
+    <div id="edu-tab-faqs" class="dtab-panel" style="padding:18px"></div>
+    <div id="edu-tab-formulas" class="dtab-panel" style="padding:18px"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: COMMUNITY
+════════════════════════════════════════════════ -->
+<div class="page" id="page-community">
+<div class="page-inner">
+  <div style="margin-bottom:16px"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Community</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Connect with the NM Alpha Tribe</div></div>
+  <div class="g3" style="margin-bottom:16px">
+    <div class="comm-link" onclick="window.open('#','_blank')">
+      <div class="comm-icon">🎮</div><div class="comm-title">Discord</div>
+      <div class="comm-desc">Live trading hub with daily market discussions, voice channels, and real-time collaboration.</div>
+      <button class="btn-gold" style="width:100%;justify-content:center">Join Discord</button>
+    </div>
+    <div class="comm-link" onclick="window.open('#','_blank')">
+      <div class="comm-icon">✈️</div><div class="comm-title">Telegram</div>
+      <div class="comm-desc">Market alerts, trade setups, and community announcements straight to your phone.</div>
+      <button class="btn-gold" style="width:100%;justify-content:center">Join Telegram</button>
+    </div>
+    <div class="comm-link" onclick="window.open('#','_blank')">
+      <div class="comm-icon">𝕏</div><div class="comm-title">Twitter / X</div>
+      <div class="comm-desc">Follow @NM_Alpha for real-time commentary, charts, and Web3 market analysis.</div>
+      <button class="btn-gold" style="width:100%;justify-content:center">Follow</button>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-hd"><div class="card-title">Community Stats</div></div>
+      <div style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--surface2);border-radius:var(--r2);padding:14px;text-align:center;border:1px solid var(--border)"><div style="font-size:24px;font-weight:700;color:var(--gold-dk)">500+</div><div style="font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:3px">Members</div></div>
+        <div style="background:var(--surface2);border-radius:var(--r2);padding:14px;text-align:center;border:1px solid var(--border)"><div style="font-size:24px;font-weight:700;color:var(--green)">24/7</div><div style="font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:3px">Active</div></div>
+        <div style="background:var(--surface2);border-radius:var(--r2);padding:14px;text-align:center;border:1px solid var(--border)"><div style="font-size:24px;font-weight:700;color:var(--blue)">100+</div><div style="font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:3px">Setups</div></div>
+        <div style="background:var(--surface2);border-radius:var(--r2);padding:14px;text-align:center;border:1px solid var(--border)"><div style="font-size:24px;font-weight:700;color:var(--ink)">95%</div><div style="font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:3px">Satisfied</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hd"><div class="card-title">Community Feed</div></div>
+      <div id="comm-feed"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE: SETTINGS
+════════════════════════════════════════════════ -->
+<div class="page" id="page-settings">
+<div class="page-inner">
+  <div style="margin-bottom:16px"><div style="font-size:20px;font-weight:700;letter-spacing:-.02em">Settings</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">Customize your NM Alpha Tribe experience</div></div>
+  <div class="settings-section">
+    <div class="settings-section-header"><span class="settings-section-icon">📊</span><div class="settings-section-title">Chart Preferences</div></div>
+    <div class="settings-row"><div><div class="sr-label">Default Chart Type</div><div class="sr-hint">How price data is displayed by default</div></div><div class="settings-control"><select><option>Candlestick</option><option>Line</option><option>Bar</option></select></div></div>
+    <div class="settings-row"><div><div class="sr-label">Default Timeframe</div><div class="sr-hint">Starting timeframe when opening a chart</div></div><div class="settings-control"><select><option>1 Hour</option><option>4 Hours</option><option>1 Day</option><option>1 Week</option></select></div></div>
+    <div class="settings-row"><div><div class="sr-label">Show Volume</div><div class="sr-hint">Display volume bars on charts</div></div><div class="settings-control"><label class="toggle-switch"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-header"><span class="settings-section-icon">💰</span><div class="settings-section-title">Display Preferences</div></div>
+    <div class="settings-row"><div><div class="sr-label">Currency</div><div class="sr-hint">Display prices in your preferred currency</div></div><div class="settings-control"><select><option>USD ($)</option><option>EUR (€)</option><option>GBP (£)</option></select></div></div>
+    <div class="settings-row"><div><div class="sr-label">Compact Numbers</div><div class="sr-hint">Show B/M/K abbreviations for large values</div></div><div class="settings-control"><label class="toggle-switch"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-header"><span class="settings-section-icon">🔄</span><div class="settings-section-title">Data & Refresh</div></div>
+    <div class="settings-row"><div><div class="sr-label">Auto Refresh</div><div class="sr-hint">Automatically update market data</div></div><div class="settings-control"><label class="toggle-switch"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></div>
+    <div class="settings-row"><div><div class="sr-label">Refresh Interval</div><div class="sr-hint">How often to fetch new market data</div></div><div class="settings-control"><select><option>30 seconds</option><option selected>1 minute</option><option>5 minutes</option></select></div></div>
+    <div class="settings-row"><div><div class="sr-label">News Auto-refresh</div><div class="sr-hint">Keep news feed updated automatically</div></div><div class="settings-control"><label class="toggle-switch"><input type="checkbox" checked><div class="toggle-track"></div><div class="toggle-thumb"></div></label></div></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-header"><span class="settings-section-icon">🌐</span><div class="settings-section-title">Data Sources</div><span class="settings-section-desc">All free &amp; public</span></div>
+    <div class="settings-row"><div><div class="sr-label">CoinGecko</div><div class="sr-hint">Market prices, global data, sparklines</div></div><span class="status-badge sb-ok">● Connected</span></div>
+    <div class="settings-row"><div><div class="sr-label">Binance Public API</div><div class="sr-hint">OHLCV klines for charts</div></div><span class="status-badge sb-ok">● Connected</span></div>
+    <div class="settings-row"><div><div class="sr-label">Alternative.me</div><div class="sr-hint">Fear & Greed Index</div></div><span class="status-badge sb-ok">● Connected</span></div>
+    <div class="settings-row"><div><div class="sr-label">CryptoPanic</div><div class="sr-hint">Live crypto news aggregation</div></div><span class="status-badge sb-ok">● Connected</span></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-header"><span class="settings-section-icon">🗑</span><div class="settings-section-title">Data Management</div></div>
+    <div class="settings-row"><div><div class="sr-label">Clear Cache</div><div class="sr-hint">Force reload all chart data</div></div><div class="settings-control"><button class="settings-btn" onclick="clearCache()">Clear Cache</button></div></div>
+    <div class="settings-row"><div><div class="sr-label">Reset Preferences</div><div class="sr-hint">Restore all settings to defaults</div></div><div class="settings-control"><button class="settings-btn danger" onclick="resetPrefs()">Reset All</button></div></div>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r3);padding:16px 18px;display:flex;align-items:center;gap:12px">
+    <span style="font-size:22px">ℹ️</span>
+    <div><div style="font-size:12.5px;font-weight:700;color:var(--ink)">NM Alpha Tribe Dashboard v5.0 — Light Theme</div><div style="font-size:11.5px;color:var(--ink3);margin-top:2px">All data fetched from free public APIs. No personal data stored. No account required.</div></div>
+    <div style="margin-left:auto;font-family:var(--font-m);font-size:9px;color:var(--ink4)">Build 2025.03 · v5</div>
+  </div>
+</div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<button id="mob-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG & STATE
+══════════════════════════════════════════════════════ */
+const CG='https://api.coingecko.com/api/v3';
+const CGH={'x-cg-demo-api-key':'CG-d69CXuKoGK6pM7urRUVneFvM'};
+const BIN='https://api.binance.com/api/v3';
+const FNG_URL='https://api.alternative.me/fng/?limit=1';
+const CP_KEY='93c18a021aa1af5e1a1bb0c855deedc4a14f702e';
+const CORS='https://api.allorigins.win/get?url=';
+
+let mktData=[], allNews=[], currentNewsFilter='all', currentNewsSearch='';
+let homeChart=null, homeS=null;
+let rotChart=null;
+let selectedStrat=null;
+
+/* ═══════════════════════ UTILS ═══════════════════════ */
+const $=id=>document.getElementById(id);
+function fmt(n,d=2){if(!n&&n!==0)return'—';if(n>=1e12)return'$'+(n/1e12).toFixed(2)+'T';if(n>=1e9)return'$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return'$'+n.toLocaleString('en-US',{maximumFractionDigits:2});return'$'+parseFloat(n).toFixed(d)}
+function fmtNoSign(n){if(!n&&n!==0)return'—';if(n>=1e12)return(n/1e12).toFixed(2)+'T';if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';return n.toLocaleString('en-US',{maximumFractionDigits:2})}
+function pct(n){if(n===null||n===undefined)return'—';return(n>=0?'+':'')+parseFloat(n).toFixed(2)+'%'}
+function setEl(id,html){const e=$(id);if(e)e.innerHTML=html}
+function setChg(id,val){const e=$(id);if(!e)return;const up=val>=0;e.className='sc-ch '+(up?'up':'dn');e.innerHTML=(up?'▲ ':'▼ ')+Math.abs(val).toFixed(2)+'%'}
+function ago(d){const s=(Date.now()-new Date(d))/1000;if(s<60)return Math.floor(s)+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+const SRC_COLORS={TheDefiant:'#F97316',CoinDesk:'#4D9FFF',CryptoPotato:'#00D084',Cointelegraph:'#9B6DFF',CryptoPanic:'#D4A843',Unknown:'#6B6485'};
+const SRC_INITIALS={TheDefiant:'D',CoinDesk:'C',CryptoPotato:'P',Cointelegraph:'T',CryptoPanic:'CP',Unknown:'?'};
+
+/* ═══════════════════════ NAVIGATION ═══════════════════════ */
+const PAGE_META={
+  dashboard:['Overview','Dashboard · NM Alpha Tribe'],
+  markets:['Markets','Live Market Data · Top 100'],
+  heatmap:['Live Intel','Real-time Heatmap & Movers'],
+  strategies:['Strategies','Trading Methodologies'],
+  playbook:['Trading Journal','Analyst Playbook · NM Alpha'],
+  news:['News','Market Intelligence'],
+  rotation:['Capital Rotation','Sector Flow Terminal'],
+  education:['Education','Learning Center'],
+  community:['Community','NM Alpha Tribe'],
+  settings:['Settings','Dashboard Preferences']
+};
+
+function nav(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=$('page-'+page);if(pg)pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')?.includes("'"+page+"'"))n.classList.add('active')});
+  const m=PAGE_META[page]||[page,''];
+  setEl('tb-title',m[0]);setEl('tb-sub',m[1]);
+  $('sidebar').classList.remove('open');
+  if(page==='strategies')buildStrategies();
+  if(page==='playbook')buildPlaybook();
+  if(page==='education')buildEducation();
+  if(page==='community')buildCommFeed();
+  if(page==='rotation')buildRotation();
+  if(page==='heatmap'){buildHeatmap();buildIntelLists();}
+  if(page==='news'&&allNews.length===0)fetchNews();
+}
+
+/* ═══════════════════════ MARKET DATA ═══════════════════════ */
+async function fetchMktData(){
+  try{
+    const r=await fetch(`${CG}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h,7d`,{headers:CGH});
+    if(!r.ok)throw new Error('CG '+r.status);
+    mktData=await r.json();
+    updateDash();updateTicker();renderMktTable(mktData);buildHeatmap();buildTopMovers();buildIntelLists();
+    if($('page-rotation').classList.contains('active'))buildRotation();
+    setEl('api-status','● All systems live');
+  }catch(e){
+    console.error('Market data:',e);
+    setEl('api-status','● Using cached data');
+  }
+}
+
+async function fetchGlobal(){
+  try{
+    const r=await fetch(`${CG}/global`,{headers:CGH});
+    if(!r.ok)throw new Error();
+    const d=(await r.json()).data;
+    const mp=d.market_cap_percentage||{};
+    const tv=d.total_market_cap?.usd||0;
+    setEl('m-mcap',fmt(tv));
+    setEl('m-vol',fmt(d.total_volume?.usd));
+    setEl('m-coins',d.active_cryptocurrencies?.toLocaleString()||'—');
+    setEl('m-dom',(mp.btc||0).toFixed(1)+'%');
+    drawDomDonut(mp);
+    // Rotation page
+    setEl('r-btc-dom',(mp.btc||0).toFixed(2)+'%');
+    setEl('r-total-mcap',fmt(tv));
+    setEl('btc-dom-badge',(mp.btc||0).toFixed(2)+'%');
+    // Stablecoin dominance estimate
+    const stableEst=(mp.usdt||0)+(mp.usdc||0)+(mp.dai||0)+(mp.busd||0)+1.5;
+    setEl('r-stable-dom',stableEst.toFixed(2)+'%');
+    // OTHERS.D estimate
+    const othersD=Math.max(0,100-(mp.btc||0)-(mp.eth||0)-stableEst).toFixed(2);
+    setEl('others-dom-badge',othersD+'%');
+    // Alt season index (estimate based on BTC.D)
+    const btcD=mp.btc||50;
+    const altIdx=Math.max(0,Math.min(100,Math.round(100-(btcD-30)*2)));
+    setEl('r-alt-season',altIdx);
+    // Update bar widths
+    const barBtc=$(  'r-btc-dom-bar');if(barBtc)barBtc.style.width=(mp.btc||0).toFixed(1)+'%';
+    const barStb=$('r-stable-dom-bar');if(barStb)barStb.style.width=stableEst.toFixed(1)+'%';
+    const barAlt=$('r-alt-bar');if(barAlt)barAlt.style.width=altIdx+'%';
+    // Flow node values
+    setEl('fn-stable-dom',stableEst.toFixed(1)+'%');
+    setEl('fn-btc-dom',(mp.btc||0).toFixed(1)+'%');
+    setEl('fn-alts-dom',othersD+'%');
+    // Determine cycle phase
+    updateCyclePhase(btcD,altIdx,stableEst);
+    drawDomDonutFull(mp);
+    // Rotation page dom
+    setEl('r-btc-dom-c',mp.btc>49?'▲ BTC Season':'▼ Alt-Friendly');
+  }catch(e){console.error('Global:',e)}
+}
+
+function updateCyclePhase(btcD,altIdx,stableD){
+  const badge=$('flow-phase-badge');
+  if(!badge)return;
+  let phase,col,bg;
+  if(stableD>9){phase='Accumulation';col='var(--purple)';bg='rgba(155,109,255,.15)'}
+  else if(btcD>56){phase='BTC Markup';col='var(--gold)';bg='rgba(212,168,67,.15)'}
+  else if(altIdx>70){phase='Alt Season 🚀';col='var(--green)';bg='rgba(0,208,132,.15)'}
+  else if(altIdx<25){phase='Distribution / Correction';col='var(--red)';bg='rgba(255,51,102,.15)'}
+  else{phase='Transition Phase';col='var(--blue)';bg='rgba(77,159,255,.15)'}
+  badge.style.background=bg;badge.style.border='1px solid '+col;
+  badge.style.color=col;badge.style.fontFamily='var(--font-m)';badge.style.fontSize='11px';
+  badge.style.fontWeight='700';badge.style.padding='5px 14px';badge.style.borderRadius='20px';
+  badge.textContent=phase;
+  // activate phase cells
+  const phases=['accumulation','btc-markup','alt-season','distribution','correction'];
+  phases.forEach(p=>{
+    const el=$('ph-'+p);
+    if(el)el.style.opacity=phase.toLowerCase().includes(p.replace('-',' '))?'1':'0.35';
+  });
+}
+
+async function fetchFnG(){
+  try{
+    const r=await fetch(FNG_URL);
+    const d=await r.json();
+    const v=parseInt(d.data[0].value);
+    const lbl=d.data[0].value_classification;
+    setEl('d-fng',v);setEl('d-fng-l',lbl);
+    setEl('fng-num',v);setEl('fng-lbl',lbl);
+    drawFnGGauge(v);
+  }catch(e){console.error('FnG:',e)}
+}
+
+/* ═══════════════════════ MARKET CAP INTELLIGENCE ═══════════════════════ */
+let catMcapData={};
+
+async function fetchCategories(){
+  try{
+    const r=await fetch(`${CG}/coins/categories?order=market_cap_desc`,{headers:CGH});
+    if(!r.ok)throw new Error('Categories '+r.status);
+    const data=await r.json();
+    const want={
+      'artificial-intelligence':{label:'AI Tokens',icon:'🤖',c:'#9B6DFF'},
+      'decentralized-finance-defi':{label:'DeFi',icon:'⬡',c:'#0B8A7A'},
+      'layer-2':{label:'Layer 2',icon:'⚡',c:'#1A6FD4'},
+      'real-world-assets-rwa':{label:'RWA',icon:'🏛️',c:'#B8860B'},
+      'meme-token':{label:'Meme Coins',icon:'🐸',c:'#C45A00'},
+      'non-fungible-tokens-nft':{label:'NFTs',icon:'🖼️',c:'#6B3CC4'},
+      'gaming':{label:'Gaming',icon:'🎮',c:'#C8192E'},
+      'liquid-staking-tokens':{label:'Liquid Staking',icon:'💧',c:'#0A8A4E'},
+      'stablecoins':{label:'Stablecoins',icon:'💵',c:'#3D7A5A'},
+      'layer-1':{label:'Layer 1',icon:'🌐',c:'#1A4F8A'},
+    };
+    data.forEach(cat=>{
+      if(want[cat.id]){
+        catMcapData[cat.id]={
+          ...want[cat.id],
+          mcap:cat.market_cap||0,
+          change24h:cat.market_cap_change_24h,
+        };
+      }
+    });
+    renderMcapRow();
+    setEl('mcap-status','● Live');
+  }catch(e){
+    console.error('Categories:',e);
+    renderMcapRow();
+    setEl('mcap-status','● Partial data');
+  }
+}
+
+function renderMcapRow(){
+  const row=$('mcap-row');if(!row)return;
+  const btc=mktData.find(c=>c.id==='bitcoin');
+  const eth=mktData.find(c=>c.id==='ethereum');
+  const sol=mktData.find(c=>c.id==='solana');
+  const totalMcap=mktData.reduce((s,c)=>s+(c.market_cap||0),0);
+  const btcMcap=btc?.market_cap||0;
+  const ethMcap=eth?.market_cap||0;
+  const total2=totalMcap-btcMcap;
+  const total3=total2-ethMcap;
+  const othersMcap=totalMcap-btcMcap-ethMcap-(sol?.market_cap||0);
+
+  const staticPills=[
+    {label:'TOTAL',icon:'🌐',val:totalMcap,chg:null,c:'#B8860B',feat:true},
+    {label:'TOTAL2 (ex-BTC)',icon:'₿',val:total2,chg:null,c:'#8B6508'},
+    {label:'TOTAL3 (ex-BTC+ETH)',icon:'Ξ',val:total3,chg:null,c:'#1A6FD4'},
+    {label:'Others (ex-BTC/ETH/SOL)',icon:'⚡',val:othersMcap,chg:null,c:'#0B8A7A'},
+    {label:'BTC Market Cap',icon:'₿',val:btcMcap,chg:btc?.price_change_percentage_24h,c:'#D4A843'},
+    {label:'ETH Market Cap',icon:'Ξ',val:ethMcap,chg:eth?.price_change_percentage_24h,c:'#9B6DFF'},
+  ];
+
+  const catOrder=['artificial-intelligence','decentralized-finance-defi','layer-1','layer-2','real-world-assets-rwa','meme-token','non-fungible-tokens-nft','gaming','liquid-staking-tokens','stablecoins'];
+  const catPills=catOrder.map(id=>catMcapData[id]).filter(Boolean).map(c=>({
+    label:c.label,icon:c.icon,val:c.mcap,chg:c.change24h,c:c.c,feat:false
+  }));
+
+  const all=[...staticPills,...catPills];
+  row.innerHTML=all.map(p=>{
+    const hasChg=p.chg!==null&&p.chg!==undefined;
+    const up=!hasChg||p.chg>=0;
+    const valStr=p.val?fmt(p.val):'—';
+    return`<div class="mcap-pill${p.feat?' featured':''}" style="--pill-c:${p.c}">
+      <div class="mp-icon">${p.icon}</div>
+      <div class="mp-label">${p.label}</div>
+      <div class="mp-value">${valStr}</div>
+      <div class="mp-change ${hasChg?(up?'up':'dn'):'neu'}">${hasChg?(up?'▲ ':'▼ ')+Math.abs(p.chg).toFixed(2)+'%':'24h n/a'}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════ DASHBOARD UPDATE ═══════════════════════ */
+function updateDash(){
+  const btc=mktData.find(c=>c.id==='bitcoin');
+  const eth=mktData.find(c=>c.id==='ethereum');
+  if(btc){setEl('d-btc',fmt(btc.current_price));setChg('d-btc-c',btc.price_change_percentage_24h||0)}
+  if(eth){setEl('d-eth',fmt(eth.current_price));setChg('d-eth-c',eth.price_change_percentage_24h||0)}
+  const total=mktData.reduce((s,c)=>s+(c.market_cap||0),0);
+  if(total){setEl('d-mcap',fmt(total))}
+  setEl('last-upd','Updated '+new Date().toLocaleTimeString());
+}
+
+function updateTicker(){
+  const coins=[['btc','bitcoin'],['eth','ethereum'],['sol','solana'],['bnb','binancecoin']];
+  coins.forEach(([k,id])=>{
+    const c=mktData.find(x=>x.id===id);if(!c)return;
+    const up=(c.price_change_percentage_24h||0)>=0;
+    setEl('tk-'+k,fmt(c.current_price));
+    const el=$('tk-'+k+'-c');
+    if(el){el.textContent=pct(c.price_change_percentage_24h);el.className='tick-ch '+(up?'up':'dn')}
+  });
+}
+
+/* ═══════════════════════ HOME CHART — TradingView ═══════════════════════ */
+let tvCurrentCoinId='bitcoin';
+let tvCurrentTF='240';
+
+/* Map CoinGecko IDs → TradingView symbols */
+function toTVSym(input){
+  const idMap={
+    bitcoin:'BINANCE:BTCUSDT',ethereum:'BINANCE:ETHUSDT',
+    solana:'BINANCE:SOLUSDT',binancecoin:'BINANCE:BNBUSDT',
+    ripple:'BINANCE:XRPUSDT','avalanche-2':'BINANCE:AVAXUSDT',
+    cardano:'BINANCE:ADAUSDT',polkadot:'BINANCE:DOTUSDT',
+    chainlink:'BINANCE:LINKUSDT',uniswap:'BINANCE:UNIUSDT',
+    'near':'BINANCE:NEARUSDT',cosmos:'BINANCE:ATOMUSDT',
+    'bittensor':'BINANCE:TAOUSDT','tao':'BINANCE:TAOUSDT',
+    sui:'BINANCE:SUIUSDT',aptos:'BINANCE:APTUSDT',
+    arbitrum:'BINANCE:ARBUSDT',optimism:'BINANCE:OPUSDT',
+    'shiba-inu':'BINANCE:SHIBUSDT',dogecoin:'BINANCE:DOGEUSDT',
+    'matic-network':'BINANCE:MATICUSDT',polygon:'BINANCE:MATICUSDT',
+    'internet-computer':'BINANCE:ICPUSDT',
+    'fetch-ai':'BINANCE:FETUSDT','render-token':'BINANCE:RENDERUSDT',
+    'injective-protocol':'BINANCE:INJUSDT',
+    celestia:'BINANCE:TIAUSDT','stacks':'BINANCE:STXUSDT',
+    'the-graph':'BINANCE:GRTUSDT',filecoin:'BINANCE:FILUSDT',
+    'lido-dao':'BINANCE:LDOUSDT',aave:'BINANCE:AAVEUSDT',
+    'curve-dao-token':'BINANCE:CRVUSDT',
+  };
+  const lo=input.toLowerCase();
+  if(idMap[lo])return idMap[lo];
+  const byId=mktData.find(c=>c.id===lo);
+  if(byId)return`BINANCE:${byId.symbol.toUpperCase()}USDT`;
+  const bySym=mktData.find(c=>c.symbol.toLowerCase()===lo);
+  if(bySym)return`BINANCE:${bySym.symbol.toUpperCase()}USDT`;
+  if(lo.includes(':'))return lo.toUpperCase();
+  return`BINANCE:${lo.toUpperCase()}USDT`;
+}
+
+function createTVWidget(sym,tf){
+  const el=$('home-chart');if(!el)return;
+  el.innerHTML='';
+  const divId='tv_'+Date.now();
+  const inner=document.createElement('div');
+  inner.id=divId;inner.style.height='100%';inner.style.width='100%';
+  el.appendChild(inner);
+  try{
+    new TradingView.widget({
+      autosize:true,symbol:sym,interval:tf||'240',
+      timezone:'Etc/UTC',theme:'light',style:'1',locale:'en',
+      toolbar_bg:'#F8F4EE',
+      enable_publishing:false,hide_side_toolbar:true,
+      allow_symbol_change:false,save_image:false,
+      withdateranges:false,hide_legend:false,
+      container_id:divId,
+    });
+  }catch(e){
+    /* fallback: direct embed */
+    el.innerHTML=`<iframe
+      src="https://www.tradingview.com/widgetsnippet/?v=2&symbol=${encodeURIComponent(sym)}&interval=${tf||'240'}&theme=light&locale=en&style=1&toolbar_bg=F8F4EE&timezone=Etc%2FUTC&hide_side_toolbar=1"
+      style="width:100%;height:100%;border:none" allowtransparency="true" frameborder="0"></iframe>`;
+  }
+}
+
+function loadTVChart(coinId,tf){
+  tvCurrentCoinId=coinId||'bitcoin';
+  tvCurrentTF=tf||tvCurrentTF||'240';
+  const sym=toTVSym(tvCurrentCoinId);
+  const label=sym.split(':')[1]?.replace('USDT','').replace('USD','')||coinId.toUpperCase();
+  setEl('main-chart-title',label+' / USDT');
+  setEl('main-chart-sub','Live chart · TradingView · Real-time');
+  /* update input placeholder */
+  const inp=$('chart-coin-input');
+  if(inp&&!inp.value){inp.placeholder='🔍 Search any coin…'}
+  if(typeof TradingView!=='undefined'){
+    createTVWidget(sym,tvCurrentTF);
+  }else{
+    const s=document.createElement('script');
+    s.src='https://s3.tradingview.com/tv.js';
+    s.onload=()=>createTVWidget(sym,tvCurrentTF);
+    document.head.appendChild(s);
+  }
+}
+
+/* Alias so old call sites still work */
+function loadHomeChart(){loadTVChart(tvCurrentCoinId);}
+
+function setTVChartTF(tf,btn){
+  tvCurrentTF=tf;
+  document.querySelectorAll('.chart-tf-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  loadTVChart(tvCurrentCoinId,tf);
+}
+
+/* ── Coin autocomplete ── */
+function chartCoinSearch(q){
+  const dd=$('chart-coin-dropdown');if(!dd)return;
+  if(!q||q.length<1){dd.style.display='none';return}
+  const s=q.toLowerCase();
+  const matches=mktData.filter(c=>
+    c.name.toLowerCase().includes(s)||c.symbol.toLowerCase().includes(s)
+  ).slice(0,8);
+  if(!matches.length){dd.style.display='none';return}
+  dd.innerHTML=matches.map(c=>{
+    const up=(c.price_change_percentage_24h||0)>=0;
+    return`<div class="coin-suggest" onclick="selectChartCoin('${c.id}','${c.symbol.toUpperCase()}')">
+      <div class="cs-icon">${c.symbol.slice(0,2).toUpperCase()}</div>
+      <div class="cs-info"><div class="cs-sym">${c.symbol.toUpperCase()}</div><div class="cs-name">${c.name}</div></div>
+      <div class="cs-price">${fmt(c.current_price)}</div>
+      <div class="cs-ch ${up?'up-c':'dn-c'}">${pct(c.price_change_percentage_24h)}</div>
+    </div>`;
+  }).join('');
+  dd.style.display='block';
+}
+
+function selectChartCoin(id,sym){
+  const inp=$('chart-coin-input');if(inp)inp.value=sym;
+  closeChartDD();
+  loadTVChart(id);
+}
+
+function chartPickFirst(){
+  const q=$('chart-coin-input')?.value?.trim();
+  if(!q)return;
+  const s=q.toLowerCase();
+  const match=mktData.find(c=>c.symbol.toLowerCase()===s||c.name.toLowerCase()===s)
+    ||mktData.find(c=>c.symbol.toLowerCase().startsWith(s));
+  if(match)selectChartCoin(match.id,match.symbol.toUpperCase());
+  else loadTVChart(q);
+}
+
+function closeChartDD(){
+  const dd=$('chart-coin-dropdown');if(dd)dd.style.display='none';
+}
+
+/* close dropdown on outside click */
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#chart-search-wrap'))closeChartDD();
+});
+
+/* ═══════════════════════ MARKETS TABLE ═══════════════════════ */
+let mktSort={col:'rank',asc:true};
+function renderMktTable(data){
+  setEl('mkt-body',data.slice(0,100).map((c,i)=>{
+    const pts=(c.sparkline_in_7d?.price||[]).filter((_,j)=>j%6===0).map((v,j,a)=>{const x=j/a.length*50;const mn=Math.min(...a),mx=Math.max(...a);const y=12-(v-mn)/(mx-mn+.001)*12;return`${x},${y}`}).join(' ');
+    const ch24=c.price_change_percentage_24h||0,ch7=c.price_change_percentage_7d_in_currency||0;
+    return`<tr>
+      <td class="rank-num">${c.market_cap_rank||i+1}</td>
+      <td><div class="coin-cell"><div class="coin-ico">${c.symbol.slice(0,2).toUpperCase()}</div><div><div class="coin-name">${c.name}</div><div class="coin-sym">${c.symbol.toUpperCase()}</div></div></div></td>
+      <td class="mono">${fmt(c.current_price)}</td>
+      <td class="mono ${ch24>=0?'up-c':'dn-c'}">${pct(ch24)}</td>
+      <td class="mono ${ch7>=0?'up-c':'dn-c'}">${pct(ch7)}</td>
+      <td class="mono" style="color:var(--ink2)">${fmt(c.market_cap)}</td>
+      <td><div style="width:80px;height:4px;background:var(--surface2);border-radius:2px"><div style="width:${Math.min(c.total_volume/c.market_cap*100,100)||20}%;height:100%;background:var(--gold);border-radius:2px"></div></div></td>
+      <td><svg width="50" height="14"><polyline points="${pts}" fill="none" stroke="${ch7>=0?'#00D084':'#FF3366'}" stroke-width="1.5"/></svg></td>
+    </tr>`}).join(''));
+}
+function filterMkt(q){const s=q.toLowerCase();renderMktTable(mktData.filter(c=>c.name.toLowerCase().includes(s)||c.symbol.toLowerCase().includes(s)))}
+function sortMkt(col){if(mktSort.col===col)mktSort.asc=!mktSort.asc;else{mktSort.col=col;mktSort.asc=true}
+  const map={rank:'market_cap_rank',price:'current_price',ch24:'price_change_percentage_24h',ch7:'price_change_percentage_7d_in_currency',mcap:'market_cap'};
+  renderMktTable([...mktData].sort((a,b)=>mktSort.asc?(a[map[col]]||0)-(b[map[col]]||0):(b[map[col]]||0)-(a[map[col]]||0)))}
+function globalSearch(q){if(!q)return;const s=q.toLowerCase();const found=mktData.filter(c=>c.name.toLowerCase().includes(s)||c.symbol.toLowerCase().includes(s));if(found.length){nav('markets');$('mkt-search').value=q;renderMktTable(found)}}
+
+/* ═══════════════════════ HEATMAP & MOVERS ═══════════════════════ */
+function buildHeatmap(){
+  const top=mktData.slice(0,20);if(!top.length)return;
+  const el=$('hmap-grid');if(!el)return;
+  el.innerHTML=top.map(c=>{
+    const ch=c.price_change_percentage_24h||0;
+    const int=Math.min(Math.abs(ch)/12,1);
+    const bg=ch>0?`rgba(0,208,132,${.18+int*.55})`:`rgba(255,51,102,${.18+int*.55})`;
+    return`<div class="hmap-cell" style="background:${bg};min-height:80px" title="${c.name}: ${pct(ch)}">
+      <div class="hmap-sym">${c.symbol.toUpperCase()}</div>
+      <div class="hmap-ch">${pct(ch)}</div>
+      <div class="hmap-price">${fmt(c.current_price)}</div>
+    </div>`}).join('');
+  const sorted24=[...mktData].sort((a,b)=>(b.price_change_percentage_24h||0)-(a.price_change_percentage_24h||0));
+  const mkRow=c=>`<div class="intel-item">
+    <div class="intel-ico">${c.symbol.slice(0,2).toUpperCase()}</div>
+    <div class="intel-name"><div class="intel-sym">${c.symbol.toUpperCase()}</div><div class="intel-val">${fmt(c.current_price)}</div></div>
+    <span class="intel-chg ${(c.price_change_percentage_24h||0)>=0?'up-c':'dn-c'}">${pct(c.price_change_percentage_24h)}</span>
+  </div>`;
+  setEl('gainers-list',sorted24.slice(0,6).map(mkRow).join(''));
+  setEl('losers-list',sorted24.slice(-6).reverse().map(mkRow).join(''));
+}
+
+function buildIntelLists(){
+  if(!mktData.length)return;
+  const sorted24=[...mktData].sort((a,b)=>(b.price_change_percentage_24h||0)-(a.price_change_percentage_24h||0));
+  const sortedVol=[...mktData].sort((a,b)=>(b.total_volume||0)-(a.total_volume||0));
+  const mkIntelRow=(c,i,showVol)=>`<div class="intel-item">
+    <div class="intel-rank">${i+1}</div>
+    <div class="intel-ico" style="background:var(--surface3)">${c.symbol.slice(0,3).toUpperCase()}</div>
+    <div class="intel-name" style="margin-left:8px">
+      <div class="intel-sym">${c.symbol.toUpperCase()}</div>
+      <div class="intel-val">${showVol?'$'+fmtNoSign(c.total_volume):fmt(c.current_price)}</div>
+    </div>
+    <span class="intel-chg ${(c.price_change_percentage_24h||0)>=0?'up-c':'dn-c'}">${pct(c.price_change_percentage_24h)}</span>
+  </div>`;
+  setEl('mm-gainers-list',sorted24.slice(0,6).map((c,i)=>mkIntelRow(c,i,false)).join(''));
+  setEl('mm-losers-list',sorted24.slice(-6).reverse().map((c,i)=>mkIntelRow(c,i,false)).join(''));
+  setEl('tv-up-list',sortedVol.slice(0,6).map((c,i)=>mkIntelRow(c,i,true)).join(''));
+  setEl('tv-dn-list',sortedVol.slice(-6).reverse().map((c,i)=>mkIntelRow(c,i,true)).join(''));
+  // Funding rates (mock data as Binance doesn't provide free FR)
+  const frCoins=[
+    {sym:'1000BTT',price:'0.000328',fr:'0.3807%'},
+    {sym:'MBOX',price:'0.0173',fr:'0.1558%'},
+    {sym:'LAB',price:'0.1584',fr:'0.1320%'},
+    {sym:'MAGMA',price:'0.1067',fr:'0.1094%'},
+    {sym:'XPIN',price:'0.001310',fr:'0.1024%'},
+    {sym:'AAVE',price:'82.40',fr:'0.0798%'},
+  ];
+  const frNeg=[
+    {sym:'BTC',price:'67240',fr:'-0.0100%'},
+    {sym:'ETH',price:'3512',fr:'-0.0080%'},
+    {sym:'SOL',price:'142',fr:'-0.0054%'},
+    {sym:'BNB',price:'580',fr:'-0.0038%'},
+  ];
+  setEl('fr-list',frCoins.map((c,i)=>`<div class="intel-item">
+    <div class="intel-rank">${i+1}</div>
+    <div class="intel-ico" style="background:var(--surface3)">${c.sym.slice(0,3)}</div>
+    <div class="intel-name" style="margin-left:8px"><div class="intel-sym">${c.sym}</div><div class="intel-val">${c.price}</div></div>
+    <span class="intel-chg up-c">↑ ${c.fr}</span>
+  </div>`).join(''));
+}
+
+function showIntelTab(tab){
+  const g=$('mm-gainers-list'),l=$('mm-losers-list');
+  const gt=$('mm-gainers-tab'),lt=$('mm-losers-tab');
+  if(tab==='gainers'){g.style.display='';l.style.display='none';gt.classList.add('active');lt.classList.remove('active')}
+  else{g.style.display='none';l.style.display='';lt.classList.add('active');gt.classList.remove('active')}
+}
+function showVolTab(tab){
+  const u=$('tv-up-list'),d=$('tv-dn-list');
+  const ut=$('tv-up-tab'),dt=$('tv-dn-tab');
+  if(tab==='up'){u.style.display='';d.style.display='none';ut.classList.add('active');dt.classList.remove('active')}
+  else{u.style.display='none';d.style.display='';dt.classList.add('active');ut.classList.remove('active')}
+}
+function showFRTab(tab,el){
+  const frList=$('fr-list');
+  document.querySelectorAll('#page-heatmap .intel-tabs .intel-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+function setIntelTF(el,group){
+  const parent=el.closest('.intel-mod-head');
+  parent.querySelectorAll('.intel-tf').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ═══════════════════════ TOP MOVERS ═══════════════════════ */
+function buildTopMovers(){
+  const s=[...mktData].sort((a,b)=>Math.abs(b.price_change_percentage_24h||0)-Math.abs(a.price_change_percentage_24h||0)).slice(0,6);
+  setEl('top-movers',s.map(c=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.025)">
+    <div style="display:flex;align-items:center;gap:9px">
+      <div class="coin-ico" style="width:26px;height:26px;font-size:10px">${c.symbol.slice(0,2).toUpperCase()}</div>
+      <div><div style="font-size:12.5px;font-weight:700">${c.symbol.toUpperCase()}</div><div style="font-family:var(--font-m);font-size:9.5px;color:var(--ink3)">${fmt(c.current_price)}</div></div>
+    </div>
+    <span style="font-family:var(--font-m);font-size:12px;font-weight:700;color:${(c.price_change_percentage_24h||0)>=0?'var(--green)':'var(--red)'}">${pct(c.price_change_percentage_24h)}</span>
+  </div>`).join(''));
+}
+
+/* ═══════════════════════ GAUGES ═══════════════════════ */
+function drawFnGGauge(v){
+  const c=$('fng-canvas');if(!c)return;
+  const ctx=c.getContext('2d'),cx=100,cy=100,r=75;
+  ctx.clearRect(0,0,200,110);
+  ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,0);ctx.lineWidth=14;ctx.strokeStyle='rgba(255,255,255,.04)';ctx.stroke();
+  const g=ctx.createLinearGradient(0,0,200,0);
+  g.addColorStop(0,'#FF3366');g.addColorStop(.3,'#F97316');g.addColorStop(.5,'#D4A843');g.addColorStop(.7,'#00D084');g.addColorStop(1,'#4D9FFF');
+  const ang=Math.PI+(v/100)*Math.PI;
+  ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,ang);ctx.lineWidth=14;ctx.strokeStyle=g;ctx.stroke();
+  const nx=cx+Math.cos(ang)*(r-7),ny=cy+Math.sin(ang)*(r-7);
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.strokeStyle='#fff';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+}
+
+function drawDomDonut(mp){
+  const c=$('dom-canvas');if(!c)return;
+  const ctx=c.getContext('2d');ctx.clearRect(0,0,280,140);
+  const pairs=[['BTC',mp.btc,'#D4A843'],['ETH',mp.eth,'#9B6DFF'],['BNB',mp.bnb,'#F97316'],['Others',Math.max(0,100-(mp.btc||0)-(mp.eth||0)-(mp.bnb||0)),'#4D9FFF']];
+  let start=-Math.PI/2,cx=140,cy=80,r=58;
+  pairs.forEach(([n,v,col])=>{const ang=((v||1)/100)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+ang);ctx.closePath();ctx.fillStyle=col;ctx.globalAlpha=.85;ctx.fill();ctx.globalAlpha=1;start+=ang});
+  ctx.beginPath();ctx.arc(cx,cy,28,0,Math.PI*2);ctx.fillStyle='#FAFAF8';ctx.fill();
+  setEl('dom-legend',pairs.map(([n,v,col])=>`<div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:50%;background:${col}"></div><span style="font-size:10.5px;color:var(--ink2);font-weight:600">${n}</span><span style="font-family:var(--font-m);font-size:9.5px;color:var(--ink3)">${(v||0).toFixed(1)}%</span></div>`).join(''));
+}
+
+function drawDomDonutFull(mp){
+  const c=$('dom-donut');if(!c)return;
+  const ctx=c.getContext('2d');ctx.clearRect(0,0,200,200);
+  const pairs=[['BTC',mp?.btc,'#D4A843'],['ETH',mp?.eth,'#9B6DFF'],['BNB',mp?.bnb,'#F97316'],['SOL',mp?.sol,'#00E5CC'],['Others',Math.max(0,100-(mp?.btc||0)-(mp?.eth||0)-(mp?.bnb||0)-(mp?.sol||0)),'#4D9FFF']];
+  let start=-Math.PI/2,cx=100,cy=100,r=80;
+  pairs.forEach(([n,v,col])=>{const ang=((v||1)/100)*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,start+ang);ctx.closePath();ctx.fillStyle=col;ctx.globalAlpha=.88;ctx.fill();ctx.globalAlpha=1;start+=ang});
+  ctx.beginPath();ctx.arc(cx,cy,40,0,Math.PI*2);ctx.fillStyle='#FFFFFF';ctx.fill();
+  setEl('dom-donut-legend',pairs.map(([n,v,col])=>`<div class="dl-item"><div class="dl-dot" style="background:${col}"></div><span class="dl-name">${n}</span><span class="dl-pct">${(v||0).toFixed(1)}%</span></div>`).join(''));
+}
+
+/* ═══════════════════════ CAPITAL ROTATION ═══════════════════════ */
+function buildRotation(){
+  buildSectorList();
+  buildRotationChart();
+  buildFlowSignals();
+}
+
+function buildSectorList(){
+  const sectors=[
+    {name:'Bitcoin',sym:'BTC',col:'#D4A843',ch:mktData.find(c=>c.id==='bitcoin')?.price_change_percentage_7d_in_currency||3.2},
+    {name:'Ethereum',sym:'ETH',col:'#9B6DFF',ch:mktData.find(c=>c.id==='ethereum')?.price_change_percentage_7d_in_currency||1.8},
+    {name:'DeFi',sym:'🏦',col:'#00D084',ch:4.7},
+    {name:'Layer 2',sym:'L2',col:'#4D9FFF',ch:6.1},
+    {name:'AI Tokens',sym:'AI',col:'#00E5CC',ch:9.3},
+    {name:'Memecoins',sym:'🐸',col:'#F97316',ch:-2.4},
+    {name:'Gaming/NFT',sym:'🎮',col:'#FF3366',ch:-5.1},
+    {name:'Stablecoins',sym:'💵',col:'#6B6485',ch:0.01},
+  ].sort((a,b)=>b.ch-a.ch);
+  setEl('sector-list',sectors.map((s,i)=>{
+    const up=s.ch>=0;const w=Math.min(Math.abs(s.ch)/12*100,100);
+    return`<div class="sector-row">
+      <div class="sector-rank">${i+1}</div>
+      <div class="sector-dot" style="background:${s.col}"></div>
+      <div class="sector-name">${s.name}</div>
+      <div class="sector-bar-wrap"><div class="sector-bar" style="width:${w}%;background:${up?'var(--green)':'var(--red)'}"></div></div>
+      <div class="sector-ch ${up?'up-c':'dn-c'}">${pct(s.ch)}</div>
+      <div class="flow-ico">${up?'📈':'📉'}</div>
+    </div>`}).join(''));
+}
+
+function buildRotationChart(){
+  const el=$('rotation-chart-wrap');if(!el)return;
+  if(rotChart){try{rotChart.remove()}catch(e){}}
+  rotChart=LightweightCharts.createChart(el,{
+    layout:{background:{color:'transparent'},textColor:'#7A6E5A'},
+    grid:{vertLines:{color:'rgba(0,0,0,.04)'},horzLines:{color:'rgba(0,0,0,.04)'}},
+    rightPriceScale:{borderColor:'rgba(0,0,0,.08)'},
+    timeScale:{borderColor:'rgba(0,0,0,.08)'},
+    height:220,width:el.offsetWidth||500,
+  });
+  // BTC.D simulated 30-day line
+  const now=Math.floor(Date.now()/1000);const day=86400;
+  const btcLine=rotChart.addLineSeries({color:'#B8860B',lineWidth:2,title:'BTC.D%'});
+  const stbLine=rotChart.addLineSeries({color:'#6B3CC4',lineWidth:2,title:'STABLE.D%'});
+  const altLine=rotChart.addLineSeries({color:'#0B8A7A',lineWidth:2,title:'OTHERS.D%'});
+  let btcVal=54,stbVal=8,altVal=18;
+  const btcData=[],stbData=[],altData=[];
+  for(let i=29;i>=0;i--){
+    btcVal+=((Math.random()-0.48)*0.8);btcVal=Math.max(48,Math.min(62,btcVal));
+    stbVal+=((Math.random()-0.5)*0.3);stbVal=Math.max(6,Math.min(12,stbVal));
+    altVal+=((Math.random()-0.5)*0.6);altVal=Math.max(14,Math.min(24,altVal));
+    const t=now-(i*day);
+    btcData.push({time:t,value:parseFloat(btcVal.toFixed(2))});
+    stbData.push({time:t,value:parseFloat(stbVal.toFixed(2))});
+    altData.push({time:t,value:parseFloat(altVal.toFixed(2))});
+  }
+  btcLine.setData(btcData);stbLine.setData(stbData);altLine.setData(altData);
+  rotChart.timeScale().fitContent();
+}
+
+function buildFlowSignals(){
+  const btcD=parseFloat($('r-btc-dom')?.textContent)||50;
+  const signals=[
+    {icon:'📊',col:'var(--gold)',title:'BTC.D at '+btcD.toFixed(1)+'%',desc:btcD>55?'Elevated BTC dominance — alts likely underperforming':'BTC dominance moderate — alt rotation possible',type:btcD>55?'bearish-alt':'bullish-alt'},
+    {icon:'💵',col:'var(--purple)',title:'Stablecoin Supply Signal',desc:'Stablecoin dominance above 7% — dry powder accumulating. Watch for deployment trigger.',type:'neutral'},
+    {icon:'🔄',col:'var(--green)',title:'Capital Rotation Pattern',desc:'Early signs of BTC→ETH rotation. ETH/BTC ratio watching key level.',type:'bullish'},
+    {icon:'⚡',col:'var(--cyan)',title:'AI Token Sector',desc:'AI tokens outperforming +9.3% vs BTC 7d — sector rotation into AI narrative.',type:'bullish'},
+    {icon:'⚠️',col:'var(--red)',title:'Gaming/NFT Sector Weak',desc:'Gaming/NFT down -5.1% vs market. Avoid exposure until sector stabilizes.',type:'bearish'},
+  ];
+  setEl('flow-signals',signals.map(s=>`<div class="sector-row" style="background:rgba(255,255,255,.01);border-radius:8px;margin-bottom:2px">
+    <div style="font-size:16px;flex-shrink:0">${s.icon}</div>
+    <div style="flex:1;margin-left:6px">
+      <div style="font-size:12px;font-weight:700;color:var(--ink)">${s.title}</div>
+      <div style="font-size:11px;color:var(--ink2);line-height:1.5;margin-top:2px">${s.desc}</div>
+    </div>
+    <span style="font-family:var(--font-m);font-size:9px;padding:3px 8px;border-radius:12px;font-weight:700;white-space:nowrap;${s.type==='bullish'?'background:rgba(10,138,78,.09);color:var(--green);border:1px solid rgba(10,138,78,.2)':s.type==='bearish'||s.type==='bearish-alt'?'background:rgba(200,25,46,.08);color:var(--red);border:1px solid rgba(200,25,46,.2)':'background:rgba(184,134,11,.1);color:var(--gold-dk);border:1px solid rgba(184,134,11,.2)'}">${s.type.toUpperCase()}</span>
+  </div>`).join(''));
+}
+
+/* ═══════════════════════ NEWS ═══════════════════════ */
+async function fetchNews(){
+  try{
+    const r=await fetch(`https://cryptopanic.com/api/v1/posts/?auth_token=${CP_KEY}&public=true&kind=news`);
+    if(!r.ok)throw new Error();
+    const d=await r.json();
+    const items=(d.results||[]).map(n=>{
+      /* Try to get direct original source URL first */
+      let articleUrl=n.url||'#';
+      if(n.source?.domain&&n.source?.path){
+        articleUrl=`https://${n.source.domain}${n.source.path}`;
+      }else if(n.url&&!n.url.startsWith('https://cryptopanic.com')){
+        articleUrl=n.url;
+      }
+      /* CryptoPanic URL as last resort — it redirects to source */
+      return{
+        title:n.title,
+        url:articleUrl,
+        cpUrl:n.url||null,
+        source:normSrc(n.source?.title||'CryptoPanic'),
+        domain:n.source?.domain||null,
+        time:n.published_at,
+        sentiment:getSentiment(n.votes),
+        currencies:(n.currencies||[]).map(c=>c.code),
+        category:getCategory(n.title)
+      };
+    });
+    if(items.length)allNews=[...items,...allNews.filter(x=>!items.find(y=>y.title===x.title))];
+    if(!allNews.length)allNews=getMockNews();
+    renderNewsPage();updateNewsCounts();
+  }catch(e){if(!allNews.length)allNews=getMockNews();renderNewsPage();updateNewsCounts()}
+}
+
+function normSrc(s){
+  if(s.toLowerCase().includes('defiant'))return'TheDefiant';
+  if(s.toLowerCase().includes('coindesk'))return'CoinDesk';
+  if(s.toLowerCase().includes('potato'))return'CryptoPotato';
+  if(s.toLowerCase().includes('telegr'))return'Cointelegraph';
+  return'CryptoPanic';
+}
+function getSentiment(v){const p=v?.positive||0,n=v?.negative||0;if(p>n*1.8)return'bullish';if(n>p*1.8)return'bearish';return'neutral'}
+function getCategory(t){const l=t.toLowerCase();if(l.includes('btc')||l.includes('bitcoin'))return'BITCOIN';if(l.includes('eth')||l.includes('ethereum'))return'ETHEREUM';if(l.includes('defi')||l.includes('protocol'))return'DEFI';if(l.includes('sec')||l.includes('regulation'))return'REGULATION';if(l.includes('market')||l.includes('price')||l.includes('rally'))return'MARKET';return'UPDATE'}
+
+function getMockNews(){
+  return[
+    {title:'Bitcoin Holds Key Support as Institutional Buyers Step In on Dip',url:'https://www.coindesk.com/markets/',source:'CoinDesk',time:new Date(Date.now()-900000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
+    {title:'Ethereum Layer 2 Ecosystem Hits Record $45B TVL on Surging User Activity',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-1800000).toISOString(),sentiment:'bullish',currencies:['ETH'],category:'DEFI'},
+    {title:'SEC Coordination on Crypto Oversight Gains Momentum Among Regulators',url:'https://cointelegraph.com/tags/regulation',source:'Cointelegraph',time:new Date(Date.now()-3600000).toISOString(),sentiment:'neutral',currencies:[],category:'REGULATION'},
+    {title:'Solana DApp Activity Surges 40% Month-Over-Month as Ecosystem Grows',url:'https://cryptopotato.com/category/altcoins/',source:'CryptoPotato',time:new Date(Date.now()-5400000).toISOString(),sentiment:'bullish',currencies:['SOL'],category:'MARKET'},
+    {title:'Bitcoin ETF Inflows Hit $800M This Week as Institutional Demand Stays Strong',url:'https://www.coindesk.com/markets/bitcoin/',source:'CoinDesk',time:new Date(Date.now()-7200000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
+    {title:'DeFi Protocol Volumes Recover After Market Pullback, TVL Stabilizes',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-9000000).toISOString(),sentiment:'neutral',currencies:[],category:'DEFI'},
+    {title:'Altcoin Season Indicators Show BTC Dominance Weakening Below Key Level',url:'https://cointelegraph.com/tags/altcoin',source:'Cointelegraph',time:new Date(Date.now()-10800000).toISOString(),sentiment:'bullish',currencies:[],category:'MARKET'},
+    {title:'US Bank Lobby Considers Legal Action Over Crypto Banking Charter Policy',url:'https://thedefiant.io/regulation/',source:'TheDefiant',time:new Date(Date.now()-12600000).toISOString(),sentiment:'bearish',currencies:[],category:'REGULATION'},
+    {title:'XRP Gains Momentum After Favorable Court Ruling Update',url:'https://cryptopotato.com/category/ripple-xrp/',source:'CryptoPotato',time:new Date(Date.now()-14400000).toISOString(),sentiment:'bullish',currencies:['XRP'],category:'MARKET'},
+    {title:'Polymarket Integrates AI to Monitor and Improve Prediction Market Accuracy',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-420000).toISOString(),sentiment:'neutral',currencies:[],category:'UPDATE'},
+    {title:'Fed Rate Decision Expected to Drive Crypto Volatility This Week',url:'https://www.coindesk.com/markets/',source:'CoinDesk',time:new Date(Date.now()-18000000).toISOString(),sentiment:'bearish',currencies:[],category:'MARKET'},
+    {title:'Bitcoin Leads as Altcoin Relative Strength Drops to Intriguing Lows',url:'https://cointelegraph.com/tags/bitcoin',source:'Cointelegraph',time:new Date(Date.now()-1620000).toISOString(),sentiment:'neutral',currencies:['BTC'],category:'MARKET'},
+  ];
+}
+
+function updateNewsCounts(){
+  const total=allNews.length;
+  const by={TheDefiant:0,CoinDesk:0,CryptoPotato:0,Cointelegraph:0,CryptoPanic:0};
+  allNews.forEach(n=>{if(by[n.source]!==undefined)by[n.source]++});
+  setEl('ntc-all',total);setEl('ntc-td',by.TheDefiant);setEl('ntc-cd',by.CoinDesk);setEl('ntc-cp',by.CryptoPotato);setEl('ntc-ct',by.Cointelegraph);setEl('ntc-cpan',by.CryptoPanic);
+}
+function filterNewsSrc(src,el){
+  currentNewsFilter=src;
+  document.querySelectorAll('.ns-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+  renderNewsPage();
+}
+function searchNews(q){currentNewsSearch=q.toLowerCase();renderNewsPage()}
+function getFilteredNews(){
+  let i=[...allNews];
+  if(currentNewsFilter!=='all')i=i.filter(n=>n.source===currentNewsFilter);
+  if(currentNewsSearch)i=i.filter(n=>n.title.toLowerCase().includes(currentNewsSearch)||n.source.toLowerCase().includes(currentNewsSearch));
+  return i;
+}
+function renderNewsPage(){
+  const items=getFilteredNews();
+  if(!items.length){setEl('news-featured-wrap','<div style="padding:32px;text-align:center;color:var(--ink3);font-family:var(--font-m)">No stories found</div>');setEl('news-grid-4','');return}
+  const f=items[0];
+  const col=SRC_COLORS[f.source]||'#D4A843';
+  const init=SRC_INITIALS[f.source]||'?';
+  const sent=f.sentiment==='bullish'?'<span style="background:var(--green-dim);border:1px solid rgba(0,208,132,.25);padding:3px 9px;border-radius:5px;font-family:var(--font-m);font-size:9px;color:var(--green)">BULLISH</span>':f.sentiment==='bearish'?'<span style="background:var(--red-dim);border:1px solid rgba(255,51,102,.25);padding:3px 9px;border-radius:5px;font-family:var(--font-m);font-size:9px;color:var(--red)">BEARISH</span>':'';
+  setEl('news-featured-wrap',`<div class="news-featured" onclick="window.open('${f.url}','_blank')" style="cursor:pointer">
+    <div class="nf-image"><div class="nf-image-inner"><div style="font-size:42px">📰</div><div class="nf-src-watermark">${f.source.toUpperCase()}</div></div></div>
+    <div class="nf-body">
+      <div class="nf-tags"><span class="featured-tag">FEATURED</span><span class="nf-time">🕐 ${ago(f.time)}</span>${sent}</div>
+      <div class="nf-title">${f.title}</div>
+      <div class="nf-source-row"><div class="nf-src-dot" style="background:${col}">${init}</div><div class="nf-src-name">${f.source}</div><div style="margin-left:auto;background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.25);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;color:var(--gold-dk)">Read Article ↗</div></div>
+    </div>
+  </div>`);
+  setEl('news-grid-4',items.slice(1,13).map(n=>{
+    const c=SRC_COLORS[n.source]||'#D4A843',ini=SRC_INITIALS[n.source]||'?';
+    const cc={BITCOIN:'#D4A843',ETHEREUM:'#9B6DFF',DEFI:'#00D084',REGULATION:'#FF3366',MARKET:'#4D9FFF',UPDATE:'#6B6485'}[n.category]||'#6B6485';
+    return`<div class="ng-card" onclick="window.open('${n.url}','_blank')">
+      <div class="ng-top"><div class="ng-src-pill"><div class="ng-src-dot" style="background:${c}">${ini}</div><span class="ng-src-name">${n.source}</span></div><span class="ng-time">🕐 ${ago(n.time)}</span></div>
+      <div class="ng-title">${n.title}</div>
+      <div class="ng-footer"><span class="ng-cat" style="color:${cc}">${n.category}</span><span class="ng-ext">↗</span></div>
+    </div>`;
+  }).join(''));
+  // Also update dash news
+  setEl('dash-news',items.slice(0,5).map(n=>{
+    const c=SRC_COLORS[n.source]||'#D4A843',ini=SRC_INITIALS[n.source]||'?';
+    return`<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.025);cursor:pointer" onclick="window.open('${n.url}','_blank')">
+      <div style="width:24px;height:24px;border-radius:50%;background:${c};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0">${ini}</div>
+      <div>
+        <div style="font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.5">${n.title}</div>
+        <div style="font-family:var(--font-m);font-size:9.5px;color:var(--ink3);margin-top:3px">${n.source} · ${ago(n.time)}</div>
+      </div>
+    </div>`;
+  }).join(''));
+}
+
+/* ═══════════════════════ STRATEGIES ═══════════════════════ */
+function buildStrategies(){
+  if($('strat-grid').children.length)return;
+  const strats=[
+    {name:'Trend Following',icon:'📈',color:'linear-gradient(135deg,rgba(0,208,132,.15),rgba(0,208,132,.04))',tag:'Swing',tagcol:'var(--green)',desc:'Ride established trends using moving averages and momentum. Enter after pullbacks, exit when trend breaks.',wr:'62%',rr:'2.5:1',tf:'4H/1D',
+      entry:'Wait for price to pull back to EMA 20/50 in uptrend. Look for bullish engulfing or pin bar. Volume must be declining on pullback then expanding on entry.',
+      exit:'Trail stop below EMA 20. Take 50% at 1.5R, trail rest. Close fully on daily candle close below EMA 50.',
+      risk:'Max 2% risk per trade. Position size based on distance to stop. Never average down on losers.',
+      examples:'BTC in Q4 2023 bull trend. Pull to EMA 20 on 4H, bullish engulf, entry 42K, stop 40K, TP1 46K (hit), TP2 52K (trailed close).'
+    },
+    {name:'Breakout Trading',icon:'🚀',color:'linear-gradient(135deg,rgba(212,168,67,.15),rgba(212,168,67,.04))',tag:'Momentum',tagcol:'var(--gold)',desc:'Capture explosive moves when price breaks key resistance levels with volume confirmation.',wr:'52%',rr:'3:1',tf:'1H/4H',
+      entry:'Identify consolidation at resistance. Wait for breakout with 2x average volume. Enter on retest of broken level, or on breakout candle close.',
+      exit:'Measure consolidation range, project same distance above breakout. Partial at 1R, full exit at 2-3R or when momentum fades.',
+      risk:'Stop below consolidation range. If price re-enters range immediately, treat as failed breakout — exit quickly.',
+      examples:'SOL breakout above $180 consolidation on high volume. Entry on retest at $183, stop $175, TP $200+ achieved in 2 days.'
+    },
+    {name:'Support/Resistance',icon:'📊',color:'linear-gradient(135deg,rgba(77,159,255,.15),rgba(77,159,255,.04))',tag:'Range',tagcol:'var(--blue)',desc:'Trade bounces from major support and rejections from resistance. Works best in ranging markets.',wr:'58%',rr:'2:1',tf:'1H/4H',
+      entry:'Price approaches major S/R level. Wait for rejection wick. Enter after close of reversal candle. Reduce size in trending markets.',
+      exit:'Target opposite end of range for longs/shorts. Exit at 50% when price reaches midpoint if momentum stalls.',
+      risk:'Always define your invalidation level. S/R breaks happen — honor stops.',
+      examples:'ETH bouncing at $3200 horizontal support (previous ATH). Entry $3220, stop $3120, target $3600 range top.'
+    },
+    {name:'Altcoin Season Play',icon:'⚡',color:'linear-gradient(135deg,rgba(0,229,204,.15),rgba(0,229,204,.04))',tag:'Macro',tagcol:'var(--cyan)',desc:'Use BTC.D and STABLE.D to time rotations into high-beta altcoins during alt season conditions.',wr:'55%',rr:'4:1',tf:'1D/1W',
+      entry:'BTC.D falling below key level. STABLE.D rejecting resistance. Total market cap breaking out. Select top alts in leading sectors.',
+      exit:'Exit when BTC.D starts rising again OR when alt has 3-5x from entry. Always have a % drawdown exit from peak (30%).',
+      risk:'Max 5% per alt position in portfolio. Diversify across sectors. Set hard stop at -30% from entry.',
+      examples:'2024 alt season: BTC.D fell from 57% to 51%, STABLE.D dropped. SOL +120%, AVAX +85%, SUI +200% in 3 months.'
+    },
+    {name:'Dollar Cost Average',icon:'🏦',color:'linear-gradient(135deg,rgba(155,109,255,.15),rgba(155,109,255,.04))',tag:'Long-Term',tagcol:'var(--purple)',desc:'Systematically accumulate BTC/ETH regardless of price. Remove emotion, reduce average cost over time.',wr:'80%',rr:'Variable',tf:'Weekly',
+      entry:'Fixed allocation every week/month regardless of price. Increase allocation during extreme fear (FnG < 20). Reduce during extreme greed (FnG > 80).',
+      exit:'Only exit at predetermined price targets or after X years. Never panic sell. Rebalance quarterly.',
+      risk:'Only DCA amounts you can afford to lose. Never use leverage. Hold through 50%+ drawdowns.',
+      examples:'Regular weekly BTC buys over 2022 bear market ($69K→$15K). Average cost ~$32K. 2024 returns exceeded 100% gain.'
+    },
+    {name:'News & Catalyst',icon:'🗞',color:'linear-gradient(135deg,rgba(255,51,102,.15),rgba(255,51,102,.04))',tag:'Event',tagcol:'var(--red)',desc:'Trade around major catalysts: ETF approvals, halving events, protocol upgrades, regulatory decisions.',wr:'48%',rr:'5:1',tf:'Event-driven',
+      entry:'Build position before known catalyst (halving, upgrade). Use small size. Add on confirmation. Watch volume for smart money positioning.',
+      exit:'Exit 50% on the news event itself ("buy rumor, sell news"). Trail the rest with tight stop.',
+      risk:'Largest risk is "sell the news" — always have a plan. Never hold full size through binary events.',
+      examples:'ETH Merge: position build in weeks prior, price +40% into event, sold news at peak, saved from 20% "sell news" drop.'
+    },
+  ];
+  $('strat-grid').innerHTML=strats.map((s,i)=>`<div class="strat-card" onclick="selectStrat(${i})" id="scard-${i}">
+    <div class="strat-hero" style="background:${s.color}">
+      <span style="font-size:36px">${s.icon}</span>
+      <span class="strat-tag" style="background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);color:var(--ink2)">${s.tag}</span>
+    </div>
+    <div class="strat-body">
+      <div class="strat-name">${s.name}</div>
+      <div class="strat-desc">${s.desc}</div>
+      <div class="strat-metrics">
+        <div class="sm-item"><div class="sm-label">Win Rate</div><div class="sm-val g">${s.wr}</div></div>
+        <div class="sm-item"><div class="sm-label">R:R</div><div class="sm-val">${s.rr}</div></div>
+        <div class="sm-item"><div class="sm-label">Timeframe</div><div class="sm-val">${s.tf}</div></div>
+      </div>
+    </div>
+  </div>`).join('');
+  window._strats=strats;
+}
+
+function selectStrat(i){
+  const s=window._strats[i];
+  document.querySelectorAll('.strat-card').forEach(c=>c.classList.remove('selected'));
+  $(`scard-${i}`)?.classList.add('selected');
+  const d=$('strat-detail');d.style.display='block';
+  setEl('strat-dtab-overview',`<div class="detail-prose"><h3>${s.name}</h3>${s.desc}\n\nTimeframe: ${s.tf} | Win Rate: ${s.wr} | Risk:Reward: ${s.rr}</div>`);
+  setEl('strat-dtab-entry',`<div class="detail-prose"><h3>Entry Rules</h3>${s.entry}</div>`);
+  setEl('strat-dtab-exit',`<div class="detail-prose"><h3>Exit Rules</h3>${s.exit}</div>`);
+  setEl('strat-dtab-risk',`<div class="detail-prose"><h3>Risk Management</h3>${s.risk}</div>`);
+  setEl('strat-dtab-examples',`<div class="detail-prose"><h3>Real Examples</h3>${s.examples}</div>`);
+  d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function switchDTab(tab,el){
+  document.querySelectorAll('.dtab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dtab-btn').forEach(b=>b.classList.remove('active'));
+  $('strat-dtab-'+tab)?.classList.add('active');el.classList.add('active');
+}
+
+/* ═══════════════════════ PLAYBOOK ═══════════════════════ */
+const pbAll=[
+  {pair:'BTC/USDT',bias:'long',entry:'$64,200',tp:'$72,500',sl:'$61,800',date:'Mar 8, 2025',analysis:'Bitcoin holding above 200-day EMA with decreasing volume on pullback. RSI oversold on 4H. Targeting previous ATH retest with 2.5:1 R:R. Key level: $65K breakout confirms setup.',icon:'₿'},
+  {pair:'ETH/USDT',bias:'long',entry:'$3,380',tp:'$3,850',sl:'$3,150',date:'Mar 8, 2025',analysis:'ETH forming inverse head and shoulders on daily. BTC.D declining suggests alt season entry. ETHBTC ratio at support. Volume profile shows strong accumulation zone $3,200-$3,400.',icon:'Ξ'},
+  {pair:'SOL/USDT',bias:'long',entry:'$138',tp:'$168',sl:'$125',date:'Mar 7, 2025',analysis:'Solana consolidating in bull flag pattern after +45% run. Strong DApp fundamentals with TVL at all-time high. Entry on breakout above $142 with volume confirmation. Risk defined at lower bull flag boundary.',icon:'◎'},
+  {pair:'BNB/USDT',bias:'neutral',entry:'$573',tp:'$620',sl:'$545',date:'Mar 6, 2025',analysis:'BNB range-bound between $545-$620. Wait for clear directional break. BNB burn scheduled — potential catalyst. Neutral until weekly candle shows clear trend direction.',icon:'B'},
+  {pair:'XRP/USDT',bias:'long',entry:'$0.575',tp:'$0.72',sl:'$0.51',date:'Mar 5, 2025',analysis:'XRP legal clarity improving. Technical: breakout above $0.56 descending trendline. 24% potential gain with 12% risk. Watch for SEC news as binary event risk. Position sizing accordingly — max 1.5% portfolio risk.',icon:'✕'},
+  {pair:'AVAX/USDT',bias:'short',entry:'$36.80',tp:'$29.50',sl:'$40.20',date:'Mar 4, 2025',analysis:'AVAX rejected at key resistance $37-$38. Bearish divergence on RSI 4H. If BTC dominance rises, AVAX likely to underperform. Short into strength with tight stop above resistance.',icon:'A'},
+];
+
+function buildPlaybook(){if($('pb-grid').children.length)return;renderPbGrid(pbAll)}
+function filterPlaybook(){
+  const pair=$('pb-filter').value;const bias=$('pb-bias-filter').value;
+  renderPbGrid(pbAll.filter(t=>(pair==='all'||t.pair.includes(pair))&&(bias==='all'||t.bias===bias)));
+}
+function renderPbGrid(data){
+  setEl('pb-grid',data.map(t=>`<div class="pb-card">
+    <div class="pb-head">
+      <div class="pb-ico">${t.icon}</div>
+      <div><div class="pb-analyst">Analyst: NM Alpha</div><div class="pb-pair">${t.pair}</div><div class="pb-date">${t.date}</div></div>
+      <span class="pb-bias ${t.bias}">${t.bias.toUpperCase()}</span>
+    </div>
+    <div class="pb-analysis">${t.analysis}</div>
+    <div class="pb-levels">
+      <div class="pbl"><div class="pbl-lbl">Entry</div><div class="pbl-val pbl-entry">${t.entry}</div></div>
+      <div class="pbl"><div class="pbl-lbl">Take Profit</div><div class="pbl-val pbl-tp">${t.tp}</div></div>
+      <div class="pbl"><div class="pbl-lbl">Stop Loss</div><div class="pbl-val pbl-sl">${t.sl}</div></div>
+    </div>
+  </div>`).join(''));
+}
+
+/* ═══════════════════════ EDUCATION ═══════════════════════ */
+function buildEducation(){
+  if($('edu-grid').children.length)return;
+  const courses=[
+    {icon:'📚',lvl:'b',lvlLabel:'Beginner',title:'Crypto Foundations',desc:'Blockchain, wallets, exchanges, DeFi basics, and how to stay safe in Web3.',lessons:'12 lessons',prog:0},
+    {icon:'📈',lvl:'b',lvlLabel:'Beginner',title:'Reading Charts',desc:'Candlesticks, support/resistance, trendlines, and timeframes for new traders.',lessons:'10 lessons',prog:20},
+    {icon:'⚙️',lvl:'i',lvlLabel:'Intermediate',title:'Technical Analysis',desc:'RSI, MACD, moving averages, Bollinger Bands and multi-timeframe confluence.',lessons:'16 lessons',prog:0},
+    {icon:'💡',lvl:'i',lvlLabel:'Intermediate',title:'On-Chain Intelligence',desc:'Reading wallet flows, exchange balances, miner data, and smart money signals.',lessons:'14 lessons',prog:0},
+    {icon:'🔄',lvl:'i',lvlLabel:'Intermediate',title:'Capital Rotation Mastery',desc:'Master BTC.D, STABLE.D, OTHERS.D and time market cycles for maximum returns.',lessons:'8 lessons',prog:0},
+    {icon:'🎯',lvl:'a',lvlLabel:'Advanced',title:'Portfolio Risk Management',desc:'Position sizing, portfolio construction, drawdown management, and psychological edge.',lessons:'18 lessons',prog:0},
+  ];
+  setEl('edu-grid',courses.map((c,i)=>`<div class="edu-card" onclick="openCourse(${i})">
+    <div class="edu-img">
+      <span>${c.icon}</span>
+      <div class="edu-prog-line" style="width:${c.prog}%"></div>
+    </div>
+    <div class="edu-body">
+      <div class="edu-lvl ${c.lvl}">${c.lvlLabel.toUpperCase()}</div>
+      <div class="edu-title">${c.title}</div>
+      <div class="edu-desc">${c.desc}</div>
+    </div>
+    <div class="edu-footer"><span class="edu-lessons">${c.lessons}</span><span class="edu-start">${c.prog?'Continue →':'Start →'}</span></div>
+  </div>`).join(''));
+
+  const glossary=['Altcoin — Any cryptocurrency that is not Bitcoin','BTC.D (Bitcoin Dominance) — BTC market cap as % of total crypto market cap','CEX — Centralized Exchange (Binance, Coinbase, Kraken)','DEX — Decentralized Exchange (Uniswap, dYdX, Jupiter)','DeFi — Decentralized Finance: financial services on blockchain','EMA — Exponential Moving Average: weight recent prices more','Fear & Greed Index — Market sentiment indicator (0=Fear, 100=Greed)','FOMO — Fear Of Missing Out: emotional buying near tops','FUD — Fear, Uncertainty, Doubt: negative sentiment spreading','Halving — Bitcoin event that cuts miner rewards by 50% every ~4 years','HODLing — Holding crypto long-term through volatility','Liquidity — Ease of buying/selling without impacting price significantly','MACD — Moving Average Convergence Divergence: trend/momentum indicator','On-chain — Data that exists and is verifiable on the blockchain itself','RSI — Relative Strength Index: momentum indicator (0-100)','STABLE.D — Stablecoin dominance: % of market cap in stablecoins','TOTAL / TOTAL2 / TOTAL3 — Different measures of total crypto market cap','TVL — Total Value Locked in DeFi protocols','Whale — Large holder who can move markets with their trades'];
+  setEl('edu-tab-glossary',`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${glossary.map(t=>`<div style="padding:9px 12px;background:var(--surface2);border-radius:var(--r);border:1px solid var(--border);font-size:12.5px;color:var(--ink2);line-height:1.5"><strong style="color:var(--gold)">${t.split('—')[0].trim()}</strong> — ${t.split('—').slice(1).join('—').trim()}</div>`).join('')}</div>`);
+  setEl('edu-tab-concepts',`<div style="display:flex;flex-direction:column;gap:12px">
+    <div style="background:var(--surface2);border-radius:var(--r2);padding:16px;border:1px solid var(--border)"><div style="font-weight:700;color:var(--gold);margin-bottom:6px;font-size:13px">The 4-Phase Market Cycle</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.8">1. <strong style="color:var(--purple)">Accumulation</strong> — Stablecoins high, BTC.D neutral, smart money buying quietly. 2. <strong style="color:var(--gold)">BTC Markup</strong> — BTC.D rising, Bitcoin outperforms, retail enters. 3. <strong style="color:var(--green)">Alt Season</strong> — BTC.D falls, alts 10-100x, everyone is bullish. 4. <strong style="color:var(--red)">Distribution</strong> — Smart money exits, stablecoins rising, corrections incoming.</div></div>
+    <div style="background:var(--surface2);border-radius:var(--r2);padding:16px;border:1px solid var(--border)"><div style="font-weight:700;color:var(--gold);margin-bottom:6px;font-size:13px">Risk Management Fundamentals</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.8">Never risk more than 1-2% per trade. Always define your stop before entry. Risk:Reward ratio should be minimum 1.5:1, ideally 2:1 or higher. A 50% win rate with 2:1 R:R is highly profitable.</div></div>
+    <div style="background:var(--surface2);border-radius:var(--r2);padding:16px;border:1px solid var(--border)"><div style="font-weight:700;color:var(--gold);margin-bottom:6px;font-size:13px">Reading Stablecoin Dominance</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.8">STABLE.D rising = traders going to cash = bearish short-term but building dry powder. STABLE.D falling = deploying cash into risk = bullish. It is the inverse of market confidence. See the Capital Rotation terminal for live data and detailed explanation.</div></div>
+  </div>`);
+  setEl('edu-tab-faqs',`<div style="display:flex;flex-direction:column;gap:10px">
+    ${[['When does alt season start?','Alt season typically begins after BTC has made a significant new high and BTC.D starts declining below key levels (typically 55-52%). STABLE.D will also start falling as cash deploys into alts. Look for the Total market cap breaking above previous highs first.'],
+    ['How do I know when to take profits?','Use the Fear & Greed Index as a guide — above 85 (extreme greed) start scaling out. Watch for BTC.D bottoming and reversing (money going back to BTC). OTHERS.D rolling over from highs is another strong signal. Always sell in tranches, never all at once.'],
+    ['What is the safest way to store crypto?','Hardware wallets (Ledger, Trezor) for amounts above $1000. Never store long-term on exchanges. Use a separate wallet for DeFi. Write seed phrases on paper — never digitally. Split large holdings across multiple wallets.'],
+    ['How much should I invest in crypto?','Only invest what you can afford to lose completely. Common advice: 5-10% of investment portfolio in crypto. Within crypto: 40-60% BTC, 20-30% ETH, rest in alts with research. Never invest emergency funds or borrowed money.'],
+    ['What is the Bitcoin halving and why does it matter?','Every ~4 years, Bitcoin mining rewards halve. This reduces new supply issuance. Historically, halvings (2012, 2016, 2020) preceded major bull markets 6-18 months later. The next halving is April 2024. Supply shock + increasing demand = price pressure upward.'],
+    ].map(([q,a])=>`<div style="background:var(--surface2);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border)"><div style="font-weight:700;color:var(--ink);margin-bottom:6px;font-size:13px">Q: ${q}</div><div style="font-size:12.5px;color:var(--ink2);line-height:1.75">A: ${a}</div></div>`).join('')}
+  </div>`);
+  setEl('edu-tab-formulas',`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    ${[['RSI','RS = Avg Gain / Avg Loss\nRSI = 100 − (100 / (1 + RS))\nOverbought: >70 | Oversold: <30'],
+    ['EMA','EMA = Price × (2÷(N+1)) + EMA_prev × (1 − (2÷(N+1)))\nN = period | Common: 20, 50, 200'],
+    ['MACD','MACD Line = EMA(12) − EMA(26)\nSignal Line = EMA(9) of MACD\nHistogram = MACD − Signal'],
+    ['Bollinger Bands','Middle = SMA(20)\nUpper = SMA(20) + 2×StdDev\nLower = SMA(20) − 2×StdDev'],
+    ['BTC Dominance','BTC.D = (BTC Market Cap / Total Crypto Market Cap) × 100\nHigh >55% = BTC season | Low <50% = Alt season'],
+    ['STABLE.D','STABLE.D = (USDT + USDC + TUSD + others) / Total × 100\nRising = Risk-off | Falling = Risk-on (inverse BTC signal)'],
+    ].map(([n,f])=>`<div style="background:var(--surface2);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--border)"><div style="font-weight:700;color:var(--gold);margin-bottom:8px">${n}</div><pre style="font-family:var(--font-m);font-size:10.5px;color:var(--ink2);white-space:pre-wrap;line-height:1.7">${f}</pre></div>`).join('')}
+  </div>`);
+}
+function openCourse(i){alert('Course coming soon! Join the community for early access.');}
+function switchEduTab(tab,el){
+  document.querySelectorAll('#page-education .dtab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#page-education .dtab-btn').forEach(b=>b.classList.remove('active'));
+  $('edu-tab-'+tab)?.classList.add('active');el.classList.add('active');
+}
+
+/* ═══════════════════════ COMMUNITY ═══════════════════════ */
+function buildCommFeed(){
+  if($('comm-feed').children.length)return;
+  const posts=[
+    {name:'NM Alpha',badge:'Analyst',avatar:'NM',color:'var(--gold)',time:'2h ago',text:'BTC.D showing weakness at the 56% level. Classic pre-alt-season pattern. Watching for confirmation before increasing alt exposure. Risk management first. 🎯'},
+    {name:'TribeTrader',badge:'Member',avatar:'T',color:'var(--blue)',time:'4h ago',text:'SOL setup looking clean on the 4H. Bull flag breakout incoming? NM Alpha called this last week — following the playbook. Entry zone $138-142.'},
+    {name:'CryptoNomad',badge:'Member',avatar:'C',color:'var(--green)',time:'6h ago',text:'STABLE.D dropped below 8% for the first time in 3 weeks. Dry powder deploying. This is what the Capital Rotation terminal was showing. Time to watch closely 👀'},
+    {name:'NM Alpha',badge:'Analyst',avatar:'NM',color:'var(--gold)',time:'8h ago',text:'Capital rotation update: BTC → ETH → L2s is the current flow. ETHBTC ratio just reclaimed the key 0.052 level. Alt season early indicators firing. Full breakdown in the terminal.'},
+  ];
+  setEl('comm-feed',posts.map(p=>`<div class="feed-item">
+    <div class="fi-avatar" style="background:${p.color};color:#000">${p.avatar}</div>
+    <div style="flex:1">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span class="fi-name">${p.name}</span>
+        <span class="fi-badge">${p.badge}</span>
+        <span class="fi-time">${p.time}</span>
+      </div>
+      <div class="fi-text">${p.text}</div>
+    </div>
+  </div>`).join(''));
+}
+
+/* ═══════════════════════ SETTINGS ═══════════════════════ */
+function clearCache(){mktData=[];allNews=[];fetchMktData();fetchNews();alert('Cache cleared. Reloading data...')}
+function resetPrefs(){if(confirm('Reset all preferences to defaults?'))location.reload()}
+
+/* ═══════════════════════ REFRESH ═══════════════════════ */
+function refreshAll(){
+  fetchMktData();fetchGlobal();fetchFnG();
+  if($('page-news').classList.contains('active'))fetchNews();
+  /* chart: only reload if overview is active to avoid flash */
+  if($('page-dashboard').classList.contains('active')){
+    renderMcapRow();/* re-render with latest mktData */
+  }
+}
+
+/* ═══════════════════════ INIT ═══════════════════════ */
+async function init(){
+  nav('dashboard');
+  await Promise.all([fetchMktData(),fetchGlobal(),fetchFnG(),fetchNews()]);
+  loadTVChart('bitcoin');
+  fetchCategories();
+  setInterval(refreshAll,60000);
+  setInterval(fetchCategories,300000); /* refresh categories every 5 min */
+}
+window.addEventListener('load',init);
+window.addEventListener('resize',()=>{
+  /* TradingView widget is autosize — no manual resize needed */
+  if(rotChart)try{rotChart.applyOptions({width:$('rotation-chart-wrap')?.offsetWidth||500})}catch(e){}
+});
+</script>
+
+<script>
+/* ════════════════════════════════════════════
+   NM LOGO BUILDER (matches nm-alpha-tribe)
+════════════════════════════════════════════ */
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const NM_LOGO_URI = 'data:image/jpeg;base64,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';
+let nmLogoRingAngle = 0;
+const nmLogoAllRings = [];
+
+function nmP2C(r, deg) {
+  const rad = (deg - 90) * Math.PI / 180;
+  return [50 + r * Math.cos(rad), 50 + r * Math.sin(rad)];
+}
+
+function nmArcSegPath(r1, r2, a1, a2) {
+  const [sx, sy] = nmP2C(r2, a1);
+  const [ex, ey] = nmP2C(r2, a2);
+  const [six, siy] = nmP2C(r1, a1);
+  const [eix, eiy] = nmP2C(r1, a2);
+  const lg = (a2 - a1) > 180 ? 1 : 0;
+  return `M${sx.toFixed(3)},${sy.toFixed(3)} A${r2},${r2} 0 ${lg},1 ${ex.toFixed(3)},${ey.toFixed(3)} L${eix.toFixed(3)},${eiy.toFixed(3)} A${r1},${r1} 0 ${lg},0 ${six.toFixed(3)},${siy.toFixed(3)}Z`;
+}
+
+function buildNMLogoSVGDash(size) {
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.style.cssText = 'display:block;overflow:visible';
+
+  const defs = document.createElementNS(SVG_NS, 'defs');
+  const grad = document.createElementNS(SVG_NS, 'linearGradient');
+  grad.setAttribute('id', `nmGD${size}`);
+  grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
+  grad.setAttribute('x2', '0%'); grad.setAttribute('y2', '100%');
+  [['0%','#d4aaff'],['100%','#5b9fff']].forEach(([offset, color]) => {
+    const s = document.createElementNS(SVG_NS, 'stop');
+    s.setAttribute('offset', offset);
+    s.setAttribute('stop-color', color);
+    grad.appendChild(s);
+  });
+  defs.appendChild(grad);
+  svg.appendChild(defs);
+
+  const ringG = document.createElementNS(SVG_NS, 'g');
+  const ringColors = [
+    '#d4f000','#a8d400','#00cc44','#00c49a',
+    '#00b8d8','#0077ff','#3344ee','#6600cc',
+    '#9900bb','#cc00aa','#ee0066','#ff1133',
+    '#ee3300','#ff6600','#ffaa00','#ffd700'
+  ];
+  const gap = 1.8, segSize = 360 / 16;
+  ringColors.forEach((color, i) => {
+    const a1 = i * segSize + gap / 2;
+    const a2 = (i + 1) * segSize - gap / 2;
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('d', nmArcSegPath(39, 47, a1, a2));
+    path.setAttribute('fill', color);
+    ringG.appendChild(path);
+  });
+  svg.appendChild(ringG);
+  nmLogoAllRings.push(ringG);
+
+  const flowerG = document.createElementNS(SVG_NS, 'g');
+  const mainColors = ['#e74c3c','#00b894','#f39c12','#e91e63'];
+  const secColors  = ['#2ecc71','#3498db','#f1c40f','#9b59b6'];
+  mainColors.forEach((color, i) => {
+    const g = document.createElementNS(SVG_NS, 'g');
+    g.setAttribute('transform', `rotate(${i * 90},50,50)`);
+    const ell = document.createElementNS(SVG_NS, 'ellipse');
+    ell.setAttribute('cx', '50'); ell.setAttribute('cy', '28');
+    ell.setAttribute('rx', '8'); ell.setAttribute('ry', '10');
+    ell.setAttribute('fill', color); ell.setAttribute('opacity', '0.9');
+    g.appendChild(ell);
+    flowerG.appendChild(g);
+  });
+  secColors.forEach((color, i) => {
+    const g = document.createElementNS(SVG_NS, 'g');
+    g.setAttribute('transform', `rotate(${45 + i * 90},50,50)`);
+    const ell = document.createElementNS(SVG_NS, 'ellipse');
+    ell.setAttribute('cx', '50'); ell.setAttribute('cy', '30');
+    ell.setAttribute('rx', '5.5'); ell.setAttribute('ry', '7.5');
+    ell.setAttribute('fill', color); ell.setAttribute('opacity', '0.8');
+    g.appendChild(ell);
+    flowerG.appendChild(g);
+  });
+  svg.appendChild(flowerG);
+
+  const uid = 'nmClipD' + size;
+  const clipPath = document.createElementNS(SVG_NS, 'clipPath');
+  clipPath.setAttribute('id', uid);
+  const clipCirc = document.createElementNS(SVG_NS, 'circle');
+  clipCirc.setAttribute('cx','50'); clipCirc.setAttribute('cy','50'); clipCirc.setAttribute('r','22');
+  clipPath.appendChild(clipCirc);
+  defs.appendChild(clipPath);
+
+  const imgEl = document.createElementNS(SVG_NS, 'image');
+  imgEl.setAttribute('href', NM_LOGO_URI);
+  imgEl.setAttribute('x', '28'); imgEl.setAttribute('y', '28');
+  imgEl.setAttribute('width', '44'); imgEl.setAttribute('height', '44');
+  imgEl.setAttribute('clip-path', `url(#${uid})`);
+  imgEl.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  svg.appendChild(imgEl);
+
+  const borderCirc = document.createElementNS(SVG_NS, 'circle');
+  borderCirc.setAttribute('cx','50'); borderCirc.setAttribute('cy','50'); borderCirc.setAttribute('r','22');
+  borderCirc.setAttribute('fill','none'); borderCirc.setAttribute('stroke','white'); borderCirc.setAttribute('stroke-width','2.0');
+  svg.appendChild(borderCirc);
+
+  return svg;
+}
+
+function initNMLogos() {
+  document.querySelectorAll('.nm-logo-wrap[data-size]').forEach(el => {
+    if (el.children.length === 0) {
+      const size = parseInt(el.dataset.size) || 42;
+      el.appendChild(buildNMLogoSVGDash(size));
+    }
+  });
+}
+
+function animateNMRings() {
+  nmLogoRingAngle += 0.3;
+  if (nmLogoRingAngle >= 360) nmLogoRingAngle -= 360;
+  nmLogoAllRings.forEach(g => g.setAttribute('transform', `rotate(${nmLogoRingAngle},50,50)`));
+  requestAnimationFrame(animateNMRings);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initNMLogos();
+  animateNMRings();
+});
+</script>
+</body>
+</html>
