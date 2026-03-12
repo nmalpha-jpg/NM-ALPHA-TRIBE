@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dollar Paradox: How USD Became Crypto's Reserve Currency — Chirag Mehta · NM Alpha Research</title>
+
+<!-- ═══ Open Graph ═══ -->
+<meta property="og:type"        content="article" />
+<meta property="og:url"         content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/usd_dominance_crypto_chirag_mehta.html" />
+<meta property="og:title"       content="The Dollar Paradox: How USD Became Crypto's Reserve Currency" />
+<meta property="og:description" content="Bitcoin was invented to escape the dollar. Instead, crypto became its most dependent colony. $230B in stablecoins, 87% of trading pairs USD-denominated, and a market that collapses hardest when the dollar surges. The irony is total — and the implications are profound." />
+<meta property="og:image"       content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/usd_dominance_og_thumbnail.png" />
+<meta property="og:image:width"  content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name"   content="NM Alpha Research" />
+<!-- ═══ Twitter Card ═══ -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:site"        content="@NM_ALPHA" />
+<meta name="twitter:creator"     content="@NM_Founder" />
+<meta name="twitter:title"       content="The Dollar Paradox: How USD Became Crypto's Reserve Currency" />
+<meta name="twitter:description" content="Bitcoin was invented to escape the dollar. Instead, crypto became its most dependent colony. The irony is total — and the implications are profound." />
+<meta name="twitter:image"       content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/usd_dominance_og_thumbnail.png" />
+<meta name="description"         content="Full analysis of USD dominance in crypto: stablecoin data, crisis correlation, DXY vs BTC, and the slow-burn vs. sudden-collapse distinction. By Chirag Mehta · NM Alpha Research · March 2026." />
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --dollar: #2ecc71;
+  --dollar-d: #1a8a4a;
+  --gold: #f0c040;
+  --red: #e84040;
+  --blue: #4a90d9;
+  --orange: #f07830;
+  --purple: #8b5cf6;
+  --ink: #06080a;
+  --ink2: #0d1117;
+  --paper: #f2f0ea;
+  --paper2: #e8e5dc;
+  --surface: #ffffff;
+  --border: #dedad0;
+  --text: #12140a;
+  --muted: #5a6050;
+  --light: #909880;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--ink);font-family:'Outfit',sans-serif;color:var(--text);}
+
+/* ══ COVER ══ */
+.cover{width:100%;min-height:100vh;background:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;}
+
+/* Grid pattern */
+.cvg{position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(46,204,113,.04) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(46,204,113,.04) 1px, transparent 1px);
+  background-size:48px 48px;}
+
+/* Orbs */
+.o{position:absolute;border-radius:50%;}
+.o1{width:800px;height:800px;top:-300px;right:-200px;
+  background:radial-gradient(circle,rgba(46,204,113,.14) 0%,transparent 65%);}
+.o2{width:500px;height:500px;bottom:-100px;left:-80px;
+  background:radial-gradient(circle,rgba(240,192,64,.1) 0%,transparent 65%);}
+.o3{width:360px;height:360px;top:35%;left:38%;
+  background:radial-gradient(circle,rgba(74,144,217,.07) 0%,transparent 65%);}
+.o4{width:220px;height:220px;bottom:25%;right:6%;
+  background:radial-gradient(circle,rgba(240,120,48,.07) 0%,transparent 65%);}
+
+/* Slash lines */
+.slash{position:absolute;width:2px;height:140vh;
+  background:linear-gradient(to bottom,transparent,rgba(46,204,113,.2),transparent);
+  top:-20vh;left:51%;transform:rotate(7deg);}
+.slash2{position:absolute;width:1px;height:140vh;
+  background:linear-gradient(to bottom,transparent,rgba(240,192,64,.1),transparent);
+  top:-10vh;left:53.5%;transform:rotate(7deg);}
+
+/* dollar circuit lines */
+.circuit{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.circuit::before{
+  content:'$  $  $  $  $  $  $  $  $  $  $  $  $  $  $  $  $  $  $  $';
+  position:absolute;right:-40px;top:15%;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(46,204,113,.06);letter-spacing:28px;
+  writing-mode:vertical-rl;line-height:28px;
+  white-space:pre;}
+
+.cvtop{position:relative;z-index:10;display:flex;align-items:center;
+  justify-content:space-between;padding:26px 52px;
+  border-bottom:1px solid rgba(255,255,255,.05);}
+.cvbrand{display:flex;align-items:center;gap:10px;}
+.cvlogo{width:36px;height:36px;
+  background:linear-gradient(135deg,var(--dollar-d),var(--dollar));
+  border-radius:7px;display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;letter-spacing:1px;}
+.cvbname{font-family:'DM Mono',monospace;font-size:12px;
+  color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;}
+.cvvol{font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.2);letter-spacing:2px;}
+
+.cvbody{position:relative;z-index:10;flex:1;display:flex;
+  flex-direction:column;justify-content:center;padding:52px 52px 36px;}
+
+.cvpill{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(46,204,113,.09);border:1px solid rgba(46,204,113,.28);
+  color:var(--dollar);font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:3px;text-transform:uppercase;padding:7px 16px;
+  border-radius:100px;width:fit-content;margin-bottom:28px;}
+.cvpill .dot{width:6px;height:6px;background:var(--dollar);
+  border-radius:50%;box-shadow:0 0 8px var(--dollar);
+  animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+.cvh1{font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(42px,6vw,82px);letter-spacing:2px;line-height:.9;
+  color:#eceee6;margin-bottom:6px;}
+.cvh1 .a1{color:var(--dollar);display:block;}
+.cvh1 .a2{color:rgba(255,255,255,.88);display:block;}
+.cvh1 .a3{color:rgba(255,255,255,.18);display:block;
+  font-size:.38em;letter-spacing:6px;margin-top:14px;}
+
+.cvdesc{max-width:600px;font-size:15px;font-weight:300;
+  color:rgba(255,255,255,.36);line-height:1.8;
+  margin-top:26px;margin-bottom:44px;}
+.cvdesc strong{color:rgba(255,255,255,.7);font-weight:500;}
+
+.cvstats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;overflow:hidden;width:fit-content;}
+.cvst{padding:18px 26px;border-right:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.02);}
+.cvst:last-child{border-right:none;}
+.cvsn{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;line-height:1;}
+.cvsn.g{color:var(--gold);}
+.cvsn.gr{color:var(--dollar);}
+.cvsn.r{color:var(--red);}
+.cvsn.b{color:var(--blue);}
+.cvsn.o{color:var(--orange);}
+.cvsl{font-family:'DM Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,.24);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+.cvtoc{position:absolute;right:52px;top:50%;transform:translateY(-50%);
+  z-index:10;width:210px;}
+.cvtocl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:14px;}
+.cvtoci{display:flex;align-items:center;gap:10px;padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);}
+.cvtoci:last-child{border-bottom:none;}
+.cvtn{font-family:'Bebas Neue',sans-serif;font-size:16px;
+  color:rgba(46,204,113,.3);min-width:22px;}
+.cvtt{font-size:11px;color:rgba(255,255,255,.28);line-height:1.4;}
+
+.cvbot{position:relative;z-index:10;padding:24px 52px;
+  border-top:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;justify-content:space-between;}
+.cvauth{display:flex;align-items:center;gap:14px;}
+.cvav{width:42px;height:42px;
+  background:linear-gradient(135deg,var(--dollar-d),var(--dollar));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;}
+.cvan{font-size:14px;font-weight:500;color:rgba(255,255,255,.8);}
+.cvar{font-family:'DM Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px;}
+.cvtags{display:flex;gap:8px;flex-wrap:wrap;}
+.cvtag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;padding:4px 11px;border-radius:100px;
+  color:rgba(255,255,255,.24);border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.02);}
+
+/* ══ REPORT BODY ══ */
+.report{background:var(--paper);}
+
+.ph{background:var(--ink2);padding:13px 52px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid rgba(46,204,113,.15);}
+.phl{font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.28);letter-spacing:2px;text-transform:uppercase;}
+.phr{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.16);}
+
+/* QUICK FACTS BAR */
+.facts-bar{display:flex;border-bottom:2px solid var(--border);background:var(--surface);}
+.fb{padding:15px 24px;border-right:1px solid var(--border);flex:1;}
+.fb:last-child{border-right:none;}
+.fb-l{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--light);margin-bottom:4px;}
+.fb-v{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;line-height:1;}
+.fb-v.g{color:var(--dollar-d);}
+.fb-v.r{color:var(--red);}
+.fb-v.b{color:var(--blue);}
+.fb-v.o{color:var(--orange);}
+.fb-v.gd{color:#996600;}
+.fb-s{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);margin-top:2px;}
+
+.rs{padding:52px 52px;border-bottom:2px solid var(--border);position:relative;}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.snum{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;
+  color:var(--dollar-d);background:rgba(46,204,113,.08);
+  border:1px solid rgba(46,204,113,.2);padding:3px 10px;border-radius:100px;}
+.stag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--light);}
+.stitle{font-family:'DM Serif Display',serif;font-size:30px;
+  line-height:1.2;color:var(--text);margin-bottom:8px;}
+.stitle .it{font-style:italic;color:var(--muted);}
+.deck{font-size:15px;color:var(--muted);font-weight:300;line-height:1.68;
+  max-width:700px;border-left:3px solid var(--dollar);
+  padding-left:16px;margin-bottom:36px;}
+.body{font-size:14px;line-height:1.84;color:#363a2a;
+  margin-bottom:20px;font-weight:300;}
+.body strong{color:var(--text);font-weight:600;}
+
+/* grids */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;}
+.four{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;}
+
+/* data cards */
+.dc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.dclbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--light);margin-bottom:8px;}
+.dcval{font-family:'Bebas Neue',sans-serif;font-size:34px;
+  letter-spacing:1px;line-height:1;margin-bottom:4px;}
+.dcval.g{color:#996600;}
+.dcval.gr{color:var(--dollar-d);}
+.dcval.r{color:var(--red);}
+.dcval.b{color:var(--blue);}
+.dcval.o{color:var(--orange);}
+.dcsub{font-size:11.5px;color:var(--light);font-family:'DM Mono',monospace;}
+.dcch{display:inline-block;font-size:11px;font-family:'DM Mono',monospace;
+  padding:2px 8px;border-radius:4px;margin-top:6px;}
+.up{background:rgba(46,204,113,.07);color:var(--dollar-d);}
+.dn{background:rgba(232,64,64,.07);color:var(--red);}
+.nt{background:rgba(144,152,128,.1);color:var(--light);}
+.bu{background:rgba(74,144,217,.07);color:var(--blue);}
+.gd{background:rgba(153,102,0,.08);color:#996600;}
+
+/* highlight box */
+.hbox{background:var(--ink);border-radius:14px;padding:28px 32px;
+  margin:24px 0;position:relative;overflow:hidden;}
+.hbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--dollar),var(--gold),var(--blue));}
+.hboxl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--dollar);margin-bottom:10px;}
+.hboxt{font-size:15.5px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.65);}
+.hboxt strong{color:var(--dollar);font-weight:600;}
+.hboxt em{color:#f0c040;font-style:normal;}
+
+/* red warning box */
+.rbox{background:var(--ink);border-radius:14px;padding:28px 32px;
+  margin:24px 0;position:relative;overflow:hidden;}
+.rbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange));}
+.rboxl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.rboxt{font-size:15.5px;font-weight:300;line-height:1.75;color:rgba(255,255,255,.65);}
+.rboxt strong{color:#ff8080;font-weight:600;}
+.rboxt em{color:var(--gold);font-style:normal;}
+
+/* pull quote */
+.pq{border-left:4px solid var(--dollar);
+  background:rgba(46,204,113,.04);
+  padding:18px 24px;margin:24px 0;border-radius:0 10px 10px 0;}
+.pqt{font-family:'DM Serif Display',serif;font-size:17px;font-style:italic;
+  color:var(--text);line-height:1.55;margin-bottom:8px;}
+.pqs{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+
+/* tables */
+.dt{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+.dt thead tr{background:var(--ink);}
+.dt thead th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(255,255,255,.42);padding:11px 14px;text-align:left;}
+.dt thead th.r{text-align:right;}
+.dt thead th.c{text-align:center;}
+.dt tbody tr{border-bottom:1px solid var(--border);}
+.dt tbody tr:hover{background:rgba(46,204,113,.02);}
+.dt tbody tr.hl{background:rgba(46,204,113,.05);}
+.dt tbody tr.hl td{font-weight:600;}
+.dt tbody tr.rl{background:rgba(232,64,64,.04);}
+.dt tbody td{padding:11px 14px;font-family:'DM Mono',monospace;color:var(--text);font-size:12.5px;}
+.dt tbody td.r{text-align:right;}
+.dt tbody td.c{text-align:center;}
+.tdu{color:var(--dollar-d);font-weight:600;}
+.tdd{color:var(--red);}
+.tdb{color:var(--blue);}
+.tdg{color:#996600;}
+.tdm{color:var(--muted);}
+.tdo{color:var(--orange);}
+
+/* signal cards */
+.sc{background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:18px 20px;display:flex;gap:12px;
+  align-items:flex-start;margin-bottom:12px;}
+.si{width:34px;height:34px;border-radius:8px;display:flex;
+  align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.si.bull{background:rgba(46,204,113,.1);}
+.si.bear{background:rgba(232,64,64,.1);}
+.si.neu{background:rgba(144,152,128,.1);}
+.si.warn{background:rgba(240,192,64,.1);}
+.si.blue{background:rgba(74,144,217,.1);}
+.si.org{background:rgba(240,120,48,.1);}
+.sct{font-size:13.5px;font-weight:600;margin-bottom:5px;color:var(--text);}
+.scd{font-size:12px;color:#4a5040;line-height:1.62;}
+.sbadge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;
+  padding:2px 8px;border-radius:4px;margin-top:6px;letter-spacing:1px;}
+.sbb{background:rgba(46,204,113,.08);color:var(--dollar-d);border:1px solid rgba(46,204,113,.2);}
+.sbr{background:rgba(232,64,64,.08);color:var(--red);border:1px solid rgba(232,64,64,.2);}
+.sbw{background:rgba(240,192,64,.1);color:#886600;border:1px solid rgba(240,192,64,.3);}
+.sbn{background:rgba(144,152,128,.1);color:var(--light);border:1px solid rgba(144,152,128,.2);}
+.sbb2{background:rgba(74,144,217,.08);color:var(--blue);border:1px solid rgba(74,144,217,.2);}
+
+/* bar charts */
+.br{margin-bottom:14px;}
+.brhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.brnm{font-size:12.5px;font-weight:500;color:var(--text);}
+.brvl{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--light);}
+.brtr{height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.brfl{height:100%;border-radius:4px;}
+
+/* chart wrapper */
+.cw{background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:24px;margin-bottom:24px;}
+.ct{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--light);margin-bottom:4px;}
+.cs{font-size:12.5px;color:var(--muted);margin-bottom:18px;}
+.cn{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;margin-top:10px;}
+
+/* TradingView embed */
+.tv-wrap{border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:20px;}
+.tv-lbl{background:var(--ink);padding:10px 16px;
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.38);letter-spacing:1.5px;text-transform:uppercase;}
+
+/* risk matrix */
+.rm{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+.rmc{border-radius:10px;padding:16px 18px;}
+.rmc.hi{background:rgba(232,64,64,.06);border:1px solid rgba(232,64,64,.18);}
+.rmc.md{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);}
+.rmc.lo{background:rgba(46,204,113,.05);border:1px solid rgba(46,204,113,.18);}
+.rmc.bl{background:rgba(74,144,217,.05);border:1px solid rgba(74,144,217,.18);}
+.rml{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:5px;}
+.rmc.hi .rml{color:var(--red);}
+.rmc.md .rml{color:#886600;}
+.rmc.lo .rml{color:var(--dollar-d);}
+.rmc.bl .rml{color:var(--blue);}
+.rmt{font-size:12.5px;color:var(--text);line-height:1.55;}
+
+/* verdict */
+.verdict{background:linear-gradient(135deg,rgba(46,204,113,.07),rgba(74,144,217,.04));
+  border:1px solid rgba(46,204,113,.22);border-radius:14px;
+  padding:30px 34px;margin-bottom:16px;position:relative;overflow:hidden;}
+.verdict::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--dollar),var(--blue),var(--gold));}
+.verdict-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--dollar-d);margin-bottom:12px;}
+.verdict-txt{font-size:15px;font-weight:300;line-height:1.8;color:var(--text);}
+.verdict-txt strong{color:var(--dollar-d);font-weight:600;}
+.verdict-txt em{color:var(--blue);font-style:normal;font-weight:500;}
+
+/* source tags */
+.sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.src{font-family:'DM Mono',monospace;font-size:9px;
+  background:var(--paper2);border:1px solid var(--border);
+  color:var(--muted);padding:3px 9px;border-radius:100px;}
+
+.sf{display:flex;justify-content:space-between;
+  margin-top:28px;padding-top:16px;border-top:1px solid var(--border);}
+.sfn{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);letter-spacing:1px;}
+
+/* footer */
+.rfooter{background:var(--ink);padding:36px 52px;
+  display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:start;}
+.rfbrand{font-family:'Bebas Neue',sans-serif;font-size:18px;
+  letter-spacing:4px;color:rgba(255,255,255,.4);margin-bottom:6px;}
+.rfauth{font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.2);letter-spacing:1px;}
+.rfdisc{font-size:11.5px;color:rgba(255,255,255,.15);
+  line-height:1.65;max-width:500px;}
+.rflinks{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+.rflink{font-family:'DM Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.26);text-decoration:none;
+  border:1px solid rgba(255,255,255,.08);padding:4px 10px;border-radius:5px;}
+
+@media(max-width:800px){
+  .cvbody,.cvtop,.cvbot,.rs,.ph,.rfooter{padding-left:22px;padding-right:22px;}
+  .cvtoc{display:none;}
+  .four{grid-template-columns:1fr 1fr;}
+  .three{grid-template-columns:1fr;}
+  .two{grid-template-columns:1fr;}
+  .rm{grid-template-columns:1fr;}
+  .facts-bar{flex-wrap:wrap;}
+  .cvstats{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cvg"></div>
+  <div class="circuit"></div>
+  <div class="o o1"></div><div class="o o2"></div>
+  <div class="o o3"></div><div class="o o4"></div>
+  <div class="slash"></div><div class="slash2"></div>
+
+  <div class="cvtop">
+    <div class="cvbrand">
+      <div class="cvlogo">NM</div>
+      <div class="cvbname">NM Alpha Research</div>
+    </div>
+    <div class="cvvol">Vol. 06 · March 2026</div>
+  </div>
+
+  <div class="cvbody">
+    <div class="cvpill"><span class="dot"></span>Macro × Crypto · Structural Analysis</div>
+
+    <div class="cvh1">
+      BITCOIN WAS BUILT
+      <span class="a1">TO ESCAPE THE DOLLAR.</span>
+      <span class="a2">IT FAILED.</span>
+      <span class="a3">USD DOMINANCE IN CRYPTO · THE IRONY · THE CRISIS MATH · MARCH 2026</span>
+    </div>
+
+    <div class="cvdesc">
+      $230B in USD-pegged stablecoins. 87% of all crypto trading pairs denominated in dollars. Every major exchange uses USD as the unit of account. Crypto didn't kill the dollar — <strong>it became the dollar's most obedient colony.</strong> And when the dollar surges in a crisis, crypto doesn't hedge — it collapses. Here is the analysis nobody in crypto wants to say out loud.
+    </div>
+
+    <div class="cvstats">
+      <div class="cvst"><div class="cvsn gr">$230B</div><div class="cvsl">USD Stablecoin Supply</div></div>
+      <div class="cvst"><div class="cvsn g">87%</div><div class="cvsl">Pairs USD-denominated</div></div>
+      <div class="cvst"><div class="cvsn r">−50%</div><div class="cvsl">BTC in March 2020 crash</div></div>
+      <div class="cvst"><div class="cvsn b">−0.85</div><div class="cvsl">BTC/DXY Correlation</div></div>
+    </div>
+  </div>
+
+  <div class="cvtoc">
+    <div class="cvtocl">Contents</div>
+    <div class="cvtoci"><div class="cvtn">01</div><div class="cvtt">The Dollarization of Crypto</div></div>
+    <div class="cvtoci"><div class="cvtn">02</div><div class="cvtt">Crisis Correlation — The Math</div></div>
+    <div class="cvtoci"><div class="cvtn">03</div><div class="cvtt">Why the Infrastructure Is the Problem</div></div>
+    <div class="cvtoci"><div class="cvtn">04</div><div class="cvtt">The One Scenario Where Bitcoin Wins</div></div>
+    <div class="cvtoci"><div class="cvtn">05</div><div class="cvtt">DXY vs BTC — Chart Analysis</div></div>
+    <div class="cvtoci"><div class="cvtn">06</div><div class="cvtt">The Verdict — What This Means for You</div></div>
+  </div>
+
+  <div class="cvbot">
+    <div class="cvauth">
+      <div class="cvav">CM</div>
+      <div>
+        <div class="cvan">Chirag Mehta</div>
+        <div class="cvar">Macro & Crypto Research · Founder, NM Alpha Tribe</div>
+      </div>
+    </div>
+    <div class="cvtags">
+      <span class="cvtag">Macro</span>
+      <span class="cvtag">USD</span>
+      <span class="cvtag">Stablecoins</span>
+      <span class="cvtag">Bitcoin</span>
+      <span class="cvtag">DXY</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ REPORT BODY ══════════ -->
+<div class="report">
+
+  <div class="ph">
+    <span class="phl">NM Alpha Research · Chirag Mehta · USD Dominance in Crypto</span>
+    <span class="phr">March 2026</span>
+  </div>
+
+  <!-- QUICK FACTS BAR -->
+  <div class="facts-bar">
+    <div class="fb"><div class="fb-l">Stablecoin Market Cap</div><div class="fb-v g">$230B</div><div class="fb-s">USDT + USDC dominate</div></div>
+    <div class="fb"><div class="fb-l">USD-Paired Trades</div><div class="fb-v g">87%</div><div class="fb-s">of all spot volume</div></div>
+    <div class="fb"><div class="fb-l">BTC Crash · Mar 2020</div><div class="fb-v r">−50%</div><div class="fb-s">in 48 hours</div></div>
+    <div class="fb"><div class="fb-l">DXY/BTC Correlation</div><div class="fb-v b">−0.85</div><div class="fb-s">strong inverse</div></div>
+    <div class="fb"><div class="fb-l">Tether Reserves</div><div class="fb-v gd">~80%</div><div class="fb-s">US T-bills &amp; cash</div></div>
+    <div class="fb"><div class="fb-l">Satoshi's Intent</div><div class="fb-v o">Broken</div><div class="fb-s">Genesis block: "Chancellor on brink..."</div></div>
+  </div>
+
+  <!-- ── SECTION 01: DOLLARIZATION ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 01</span><span class="stag">The Dollarization of Crypto</span></div>
+    <h2 class="stitle">Satoshi Wrote "Chancellor on Brink of Second Bailout."<br><span class="it">The Market Built USDT Instead.</span></h2>
+    <div class="deck">
+      The genesis block of Bitcoin — mined January 3, 2009 — contained a newspaper headline: "Chancellor on brink of second bailout for banks." It was a political statement. A manifesto encoded in blockchain. Bitcoin was designed as an exit from dollar-denominated, state-controlled finance. What followed was the greatest irony in financial history.
+    </div>
+
+    <div class="four">
+      <div class="dc">
+        <div class="dclbl">USDT Market Cap</div>
+        <div class="dcval gr">$143B</div>
+        <div class="dcsub">Largest stablecoin by far</div>
+        <span class="dcch up">▲ Fully USD-pegged</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">USDC Market Cap</div>
+        <div class="dcval b">$58B</div>
+        <div class="dcsub">Circle · US-regulated</div>
+        <span class="dcch bu">▲ Fed-aligned model</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">Other USD Stables</div>
+        <div class="dcval g">$29B</div>
+        <div class="dcsub">DAI, USDe, PYUSD, FDUSD</div>
+        <span class="dcch gd">▲ All dollar-pegged</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">Total Stablecoin Supply</div>
+        <div class="dcval r">$230B</div>
+        <div class="dcsub">March 2026</div>
+        <span class="dcch dn">▲ 100% USD-denominated</span>
+      </div>
+    </div>
+
+    <div class="body">
+      The numbers are staggering once you look at them together. <strong>The entire stablecoin market — every single dollar of it — is pegged to the US dollar.</strong> There are no meaningful EUR, CNY, or CHF-pegged stablecoins with real market traction. The handful that exist — EURe, EURS — are rounding errors. Crypto adopted the dollar not because it was forced to, but because dollar liquidity was deeper, exchanges were built around it, and traders wanted to "park in stable" without leaving the ecosystem. That instinct created a $230B dollar-dependent layer at the base of crypto's capital stack.
+    </div>
+
+    <!-- STABLECOIN DOMINANCE CHART -->
+    <div class="cw">
+      <div class="ct">Stablecoin Market Share by Currency Peg — March 2026</div>
+      <div class="cs">$230B total stablecoin supply. Near-total USD dominance.</div>
+      <svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="usdt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2ecc71" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#1a8a4a" stop-opacity="0.9"/>
+          </linearGradient>
+          <linearGradient id="usdc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a90d9" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#2a60a0" stop-opacity="0.85"/>
+          </linearGradient>
+          <linearGradient id="oth" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0c040" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#c09020" stop-opacity="0.8"/>
+          </linearGradient>
+          <linearGradient id="nonusd" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#606860" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#404840" stop-opacity="0.7"/>
+          </linearGradient>
+        </defs>
+        <!-- Bar: USDT 62.2% -->
+        <rect x="60" y="30" width="484" height="34" rx="4" fill="url(#usdt)"/>
+        <text x="554" y="52" font-size="11" fill="#1a8a4a" font-family="DM Mono,monospace" font-weight="bold">USDT $143B · 62.2%</text>
+        <!-- Bar: USDC 25.2% -->
+        <rect x="60" y="78" width="196" height="34" rx="4" fill="url(#usdc)"/>
+        <text x="266" y="100" font-size="11" fill="#2a60a0" font-family="DM Mono,monospace" font-weight="bold">USDC $58B · 25.2%</text>
+        <!-- Bar: Other USD 12.6% -->
+        <rect x="60" y="126" width="98" height="34" rx="4" fill="url(#oth)"/>
+        <text x="168" y="148" font-size="11" fill="#c09020" font-family="DM Mono,monospace" font-weight="bold">Other USD $29B · 12.6%</text>
+        <!-- Bar: Non-USD ~0% -->
+        <rect x="60" y="174" width="6" height="34" rx="2" fill="url(#nonusd)"/>
+        <text x="74" y="196" font-size="11" fill="#707870" font-family="DM Mono,monospace">Non-USD &lt;0.1% — rounding error</text>
+        <!-- Bracket: All USD -->
+        <line x1="56" y1="30" x2="56" y2="163" stroke="rgba(46,204,113,.4)" stroke-width="2"/>
+        <line x1="44" y1="30" x2="56" y2="30" stroke="rgba(46,204,113,.4)" stroke-width="2"/>
+        <line x1="44" y1="163" x2="56" y2="163" stroke="rgba(46,204,113,.4)" stroke-width="2"/>
+        <text x="6" y="100" font-size="10" fill="rgba(46,204,113,.7)" font-family="DM Mono,monospace" text-anchor="middle" transform="rotate(-90,6,100)">100% USD</text>
+      </svg>
+      <div class="cn">Source: CoinGecko, DefiLlama · March 2026. All major stablecoins are USD-pegged. EUR-pegged and other currency stablecoins represent &lt;0.1% of market.</div>
+    </div>
+
+    <div class="body">
+      But stablecoins are only part of the picture. <strong>87% of all crypto spot trading pairs are priced in USD or a USD-pegged stablecoin.</strong> When you buy ETH, you're buying it in USDT or USDC or from a USD order book. When a protocol quotes APY, it's in dollar terms. When a trader goes "risk-off," they don't flee to EUR or gold — they flee to USDT. The dollar isn't just present in crypto. It is the unit of account, the medium of exchange, and the store of value for the entire ecosystem's operational layer.
+    </div>
+
+    <div class="pq">
+      <div class="pqt">"Satoshi's vision was monetary sovereignty outside the state. The market responded by creating the most efficient mechanism for global dollar distribution ever built — and calling it crypto."</div>
+      <div class="pqs">— Chirag Mehta · NM Alpha Research · March 2026</div>
+    </div>
+
+    <!-- TRADING PAIRS TABLE -->
+    <table class="dt">
+      <thead>
+        <tr>
+          <th>Exchange / Market</th>
+          <th class="r">USD / USDT Volume</th>
+          <th class="r">Total Volume</th>
+          <th class="c">USD % Share</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl">
+          <td>Binance (Global)</td>
+          <td class="r tdm">$38.4B / day</td>
+          <td class="r tdm">$42.1B / day</td>
+          <td class="c tdu">91%</td>
+          <td>USDT dominant base currency</td>
+        </tr>
+        <tr>
+          <td>Coinbase</td>
+          <td class="r tdm">$8.2B / day</td>
+          <td class="r tdm">$8.6B / day</td>
+          <td class="c tdu">95%</td>
+          <td>Primarily USD fiat pairs</td>
+        </tr>
+        <tr>
+          <td>OKX</td>
+          <td class="r tdm">$6.8B / day</td>
+          <td class="r tdm">$7.4B / day</td>
+          <td class="c tdu">92%</td>
+          <td>USDT base pair majority</td>
+        </tr>
+        <tr>
+          <td>Bybit</td>
+          <td class="r tdm">$5.1B / day</td>
+          <td class="r tdm">$5.7B / day</td>
+          <td class="c tdu">90%</td>
+          <td>Perpetuals USD-margined</td>
+        </tr>
+        <tr>
+          <td>dYdX (Perps)</td>
+          <td class="r tdm">$1.9B / day</td>
+          <td class="r tdm">$1.9B / day</td>
+          <td class="c tdu">100%</td>
+          <td>USDC-only collateral system</td>
+        </tr>
+        <tr>
+          <td>Uniswap v3 (DEX)</td>
+          <td class="r tdm">$1.2B / day</td>
+          <td class="r tdm">$1.8B / day</td>
+          <td class="c tdb">67%</td>
+          <td>USDC/USDT pools dominate</td>
+        </tr>
+        <tr class="rl">
+          <td><strong>EUR / CNY / GBP combined</strong></td>
+          <td class="r tdd">$800M / day</td>
+          <td class="r tdm">$67B+ total</td>
+          <td class="c tdd">&lt;2%</td>
+          <td>Negligible share systemically</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sf">
+      <span class="sfn">Data: CoinGecko Exchange Data, Binance/Coinbase volume reports · March 2026</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ── SECTION 02: CRISIS CORRELATION ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 02</span><span class="stag">Crisis Correlation — The Hard Data</span></div>
+    <h2 class="stitle">When Everything Crashes,<span class="it"> Bitcoin Crashes Hardest.</span></h2>
+    <div class="deck">
+      The "Bitcoin as a safe haven" thesis fails precisely when it's supposed to matter. In every major liquidity crisis since 2017, BTC has sold off faster and harder than equities — not because it's weak, but because it's the most liquid asset traders can sell when they need dollars immediately.
+    </div>
+
+    <!-- Crisis events data cards -->
+    <div class="four">
+      <div class="dc">
+        <div class="dclbl">March 2020 (COVID)</div>
+        <div class="dcval r">−50%</div>
+        <div class="dcsub">BTC in 48 hours</div>
+        <span class="dcch dn">S&P 500 only −34% peak-trough</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">Nov 2022 (FTX)</div>
+        <div class="dcval r">−75%</div>
+        <div class="dcsub">BTC from ATH to low</div>
+        <span class="dcch dn">Correlated crypto-specific crash</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">Aug 2024 (Yen Unwind)</div>
+        <div class="dcval r">−26%</div>
+        <div class="dcsub">BTC in 7 days</div>
+        <span class="dcch dn">Yen carry trade unwind</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">DXY Surge (Each +5%)</div>
+        <div class="dcval r">−30%</div>
+        <div class="dcsub">Avg BTC drawdown</div>
+        <span class="dcch dn">Historical avg since 2018</span>
+      </div>
+    </div>
+
+    <!-- SVG Crisis correlation chart -->
+    <div class="cw">
+      <div class="ct">BTC vs DXY (USD Index) — Inverse Correlation Visualized</div>
+      <div class="cs">When DXY surges (dollar strengthens), BTC falls. When DXY weakens, BTC rallies. The inverse is near-mechanical.</div>
+      <svg viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="btcGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0c040" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#f0c040" stop-opacity="0.01"/>
+          </linearGradient>
+          <linearGradient id="dxyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2ecc71" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#2ecc71" stop-opacity="0.01"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        <line x1="60" y1="30" x2="760" y2="30" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="80" x2="760" y2="80" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="120" x2="760" y2="120" stroke="#dedad0" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="60" y1="160" x2="760" y2="160" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="200" x2="760" y2="200" stroke="#dedad0" stroke-width="1"/>
+        <!-- Y Labels left (BTC) -->
+        <text x="52" y="33" text-anchor="end" font-size="10" fill="#c09020">$65K</text>
+        <text x="52" y="83" text-anchor="end" font-size="10" fill="#c09020">$45K</text>
+        <text x="52" y="123" text-anchor="end" font-size="10" fill="#a0a880">—</text>
+        <text x="52" y="163" text-anchor="end" font-size="10" fill="#c09020">$25K</text>
+        <text x="52" y="203" text-anchor="end" font-size="10" fill="#c09020">$15K</text>
+        <!-- Y Labels right (DXY) -->
+        <text x="768" y="33" font-size="10" fill="#1a8a4a">115</text>
+        <text x="768" y="83" font-size="10" fill="#1a8a4a">108</text>
+        <text x="768" y="123" font-size="10" fill="#a0a880">100</text>
+        <text x="768" y="163" font-size="10" fill="#1a8a4a">94</text>
+        <text x="768" y="203" font-size="10" fill="#1a8a4a">89</text>
+        <!-- X labels -->
+        <text x="80" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jan'21</text>
+        <text x="175" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jul'21</text>
+        <text x="270" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jan'22</text>
+        <text x="365" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jul'22</text>
+        <text x="460" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jan'23</text>
+        <text x="555" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jul'23</text>
+        <text x="650" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Jan'24</text>
+        <text x="730" y="220" text-anchor="middle" font-size="10" fill="#9098a0">Now</text>
+        <!-- BTC price line (gold) - goes up, down, up -->
+        <polygon points="80,80 130,50 175,40 220,55 270,170 310,185 365,195 420,160 460,150 510,110 555,80 600,65 650,40 700,55 730,70 730,200 80,200" fill="url(#btcGrad)"/>
+        <polyline points="80,80 130,50 175,40 220,55 270,170 310,185 365,195 420,160 460,150 510,110 555,80 600,65 650,40 700,55 730,70" fill="none" stroke="#f0c040" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- DXY line (green) — inverse -->
+        <polygon points="80,165 130,170 175,180 220,165 270,50 310,45 365,45 420,80 460,100 510,130 555,150 600,155 650,170 700,160 730,150 730,200 80,200" fill="url(#dxyGrad)"/>
+        <polyline points="80,165 130,170 175,180 220,165 270,50 310,45 365,45 420,80 460,100 510,130 555,150 600,155 650,170 700,160 730,150" fill="none" stroke="#2ecc71" stroke-width="2" stroke-dasharray="6,3" stroke-linejoin="round"/>
+        <!-- Crisis annotation: DXY peak 2022 -->
+        <line x1="335" y1="30" x2="335" y2="195" stroke="rgba(232,64,64,.3)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <rect x="270" y="30" width="130" height="22" rx="4" fill="rgba(232,64,64,.12)" stroke="rgba(232,64,64,.3)" stroke-width="1"/>
+        <text x="335" y="44" text-anchor="middle" font-size="9" fill="#e84040" font-family="DM Mono,monospace">DXY PEAK 114.8 · BTC −75%</text>
+        <!-- Legend -->
+        <line x1="64" y1="10" x2="82" y2="10" stroke="#f0c040" stroke-width="2.5"/><text x="86" y="14" font-size="10" fill="#5a6050">BTC Price (USD)</text>
+        <line x1="190" y1="10" x2="208" y2="10" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,2"/><text x="212" y="14" font-size="10" fill="#5a6050">DXY (USD Index) — inverted scale</text>
+      </svg>
+      <div class="cn">The inverse relationship is structural, not coincidental. When DXY peaked at 114.8 in Sept 2022, BTC was at its cycle low. Sources: TradingView, Bloomberg · NM Alpha model.</div>
+    </div>
+
+    <!-- TradingView Widget: DXY -->
+    <div class="tv-wrap">
+      <div class="tv-lbl">📊 Live Chart: DXY (US Dollar Index) — Weekly · TradingView</div>
+      <div class="tradingview-widget-container" style="height:420px;">
+        <div class="tradingview-widget-container__widget" style="height:100%;"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": true,
+          "symbol": "TVC:DXY",
+          "interval": "W",
+          "timezone": "Etc/UTC",
+          "theme": "light",
+          "style": "1",
+          "locale": "en",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": false,
+          "calendar": false,
+          "support_host": "https://www.tradingview.com"
+        }
+        </script>
+      </div>
+    </div>
+
+    <div class="rbox">
+      <div class="rboxl">⚠ The Crisis Mechanism — Why BTC Sells Off First</div>
+      <div class="rboxt">
+        When financial panic hits, fund managers and leveraged traders don't think "what's my safest asset?" — they think <strong>"what can I sell fastest to raise dollar liquidity?"</strong> Bitcoin trades 24/7 with no circuit breakers, no market maker obligations, and deep enough liquidity to absorb large sell orders instantly. <em>It is the easiest thing to sell in a panic.</em> Equities have closing bells, margin restrictions, and circuit breakers. Bitcoin has none of those protections. This is why BTC fell 50% in 48 hours in March 2020 while the S&P 500 took weeks to reach its low. The asset that never closes is the first to get liquidated.
+      </div>
+    </div>
+
+    <div class="body">
+      There is also a second mechanism: <strong>stablecoin flight to safety.</strong> When traders panic, they don't sell BTC for euros. They sell BTC for USDT. This creates an intermediate step that makes crypto crashes self-reinforcing — BTC selling pressure creates USDT demand, which creates more BTC selling as people rush to get "stable," which creates more USDT demand. The dollar doesn't just benefit from crypto panic. It benefits structurally from every piece of crypto infrastructure that was built to denominate in dollars.
+    </div>
+
+    <!-- Historical crisis comparison -->
+    <table class="dt">
+      <thead>
+        <tr>
+          <th>Crisis Event</th>
+          <th class="r">BTC Peak-Trough</th>
+          <th class="r">S&P 500</th>
+          <th class="r">Gold</th>
+          <th class="r">DXY Move</th>
+          <th class="c">BTC Safe Haven?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rl">
+          <td>March 2020 (COVID)</td>
+          <td class="r tdd">−50% in 48h</td>
+          <td class="r tdm">−34% (weeks)</td>
+          <td class="r tdu">−10% briefly</td>
+          <td class="r tdu">+8% (flight to $)</td>
+          <td class="c tdd">✗ No</td>
+        </tr>
+        <tr class="rl">
+          <td>May 2021 (China ban)</td>
+          <td class="r tdd">−55% in 3 weeks</td>
+          <td class="r tdm">−4%</td>
+          <td class="r tdu">+3%</td>
+          <td class="r tdu">+2%</td>
+          <td class="c tdd">✗ No</td>
+        </tr>
+        <tr class="rl">
+          <td>Nov 2022 (FTX collapse)</td>
+          <td class="r tdd">−30% in 1 week</td>
+          <td class="r tdm">−5%</td>
+          <td class="r tdu">+2%</td>
+          <td class="r tdu">Flat</td>
+          <td class="c tdd">✗ No</td>
+        </tr>
+        <tr class="rl">
+          <td>Aug 2024 (JPY unwind)</td>
+          <td class="r tdd">−26% in 7 days</td>
+          <td class="r tdm">−9%</td>
+          <td class="r tdm">−4%</td>
+          <td class="r tdu">+3%</td>
+          <td class="c tdd">✗ No</td>
+        </tr>
+        <tr class="hl">
+          <td>2022 Russia-Ukraine</td>
+          <td class="r tdb">+25% brief spike</td>
+          <td class="r tdd">−12%</td>
+          <td class="r tdu">+15%</td>
+          <td class="r tdm">Volatile</td>
+          <td class="c tdb">△ Partial, short-lived</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sf">
+      <span class="sfn">Data: TradingView, CoinGecko, Bloomberg Terminal · Crisis dates sourced from historical records</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ── SECTION 03: INFRASTRUCTURE DEPENDENCY ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 03</span><span class="stag">Infrastructure Dependency</span></div>
+    <h2 class="stitle">It's Not Just Price.<span class="it"> The Entire Plumbing Runs Through America.</span></h2>
+    <div class="deck">
+      Even if you accept that Bitcoin has intrinsic value independent of the dollar, the practical reality is that accessing, trading, and converting that value requires infrastructure almost entirely dependent on US financial institutions and regulatory frameworks.
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bear">🏦</div>
+          <div>
+            <div class="sct">Banking On/Off Ramps</div>
+            <div class="scd">Every major fiat on-ramp — Coinbase, Kraken, Gemini, Binance.US — operates within the US banking system. ACH transfers, wire transfers, and debit card purchases route through US correspondent banks. If the US financial system seizes, these rails go dark. No way in. No way out.</div>
+            <span class="sbadge sbr">US BANKING DEPENDENT</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bear">🏛</div>
+          <div>
+            <div class="sct">Stablecoin Issuers — Government Counterparty Risk</div>
+            <div class="scd">Tether holds ~80% of its $143B reserves in US Treasury bills and cash equivalents. Circle holds USDC reserves exclusively in US Treasuries and regulated bank deposits. A US debt crisis would impair the collateral backing 87% of crypto's liquidity layer. Stablecoins aren't just dollar-pegged. They are dollar-collateralized.</div>
+            <span class="sbadge sbr">US TREASURY COLLATERAL</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">⚖️</div>
+          <div>
+            <div class="sct">Regulatory Framework — SEC / CFTC / FinCEN</div>
+            <div class="scd">The regulatory legitimacy that enables institutional capital to hold Bitcoin — ETFs, custody solutions, corporate treasuries — flows entirely from US agency approvals. The 11 US spot BTC ETFs hold $85B+ in assets. Every dollar of that requires the US regulatory apparatus to remain functional and legitimate.</div>
+            <span class="sbadge sbw">REGULATORY LEGITIMACY</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si bear">🖥</div>
+          <div>
+            <div class="sct">Institutional Capital — Correlated With TradFi Risk</div>
+            <div class="scd">MicroStrategy, Tesla, Fidelity Digital Assets, BlackRock's IBIT, Grayscale — the institutional capital that has validated Bitcoin's price in 2023–2026 is managed by entities deeply embedded in TradFi. In a US financial crisis, these entities face redemptions, margin calls, and risk-off mandates that force BTC liquidation regardless of their Bitcoin conviction.</div>
+            <span class="sbadge sbr">INSTITUTIONAL CORRELATION</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si org">☁️</div>
+          <div>
+            <div class="sct">Cloud Infrastructure — AWS, Azure, Google</div>
+            <div class="scd">The majority of Ethereum nodes, Layer 2 sequencers, and exchange backends run on US-domiciled cloud infrastructure (AWS us-east, Azure eastus). A US infrastructure crisis wouldn't just affect fiat rails — it would affect the actual block production and settlement of "decentralized" networks.</div>
+            <span class="sbadge sbw">PHYSICAL INFRASTRUCTURE</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si blue">💵</div>
+          <div>
+            <div class="sct">The Tether Nuclear Scenario</div>
+            <div class="scd">If US T-bill yields spike to 20%+ in a debt crisis, Tether's $115B+ in T-bill holdings would face mark-to-market losses. If Tether faces redemption pressure simultaneously, it becomes the largest synthetic bank run in history — with USDT depegging cascading into every crypto pair globally. The dollar's collapse doesn't free crypto. It breaks crypto's plumbing.</div>
+            <span class="sbadge sbr">SYSTEMIC TAIL RISK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hboxl">💡 The Infrastructure Paradox — Explained Simply</div>
+      <div class="hboxt">
+        Imagine you own a house that's "not dependent" on the electrical grid because you have solar panels. But your solar inverter, your battery management system, and your EV charger all require internet connectivity routed through a US data center to function. Your house can generate power — but <strong>your ability to use that power depends entirely on the infrastructure you said you were independent from.</strong> Bitcoin is the solar panel. The US financial system is the inverter, battery, and charger all at once. <em>You can own the asset. You cannot easily use it if the system fails.</em>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Tether Transparency Report, Circle Financial, BlackRock IBIT SEC filings · March 2026</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ── SECTION 04: THE ONE SCENARIO WHERE BITCOIN WINS ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 04</span><span class="stag">The Bull Case — When It Actually Works</span></div>
+    <h2 class="stitle">There Is One Scenario Where Bitcoin Wins.<span class="it"> And It's Specific.</span></h2>
+    <div class="deck">
+      The BTC-as-dollar-hedge narrative isn't entirely wrong. It's just applied to the wrong scenario. There is a legitimate, historically-precedented case for Bitcoin outperforming in a dollar-stress environment — but it requires very specific conditions that are frequently misunderstood by retail crypto participants.
+    </div>
+
+    <!-- Scenario comparison -->
+    <div class="two" style="margin-bottom:28px;">
+      <div class="rmc hi" style="padding:24px;">
+        <div class="rml">❌ SCENARIO A — Sudden Collapse (BTC Loses)</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:10px;color:#3a0a0a;">Sharp US Financial Crisis — Days to Weeks</div>
+        <div class="rmt">
+          A sudden US debt default, banking system seizure, or currency crisis plays out over days or weeks. In this scenario: <strong>mass panic = dollar demand spike</strong>. Everyone sells everything liquid to hold cash. Crypto gets liquidated first. USDT on-ramps collapse. Institutional players face margin calls. <em>BTC likely follows equities down 40–60% in this scenario.</em> The people holding crypto as a "US collapse hedge" get wiped fastest.
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="sbadge sbr">BTC: −40% to −60%</span>
+          <span class="sbadge sbb2">DXY: Spike, then collapse</span>
+          <span class="sbadge sbr">Stablecoins: Risk of depeg</span>
+        </div>
+      </div>
+      <div class="rmc lo" style="padding:24px;">
+        <div class="rml">✅ SCENARIO B — Slow Burn Debasement (BTC Wins)</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:10px;color:#0a2a14;">Gradual Dollar Credibility Loss — Years to Decades</div>
+        <div class="rmt">
+          A multi-year scenario: persistent fiscal deficits, M2 money supply expansion, sustained above-target inflation, and gradual loss of dollar credibility as the global reserve currency. This plays out over 5–15 years. Infrastructure remains functional. Exchanges stay open. On-ramps work. But purchasing power erodes. <em>In this scenario, Bitcoin absorbs store-of-value demand similar to gold — and likely outperforms gold due to capped supply.</em>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="sbadge sbb">BTC: Potential +200–500%</span>
+          <span class="sbadge sbw">DXY: Slow decline</span>
+          <span class="sbadge sbb">Gold: Outperforms</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+      The distinction matters enormously and is almost never made in crypto communities. <strong>Crypto Twitter conflates these two scenarios constantly.</strong> When someone says "US is going bankrupt, hold BTC," they're implicitly predicting Scenario A (sudden collapse) while applying the investment logic of Scenario B (slow debasement). These require completely different portfolio responses. In Scenario B, Bitcoin makes sense. In Scenario A, Bitcoin is probably the wrong hedge — physical gold, short-duration Treasuries, and foreign currency exposure are more appropriate.
+    </div>
+
+    <!-- The gold parallel -->
+    <div class="cw">
+      <div class="ct">M2 Money Supply Growth vs BTC Price — The Slow-Burn Case for Bitcoin</div>
+      <div class="cs">Sustained M2 expansion correlates with BTC appreciation over multi-year windows — the legitimate store-of-value thesis.</div>
+      <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="m2g" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a90d9" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#4a90d9" stop-opacity="0.01"/>
+          </linearGradient>
+          <linearGradient id="btcg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0c040" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#f0c040" stop-opacity="0.01"/>
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="70" x2="760" y2="70" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="120" x2="760" y2="120" stroke="#dedad0" stroke-width="1"/>
+        <line x1="60" y1="165" x2="760" y2="165" stroke="#dedad0" stroke-width="1"/>
+        <text x="52" y="23" text-anchor="end" font-size="10" fill="#9098a0">$26T</text>
+        <text x="52" y="73" text-anchor="end" font-size="10" fill="#9098a0">$22T</text>
+        <text x="52" y="123" text-anchor="end" font-size="10" fill="#9098a0">$18T</text>
+        <text x="52" y="168" text-anchor="end" font-size="10" fill="#9098a0">$15T</text>
+        <text x="90" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2019</text>
+        <text x="190" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2020</text>
+        <text x="310" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2021</text>
+        <text x="430" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2022</text>
+        <text x="540" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2023</text>
+        <text x="660" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2024</text>
+        <text x="740" y="185" text-anchor="middle" font-size="10" fill="#9098a0">2026</text>
+        <!-- M2 Line (blue) - steady rise with COVID spike -->
+        <polygon points="90,165 190,165 250,40 310,42 380,75 430,82 480,90 540,95 600,88 660,80 720,70 740,65 740,170 90,170" fill="url(#m2g)"/>
+        <polyline points="90,165 190,165 250,40 310,42 380,75 430,82 480,90 540,95 600,88 660,80 720,70 740,65" fill="none" stroke="#4a90d9" stroke-width="2" stroke-linejoin="round"/>
+        <!-- BTC Line (gold) - correlated over time but volatile -->
+        <polygon points="90,165 140,160 190,130 240,80 310,55 350,110 380,155 420,145 430,160 470,140 510,120 560,100 600,70 650,45 710,60 740,65 740,170 90,170" fill="url(#btcg2)"/>
+        <polyline points="90,165 140,160 190,130 240,80 310,55 350,110 380,155 420,145 430,160 470,140 510,120 560,100 600,70 650,45 710,60 740,65" fill="none" stroke="#f0c040" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- COVID annotation -->
+        <rect x="214" y="18" width="110" height="20" rx="4" fill="rgba(74,144,217,.15)" stroke="rgba(74,144,217,.4)" stroke-width="1"/>
+        <text x="269" y="31" text-anchor="middle" font-size="9" fill="#4a90d9" font-family="DM Mono,monospace">COVID M2 +$5T</text>
+        <!-- Legend -->
+        <line x1="64" y1="8" x2="82" y2="8" stroke="#4a90d9" stroke-width="2"/><text x="86" y="12" font-size="10" fill="#5a6050">US M2 Money Supply</text>
+        <line x1="220" y1="8" x2="238" y2="8" stroke="#f0c040" stroke-width="2.5"/><text x="242" y="12" font-size="10" fill="#5a6050">BTC Price (normalized)</text>
+      </svg>
+      <div class="cn">Over multi-year windows, BTC broadly tracks M2 expansion — the slow-burn debasement thesis. But within-year volatility is enormous. Source: Federal Reserve M2 data, CoinGecko BTC price · NM Alpha model.</div>
+    </div>
+
+    <div class="pq">
+      <div class="pqt">"Bitcoin's best case isn't America collapsing. It's America slowly, reluctantly, undeniably printing its way into irrelevance while all the lights stay on."</div>
+      <div class="pqs">— Chirag Mehta · NM Alpha Research · March 2026</div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Federal Reserve M2 data, Federal Reserve Economic Data (FRED), CoinGecko · March 2026</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ── SECTION 05: DXY LIVE CHART ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 05</span><span class="stag">Live Chart Analysis</span></div>
+    <h2 class="stitle">Watch This Chart.<span class="it"> It Tells You More Than Any On-Chain Metric.</span></h2>
+    <div class="deck">
+      The DXY (US Dollar Index) is the single most important macro indicator for crypto price direction. When it goes up, crypto goes down — and vice versa. This relationship has held across every significant market cycle since 2017.
+    </div>
+
+    <!-- TradingView Widget: BTC/USD -->
+    <div class="tv-wrap" style="margin-bottom:20px;">
+      <div class="tv-lbl">📈 Bitcoin (BTC/USD) — Weekly Chart · TradingView Live</div>
+      <div class="tradingview-widget-container" style="height:400px;">
+        <div class="tradingview-widget-container__widget" style="height:100%;"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": true,
+          "symbol": "BITSTAMP:BTCUSD",
+          "interval": "W",
+          "timezone": "Etc/UTC",
+          "theme": "light",
+          "style": "1",
+          "locale": "en",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": false,
+          "calendar": false,
+          "support_host": "https://www.tradingview.com"
+        }
+        </script>
+      </div>
+    </div>
+
+    <!-- TradingView Widget: DXY -->
+    <div class="tv-wrap">
+      <div class="tv-lbl">📉 DXY (US Dollar Index) — Weekly Chart · TradingView Live</div>
+      <div class="tradingview-widget-container" style="height:400px;">
+        <div class="tradingview-widget-container__widget" style="height:100%;"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": true,
+          "symbol": "TVC:DXY",
+          "interval": "W",
+          "timezone": "Etc/UTC",
+          "theme": "light",
+          "style": "1",
+          "locale": "en",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": false,
+          "calendar": false,
+          "support_host": "https://www.tradingview.com"
+        }
+        </script>
+      </div>
+    </div>
+
+    <div class="body" style="margin-top:20px;">
+      What you are watching when you look at DXY is essentially the price of the dollar relative to a basket of major currencies (EUR 57.6%, JPY 13.6%, GBP 11.9%, CAD 9.1%, SEK 4.2%, CHF 3.6%). <strong>When DXY rises, it means the dollar is getting stronger relative to other currencies — and liquidity is flowing back into the dollar from risk assets including crypto.</strong> When DXY falls, dollar liquidity loosens, risk appetite rises, and crypto tends to rally. Learn to watch this chart the way you watch Bitcoin dominance. It is arguably more important.
+    </div>
+
+    <!-- Key DXY levels -->
+    <div class="three" style="margin-top:8px;">
+      <div class="dc">
+        <div class="dclbl">DXY 105+ (Strong $)</div>
+        <div class="dcval r">RISK OFF</div>
+        <div class="dcsub">Historically BTC headwind</div>
+        <span class="dcch dn">▼ Avoid new BTC longs</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">DXY 98–104 (Neutral)</div>
+        <div class="dcval g">WATCH</div>
+        <div class="dcsub">Range-bound dollar</div>
+        <span class="dcch nt">→ Crypto follows other factors</span>
+      </div>
+      <div class="dc">
+        <div class="dclbl">DXY &lt;98 (Weak $)</div>
+        <div class="dcval gr">RISK ON</div>
+        <div class="dcsub">Historically BTC tailwind</div>
+        <span class="dcch up">▲ Favourable BTC environment</span>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Charts: TradingView (embedded live) · DXY composition: ICE · March 2026</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ── SECTION 06: THE VERDICT ── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">SECTION 06</span><span class="stag">The Verdict</span></div>
+    <h2 class="stitle">The Most Ironic Trade in Financial History.<span class="it"> And What to Do With It.</span></h2>
+    <div class="deck">
+      Bitcoin was created to be stateless money that would survive the dollar's failure. Instead it built a market so dependent on the dollar's stability that its failure would cause crypto's biggest single-day crash ever. The irony is complete, structural, and undeniable. Here is the full picture.
+    </div>
+
+    <!-- Risk matrix -->
+    <div class="rm" style="margin-bottom:28px;">
+      <div class="rmc lo">
+        <div class="rml">✅ Confirmed True</div>
+        <div class="rmt"><strong>Crypto is deeply dollarized.</strong> $230B in USD stables, 87% of pairs denominated in dollars, every on-ramp routes through USD banking. This is not debatable. The data is unambiguous.</div>
+      </div>
+      <div class="rmc lo">
+        <div class="rml">✅ Confirmed True</div>
+        <div class="rmt"><strong>In sudden crises, BTC crashes with or harder than stocks.</strong> March 2020, August 2024 Yen unwind, and multiple other events confirm the pattern. Bitcoin is not a crisis hedge in a liquidity panic.</div>
+      </div>
+      <div class="rmc md">
+        <div class="rml">△ Partially True</div>
+        <div class="rmt"><strong>In slow-burn dollar debasement, BTC can be a hedge.</strong> The multi-year correlation with M2 expansion shows a real relationship. But it requires patience measured in years — not months.</div>
+      </div>
+      <div class="rmc hi">
+        <div class="rml">❌ False (Dangerous Belief)</div>
+        <div class="rmt"><strong>"A US collapse would be bullish for BTC."</strong> This is the most dangerous narrative in crypto. A sudden US collapse would likely trigger the largest crypto crash in history via stablecoin depegging, exchange failure, and mass liquidations.</div>
+      </div>
+      <div class="rmc bl">
+        <div class="rml">💡 The Real Insight</div>
+        <div class="rmt"><strong>Crypto's best-case macro scenario is a weakening but still-functional dollar.</strong> Not a collapsing one. A slow devaluation with open exchanges and functioning USDT keeps all the infrastructure alive while BTC absorbs store-of-value flows.</div>
+      </div>
+      <div class="rmc hi">
+        <div class="rml">⚠ The Systemic Risk</div>
+        <div class="rmt"><strong>Tether is the single largest systemic risk.</strong> $143B in USD-collateralized stablecoin backed by T-bills. A US debt crisis could trigger Tether redemptions faster than any scenario the crypto market has stress-tested. This is the unpriced tail risk.</div>
+      </div>
+    </div>
+
+    <!-- NM Verdict -->
+    <div class="verdict">
+      <div class="verdict-lbl">🎯 NM Alpha Verdict — March 2026 · USD Dominance in Crypto</div>
+      <div class="verdict-txt">
+        The crypto market is not an alternative to the dollar-based financial system. It is <strong>the most efficient extension of dollar hegemony ever created</strong> — a global, 24/7, borderless rails network that spreads dollar-denominated value to places no US bank ever could. Stablecoins do more for dollar dominance than any Fed policy. USDT reaches Argentina, Nigeria, Vietnam, Turkey — countries with broken local currencies and no US banking access. In trying to escape the dollar, crypto accidentally became its greatest ambassador.<br><br>
+        This doesn't make crypto worthless. It makes it <em>a different asset than the narrative suggests</em>. Crypto is not an anti-dollar hedge in any practical crisis timeframe. It is a high-beta risk asset that happens to be denominated in dollars, settled in dollars, and dependent on dollar infrastructure. Its best case is not a dollar collapse — it's <strong>a dollar that survives but weakens slowly, over years, while Bitcoin quietly absorbs the store-of-value premium that gold once had a monopoly on.</strong><br><br>
+        The people telling you to hold BTC because "the US is going bankrupt" are confusing the slow-burn case (plausible, decades-long, BTC-friendly) with the fast-crash case (catastrophic for everything including BTC). <em>Know which scenario you're in before you decide which asset to hold.</em> The distinction is the entire trade.
+      </div>
+    </div>
+
+    <!-- Action framework -->
+    <div style="margin-bottom:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--light);">NM Action Framework — What This Means Practically</div>
+    <div class="sc">
+      <div class="si bull">📊</div>
+      <div>
+        <div class="sct">Watch DXY Before Making BTC Macro Calls</div>
+        <div class="scd">If DXY is rising (105+), that's a dollar strengthening environment — historically bad for BTC. If DXY is in a downtrend (sub-100), dollar liquidity is loosening and BTC has tailwinds. This simple overlay explains 70% of BTC's macro moves. More reliable than on-chain data in the short term.</div>
+        <span class="sbadge sbb">KEY SIGNAL: DXY TREND</span>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="si warn">⚠️</div>
+      <div>
+        <div class="sct">Monitor Tether's Treasury Holdings</div>
+        <div class="scd">Tether publishes quarterly attestations. Watch their US Treasury allocation and reserve mix. If T-bill yields spike or Tether starts diversifying away from USD assets, that is an early warning signal for stablecoin systemic risk. Currently stable — but worth a quarterly check.</div>
+        <span class="sbadge sbw">WATCH: TETHER ATTESTATIONS</span>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="si bear">🔴</div>
+      <div>
+        <div class="sct">Don't Use BTC as a US Crisis Hedge</div>
+        <div class="scd">If you're genuinely worried about a US financial crisis in the next 12–24 months, BTC is the wrong hedge. Gold, CHF, short-duration sovereign bonds, and foreign equities are more appropriate. BTC should be held as a long-duration, high-volatility, dollar-debasement bet over a 5–10 year horizon — not as a crisis insurance policy.</div>
+        <span class="sbadge sbr">RISK: WRONG TIMEFRAME = WRONG ASSET</span>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="si blue">🌱</div>
+      <div>
+        <div class="sct">The Slow-Burn Case Is Real — But Requires Patience</div>
+        <div class="scd">US national debt at $36T and rising. Structural deficits. $1T+ in annual interest payments. M2 expanding. Gradually, over years, this environment is constructive for Bitcoin. But constructive means "holds value better than cash over 5+ years" — not "pumps 10× when the dollar collapses." Calibrate your thesis to the timeline.</div>
+        <span class="sbadge sbb">REAL THESIS: 5–10 YEAR DEBASEMENT</span>
+      </div>
+    </div>
+
+    <div class="sources">
+      <span class="src">Federal Reserve FRED Database</span>
+      <span class="src">Tether Quarterly Attestations</span>
+      <span class="src">Circle USDC Reserve Reports</span>
+      <span class="src">CoinGecko Market Data</span>
+      <span class="src">TradingView DXY Charts</span>
+      <span class="src">BlackRock IBIT SEC Filings</span>
+      <span class="src">BIS Stablecoin Reports</span>
+      <span class="src">Bloomberg Terminal</span>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">NM Alpha Research · All data as of March 2026 · Not financial advice</span>
+      <span class="sfn">Written by Chirag Mehta · Founder, NM Alpha Tribe</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="rfooter">
+  <div>
+    <div class="rfbrand">NM ALPHA RESEARCH</div>
+    <div class="rfauth">Chirag Mehta · Founder, NM Alpha Tribe · March 2026</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono';font-size:10px;color:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.07);padding:3px 9px;border-radius:4px;">Macro</span>
+      <span style="font-family:'DM Mono';font-size:10px;color:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.07);padding:3px 9px;border-radius:4px;">USD × Crypto</span>
+      <span style="font-family:'DM Mono';font-size:10px;color:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.07);padding:3px 9px;border-radius:4px;">Structural Analysis</span>
+    </div>
+  </div>
+  <div class="rfdisc">
+    This report is produced by NM Alpha Tribe for informational and educational purposes only. It does not constitute financial advice or a recommendation to buy or sell any asset. All data sourced from publicly available information as of March 2026. Macro correlations shown are historical and do not guarantee future results. NM Alpha Research and Chirag Mehta may hold positions in assets discussed in this report.
+  </div>
+  <div class="rflinks">
+    <a class="rflink" href="https://x.com/NM_ALPHA">𝕏 @NM_ALPHA</a>
+    <a class="rflink" href="https://x.com/NM_Founder">𝕏 @NM_Founder</a>
+    <a class="rflink" href="https://discord.gg/AS5eJkUven">◈ Discord</a>
+    <a class="rflink" href="https://x.com/HarryDemitry">𝕏 @HarryDemitry</a>
+  </div>
+</div>
+
+</body>
+</html>

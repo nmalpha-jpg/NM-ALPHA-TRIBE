@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Market Intelligence Report — Chirag Mehta</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #f0c040; --green: #3df0a0; --red: #f05050; --blue: #7080f0;
+    --ink: #0d0d15; --paper: #f5f3ee; --paper2: #ede9e0;
+    --dark: #13131f; --muted: #8888a8; --border: #e0ddd5;
+    --text: #1a1a2e; --light-muted: #9090a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ======================== COVER PAGE ======================== */
+  .cover {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+
+  .cover-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(240,192,64,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,192,64,0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .cover-orb1 {
+    position: absolute; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(240,192,64,0.15) 0%, transparent 65%);
+    top: -200px; right: -200px; border-radius: 50%;
+  }
+  .cover-orb2 {
+    position: absolute; width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(61,240,160,0.1) 0%, transparent 65%);
+    bottom: 0; left: -100px; border-radius: 50%;
+  }
+  .cover-orb3 {
+    position: absolute; width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(112,128,240,0.08) 0%, transparent 65%);
+    top: 40%; left: 35%; border-radius: 50%;
+  }
+
+  /* Diagonal slash accent */
+  .cover-slash {
+    position: absolute;
+    width: 4px; height: 120vh;
+    background: linear-gradient(to bottom, transparent, rgba(240,192,64,0.25), transparent);
+    top: -10vh; left: 52%;
+    transform: rotate(8deg);
+  }
+  .cover-slash2 {
+    position: absolute;
+    width: 1px; height: 120vh;
+    background: linear-gradient(to bottom, transparent, rgba(240,192,64,0.1), transparent);
+    top: -10vh; left: 54%;
+    transform: rotate(8deg);
+  }
+
+  /* Top bar */
+  .cover-topbar {
+    position: relative; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 52px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cover-topbar-left {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cover-logo-box {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: var(--ink);
+    letter-spacing: 1px;
+  }
+  .cover-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; color: rgba(255,255,255,0.5);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .cover-issue {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  /* Main cover content */
+  .cover-body {
+    position: relative; z-index: 10;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 52px;
+  }
+
+  .cover-report-type {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.25);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 100px;
+    width: fit-content; margin-bottom: 32px;
+  }
+  .cover-report-type .dot {
+    width: 6px; height: 6px;
+    background: var(--gold); border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .cover-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 104px);
+    line-height: 0.88;
+    letter-spacing: 3px;
+    color: #e8e8f0;
+    margin-bottom: 6px;
+  }
+  .cover-headline .accent { color: var(--gold); display: block; }
+  .cover-headline .sub { color: rgba(255,255,255,0.35); display: block; font-size: 0.55em; letter-spacing: 6px; margin-top: 8px; }
+
+  .cover-subtitle {
+    max-width: 580px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px; font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7; margin-top: 28px; margin-bottom: 48px;
+  }
+  .cover-subtitle strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  /* Cover stats strip */
+  .cover-stats {
+    display: flex; gap: 0;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px; overflow: hidden;
+    width: fit-content;
+  }
+  .cover-stat {
+    padding: 20px 32px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+  }
+  .cover-stat:last-child { border-right: none; }
+  .cover-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; letter-spacing: 1px; line-height: 1;
+  }
+  .cover-stat-num.gold { color: var(--gold); }
+  .cover-stat-num.green { color: var(--green); }
+  .cover-stat-num.red { color: var(--red); }
+  .cover-stat-num.blue { color: var(--blue); }
+  .cover-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: rgba(255,255,255,0.3);
+    letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px;
+  }
+
+  /* Cover bottom */
+  .cover-bottom {
+    position: relative; z-index: 10;
+    padding: 28px 52px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cover-author {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .cover-author-avatar {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--gold), var(--green));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: var(--ink); letter-spacing: 1px;
+  }
+  .cover-author-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.85);
+  }
+  .cover-author-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    letter-spacing: 1px; margin-top: 2px;
+  }
+  .cover-tags {
+    display: flex; gap: 8px;
+  }
+  .cover-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* Cover right panel — TOC teaser */
+  .cover-toc {
+    position: absolute; right: 52px; top: 50%; transform: translateY(-50%);
+    z-index: 10; width: 220px;
+  }
+  .cover-toc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); margin-bottom: 16px;
+  }
+  .cover-toc-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .cover-toc-item:last-child { border-bottom: none; }
+  .cover-toc-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: rgba(240,192,64,0.25); min-width: 24px;
+  }
+  .cover-toc-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.4;
+  }
+
+  /* ======================== INNER PAGES ======================== */
+  .report-body {
+    background: var(--paper);
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+  }
+
+  /* Page header strip */
+  .page-header {
+    background: var(--ink);
+    padding: 16px 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .page-header-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .page-header-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* Sections */
+  .report-section {
+    padding: 56px 52px;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+  }
+
+  .section-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 2px;
+    color: var(--gold); background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.2);
+    padding: 3px 10px; border-radius: 100px;
+  }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--light-muted);
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px; line-height: 1.2;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .section-title .italic { font-style: italic; color: #555; }
+
+  .section-deck {
+    font-size: 16px; color: #555; font-weight: 300;
+    line-height: 1.65; max-width: 680px;
+    border-left: 3px solid var(--gold);
+    padding-left: 18px; margin-bottom: 36px;
+  }
+
+  /* Two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .four-col { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+
+  /* Body text */
+  .body-text {
+    font-size: 14.5px; line-height: 1.8; color: #333;
+    margin-bottom: 20px; font-weight: 300;
+  }
+  .body-text strong { color: var(--text); font-weight: 600; }
+  .body-text em { color: #666; }
+
+  /* Data cards */
+  .data-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+    transition: box-shadow 0.2s;
+  }
+  .data-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .data-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--light-muted); margin-bottom: 10px;
+  }
+  .data-card-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px; letter-spacing: 1px; line-height: 1; margin-bottom: 6px;
+  }
+  .data-card-value.gold { color: var(--gold); }
+  .data-card-value.green { color: #22a870; }
+  .data-card-value.red { color: #d43030; }
+  .data-card-value.blue { color: #4060d0; }
+  .data-card-sub {
+    font-size: 12px; color: var(--light-muted); font-family: 'DM Mono', monospace;
+  }
+  .data-card-change {
+    display: inline-block; font-size: 12px; font-family: 'DM Mono', monospace;
+    padding: 3px 8px; border-radius: 4px; margin-top: 6px;
+  }
+  .data-card-change.up { background: rgba(34,168,112,0.1); color: #22a870; }
+  .data-card-change.down { background: rgba(212,48,48,0.1); color: #d43030; }
+  .data-card-change.neutral { background: rgba(144,144,160,0.1); color: var(--light-muted); }
+
+  /* Highlight box */
+  .highlight-box {
+    background: var(--ink);
+    border-radius: 14px; padding: 32px 36px;
+    margin: 28px 0; position: relative; overflow: hidden;
+  }
+  .highlight-box::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--green));
+  }
+  .highlight-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .highlight-box-text {
+    font-size: 17px; font-weight: 300; line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+  }
+  .highlight-box-text strong { color: var(--gold); font-weight: 600; }
+  .highlight-box-text em { color: var(--green); font-style: normal; }
+
+  /* Callout quote */
+  .pullquote {
+    border-left: 4px solid var(--gold);
+    background: rgba(240,192,64,0.04);
+    padding: 20px 28px; margin: 28px 0;
+    border-radius: 0 10px 10px 0;
+  }
+  .pullquote-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px; font-style: italic;
+    color: var(--text); line-height: 1.55; margin-bottom: 10px;
+  }
+  .pullquote-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--light-muted); letter-spacing: 1px;
+  }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+  .data-table thead tr { background: var(--ink); }
+  .data-table thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); padding: 12px 16px; text-align: left;
+  }
+  .data-table tbody tr { border-bottom: 1px solid var(--border); }
+  .data-table tbody tr:hover { background: rgba(240,192,64,0.03); }
+  .data-table tbody td {
+    font-size: 13px; padding: 12px 16px; color: var(--text);
+    font-family: 'DM Mono', monospace;
+  }
+  .data-table .td-name { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 14px; }
+  .td-up { color: #22a870; }
+  .td-down { color: #d43030; }
+  .td-neutral { color: var(--light-muted); }
+
+  /* Signal cards */
+  .signal-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 22px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .signal-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .signal-icon.bull { background: rgba(34,168,112,0.1); }
+  .signal-icon.bear { background: rgba(212,48,48,0.1); }
+  .signal-icon.neutral { background: rgba(144,144,160,0.1); }
+  .signal-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .signal-desc { font-size: 12px; color: #666; line-height: 1.6; }
+  .signal-badge {
+    display: inline-block; font-size: 10px; font-family: 'DM Mono', monospace;
+    padding: 2px 8px; border-radius: 4px; margin-top: 6px; letter-spacing: 1px;
+  }
+  .badge-bull { background: rgba(34,168,112,0.1); color: #22a870; border: 1px solid rgba(34,168,112,0.2); }
+  .badge-bear { background: rgba(212,48,48,0.1); color: #d43030; border: 1px solid rgba(212,48,48,0.2); }
+  .badge-watch { background: rgba(240,192,64,0.1); color: #c09030; border: 1px solid rgba(240,192,64,0.3); }
+
+  /* Sector bars */
+  .sector-bar { margin-bottom: 16px; }
+  .sector-bar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .sector-bar-name { font-size: 13px; font-weight: 500; }
+  .sector-bar-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--light-muted); }
+  .sector-bar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .sector-bar-fill { height: 100%; border-radius: 3px; }
+
+  /* Timeline */
+  .timeline-item {
+    display: flex; gap: 20px; margin-bottom: 28px;
+  }
+  .timeline-marker {
+    display: flex; flex-direction: column; align-items: center; min-width: 16px;
+  }
+  .timeline-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid var(--gold); background: var(--gold);
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .timeline-line { width: 1px; background: var(--border); flex: 1; margin-top: 6px; }
+  .timeline-content { flex: 1; padding-bottom: 8px; }
+  .timeline-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-bottom: 4px; letter-spacing: 1px; }
+  .timeline-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .timeline-text { font-size: 13px; color: #555; line-height: 1.65; }
+
+  /* Footer of each section */
+  .section-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid var(--border); margin-top: 16px;
+  }
+  .section-footer-note { font-size: 11px; color: var(--light-muted); font-family: 'DM Mono', monospace; }
+  .section-footer-author { font-size: 11px; color: var(--light-muted); }
+
+  /* Report footer */
+  .report-footer {
+    background: var(--ink);
+    padding: 32px 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .rf-left { }
+  .rf-brand { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--gold); letter-spacing: 2px; }
+  .rf-author { font-size: 12px; color: rgba(255,255,255,0.35); font-family: 'DM Mono', monospace; margin-top: 4px; }
+  .rf-disclaimer { font-size: 10px; color: rgba(255,255,255,0.2); font-family: 'DM Mono', monospace; max-width: 480px; line-height: 1.6; }
+  .rf-links { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+  .rf-link { font-size: 11px; color: rgba(240,192,64,0.6); font-family: 'DM Mono', monospace; text-decoration: none; }
+
+  /* Print */
+  @media print {
+    .cover { page-break-after: always; min-height: 100vh; }
+    .report-section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====================== COVER PAGE ====================== -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-orb1"></div>
+  <div class="cover-orb2"></div>
+  <div class="cover-orb3"></div>
+  <div class="cover-slash"></div>
+  <div class="cover-slash2"></div>
+
+  <div class="cover-topbar">
+    <div class="cover-topbar-left">
+      <div class="cover-logo-box">NM</div>
+      <div class="cover-brand">NM Alpha Research</div>
+    </div>
+    <div class="cover-issue">Vol. 01 · February 2026</div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-report-type"><div class="dot"></div>Market Intelligence Report</div>
+    <div class="cover-headline">
+      CRYPTO MARKET
+      <span class="accent">AT THE CROSSROADS</span>
+      <span class="sub">2026 H1 OUTLOOK</span>
+    </div>
+    <div class="cover-subtitle">
+      A data-driven analysis of Bitcoin's post-ATH consolidation, Ethereum's identity crisis, the RWA tokenization revolution, DeFi's structural maturation, and the macro signals that will define the next 6 months. <strong>This is not your average market recap — it's a framework for thinking clearly when the market is noisy.</strong>
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num gold">$3.2T</div>
+        <div class="cover-stat-label">Total Market Cap</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num green">$130B+</div>
+        <div class="cover-stat-label">DeFi TVL</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num blue">$23.9B</div>
+        <div class="cover-stat-label">RWA On-Chain</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num red">~$70K</div>
+        <div class="cover-stat-label">BTC Spot Price</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-toc">
+    <div class="cover-toc-label">Contents</div>
+    <div class="cover-toc-item"><div class="cover-toc-num">01</div><div class="cover-toc-text">Bitcoin: Post-ATH Anatomy</div></div>
+    <div class="cover-toc-item"><div class="cover-toc-num">02</div><div class="cover-toc-text">Ethereum's Identity Crisis</div></div>
+    <div class="cover-toc-item"><div class="cover-toc-num">03</div><div class="cover-toc-text">RWA: The $Trillion Bridge</div></div>
+    <div class="cover-toc-item"><div class="cover-toc-num">04</div><div class="cover-toc-text">DeFi Structural Maturation</div></div>
+    <div class="cover-toc-item"><div class="cover-toc-num">05</div><div class="cover-toc-text">Macro × Crypto Signal Watch</div></div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-author">
+      <div class="cover-author-avatar">CM</div>
+      <div>
+        <div class="cover-author-name">Chirag Mehta</div>
+        <div class="cover-author-role">Crypto Research Analyst · Founder, NM Alpha Tribe</div>
+      </div>
+    </div>
+    <div class="cover-tags">
+      <span class="cover-tag">On-Chain Analysis</span>
+      <span class="cover-tag">DeFi</span>
+      <span class="cover-tag">Macro</span>
+      <span class="cover-tag">Institutional</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== INNER PAGES ====================== -->
+<div class="report-body">
+
+  <div class="page-header">
+    <span class="page-header-brand">NM Alpha Research · Chirag Mehta</span>
+    <span class="page-header-date">February 26, 2026</span>
+  </div>
+
+  <!-- ===== SECTION 1: BITCOIN ===== -->
+  <div class="report-section">
+    <div class="section-eyebrow">
+      <span class="section-num">01</span>
+      <span class="section-tag">Bitcoin Analysis</span>
+    </div>
+    <h2 class="section-title">Bitcoin After $126K: <span class="italic">Anatomy of a Post-ATH Correction</span></h2>
+    <div class="section-deck">
+      Bitcoin hit an all-time high of $126,000 in October 2025 — then spent the next four months giving most of it back. With BTC hovering near $70K in February 2026, this section unpacks whether we're in a healthy correction or the beginning of something structurally worse.
+    </div>
+
+    <div class="four-col">
+      <div class="data-card">
+        <div class="data-card-label">BTC ATH (Oct 2025)</div>
+        <div class="data-card-value gold">$126K</div>
+        <div class="data-card-sub">New all-time high</div>
+        <span class="data-card-change up">▲ New cycle peak</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">Current Price (Feb 26)</div>
+        <div class="data-card-value red">~$70K</div>
+        <div class="data-card-sub">Post-correction level</div>
+        <span class="data-card-change down">▼ −44% from ATH</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">BTC Dominance</div>
+        <div class="data-card-value blue">58.3%</div>
+        <div class="data-card-sub">Highest since 2021</div>
+        <span class="data-card-change neutral">→ Risk-off signal</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">US Spot BTC ETF AUM</div>
+        <div class="data-card-value green">$115B+</div>
+        <div class="data-card-sub">Combined late-2025</div>
+        <span class="data-card-change up">▲ Institutional anchor</span>
+      </div>
+    </div>
+
+    <div class="body-text">
+      The most important context for Bitcoin's current ~$70K print is this: the asset hit $126,000 in October 2025, making it the first time BTC breached six figures and held. What followed was a textbook post-ATH deleveraging — not a structural breakdown. <strong>BTC finished 2025 down approximately 6% for the year,</strong> which feels painful after a peak that put the asset up triple digits intraday, but is historically consistent with prior cycle corrections.
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-label">🔍 Key Insight</div>
+      <div class="highlight-box-text">
+        <strong>The correction is structural, not fundamental.</strong> On-chain data shows whale wallets accumulated approximately <em>$4 billion in BTC</em> in a single week during February's low — the kind of smart-money behaviour that historically precedes the next leg, not the terminal decline bears are predicting. Institutional 13F filings did show ~25,000 BTC in ETF net selling in Q4 2025, but that has to be weighed against $22.4B in cumulative net inflows across the year as a whole.
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <strong>The bear case in plain English:</strong> BTC is lagging the Nasdaq 100 by roughly 50% year-to-date in 2026, options markets are pricing roughly equal probability of $70K and $130K by mid-year, and the Fear & Greed Index has compressed to lows last seen post-FTX collapse. When sentiment hits those levels, it historically signals capitulation — and capitulation is either an ending or a beginning, rarely a middle.
+        </div>
+        <div class="pullquote">
+          <div class="pullquote-text">"Bitcoin is lagging the Nasdaq 100 by roughly 50% year-to-date, and that dislocation is setting it up to be a top performer in 2026."</div>
+          <div class="pullquote-source">AMBCrypto analyst, Dec 2025</div>
+        </div>
+      </div>
+      <div>
+        <div class="body-text">
+          <strong>The bull case in plain English:</strong> The US Strategic Bitcoin Reserve — announced in March 2025 — elevated BTC to quasi-reserve status. Over 172 publicly traded companies held Bitcoin as of Q3 2025, collectively holding ~1 million BTC (roughly 5% of circulating supply). ETF inflows totaled $23B across 2025. These are structural demand floors that didn't exist in 2022, and they matter when thinking about where the downside is actually bounded.
+        </div>
+        <div class="signal-card">
+          <div class="signal-icon bull">📈</div>
+          <div>
+            <div class="signal-title">Key Level to Watch</div>
+            <div class="signal-desc">The $68,500 level represents the prior consolidation range top and the 50-day EMA on the weekly chart. A sustained reclaim of this level on strong volume would shift the momentum picture. Failure to hold opens a path to $60,000 where the 200-day MA sits.</div>
+            <span class="signal-badge badge-watch">WATCH: $68,500</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      Bitcoin Core 31.0 is slated for Q2 2026, introducing Cluster Mempool for more efficient fee scheduling. The US Strategic Bitcoin Reserve blueprint awaits formal architecture from the White House. And quantum computing risk — while still theoretical — is entering serious policy discourse, with approximately 7 million BTC potentially exposed to P2PK addresses. None of these are near-term price catalysts, but they shape the longer-duration thesis in ways that matter for institutional allocators.
+    </div>
+
+    <div class="section-footer">
+      <span class="section-footer-note">Data: CoinMarketCap, Glassnode, Pantera Capital, AMBCrypto · Feb 2026</span>
+      <span class="section-footer-author">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: ETHEREUM ===== -->
+  <div class="report-section">
+    <div class="section-eyebrow">
+      <span class="section-num">02</span>
+      <span class="section-tag">Ethereum Deep-Dive</span>
+    </div>
+    <h2 class="section-title">Ethereum's Identity Crisis: <span class="italic">Winning the Infrastructure War, Losing the Price War</span></h2>
+    <div class="section-deck">
+      Ethereum is trading around $1,900 — more than 50% below its 2025 peak. Its fee revenue cratered after Dencun. And yet its network is processing more economic activity than ever. This is the paradox at the heart of Ethereum in 2026 — and resolving it is essential for any investor making a decision.
+    </div>
+
+    <div class="four-col">
+      <div class="data-card">
+        <div class="data-card-label">ETH Current Price</div>
+        <div class="data-card-value red">~$1,900</div>
+        <div class="data-card-sub">vs $4,000+ peak</div>
+        <span class="data-card-change down">▼ −50% from peak</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">ETH DeFi TVL Share</div>
+        <div class="data-card-value blue">63%+</div>
+        <div class="data-card-sub">of total DeFi TVL</div>
+        <span class="data-card-change up">▲ Dominant</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">L2 Total TVL (Base leads)</div>
+        <div class="data-card-value green">$11.4B</div>
+        <div class="data-card-sub">Base: $4.94B (43.5%)</div>
+        <span class="data-card-change up">▲ Growing fast</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">Blob Fee Drop (post-Dencun)</div>
+        <div class="data-card-value red">−80%</div>
+        <div class="data-card-sub">Base layer revenue</div>
+        <span class="data-card-change down">▼ Structural shift</span>
+      </div>
+    </div>
+
+    <div class="body-text">
+      The Pectra upgrade in 2025 was transformative: account abstraction improved UX dramatically, the validator staking limit jumped from 32 ETH to 2,048 ETH, and blob capacity per block doubled from 3 to 6 — directly benefiting L2 cost efficiency. The Fusaka Hard Fork continued this trajectory. Ethereum is executing on its technical roadmap with rare precision.
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-label">⬡ The Core Paradox</div>
+      <div class="highlight-box-text">
+        Ethereum's base layer fee revenue cratered 80%+ post-Dencun, because L2s now settle transactions via cheap blob data instead of expensive calldata. This looks catastrophic on a revenue chart. But it misses the actual bet: <strong>Ethereum isn't monetizing L1 execution — it's monetizing the settlement layer beneath an entire rollup economy.</strong> Arbitrum, Base, and Optimism collectively processed more transactions in Q1 2025 than Ethereum did in all of 2023. <em>The pie is bigger, just distributed differently.</em> The question is whether ETH token holders benefit — and that depends on blob fee growth outpacing the L1 revenue decline.
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4 style="font-size:15px; font-weight:600; margin-bottom:16px; color:var(--text);">2026 ETH Price Target Landscape</h4>
+        <table class="data-table">
+          <thead><tr>
+            <th>Analyst / Firm</th>
+            <th>2026 ETH Target</th>
+            <th>Scenario</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="td-name">Tom Lee (Fundstrat)</td><td class="td-up">$7,000–$9,000</td><td class="td-neutral">Base</td></tr>
+            <tr><td class="td-name">Arthur Hayes (BitMEX)</td><td class="td-up">$10,000</td><td class="td-neutral">Bull</td></tr>
+            <tr><td class="td-name">Consensus Baseline</td><td class="td-neutral">$3,000–$5,000</td><td class="td-neutral">Base</td></tr>
+            <tr><td class="td-name">Bear Case</td><td class="td-down">&lt; $2,000</td><td class="td-down">Bear</td></tr>
+            <tr><td class="td-name">Bull Case Extreme</td><td class="td-up">$20,000</td><td class="td-up">Ultra-bull</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4 style="font-size:15px; font-weight:600; margin-bottom:16px; color:var(--text);">L2 Ecosystem TVL Share</h4>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Base (Coinbase)</span><span class="sector-bar-val">$4.94B · 43.5%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:43.5%; background: var(--gold);"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Arbitrum</span><span class="sector-bar-val">$2.53B · 22.3%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:22.3%; background: #7080f0;"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Optimism</span><span class="sector-bar-val">$1.1B · 9.7%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:9.7%; background: var(--red);"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">zkSync Era</span><span class="sector-bar-val">$0.8B · 7.0%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:7.0%; background: #22a870;"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Others</span><span class="sector-bar-val">$2.2B · 17.5%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:17.5%; background: #aaa;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      The ETH daily active address picture is telling: Solana surged to 3.78 million daily active addresses in early 2026 — a 72% jump from Q1 2025 averages — while Ethereum's stagnated around 1.8 million. This is the most direct evidence of execution risk for the ETH thesis: if users and activity flow to Solana (and increasingly to Base, which is Ethereum-adjacent but user-facing), the bet on Ethereum as the settlement layer has to be extremely precise to play out as expected for token holders.
+    </div>
+
+    <div class="section-footer">
+      <span class="section-footer-note">Data: DefiLlama, CoinPedia, AMBCrypto, Grayscale Research · Feb 2026</span>
+      <span class="section-footer-author">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 3: RWA ===== -->
+  <div class="report-section">
+    <div class="section-eyebrow">
+      <span class="section-num">03</span>
+      <span class="section-tag">Real World Assets</span>
+    </div>
+    <h2 class="section-title">The $Trillion Bridge: <span class="italic">How RWA Tokenization Became the Institutional Thesis of 2026</span></h2>
+    <div class="section-deck">
+      While meme coins crashed and altcoins bled, one narrative quietly grew from $2B to $24B+ in on-chain value across 18 months. RWA tokenization is not hype anymore — it's infrastructure. And in 2026, it's the trade that institutions are actually executing.
+    </div>
+
+    <div class="four-col">
+      <div class="data-card">
+        <div class="data-card-label">RWA On-Chain TVL (Feb 2026)</div>
+        <div class="data-card-value gold">$23.9B</div>
+        <div class="data-card-sub">RWA.xyz data (excl. stablecoins)</div>
+        <span class="data-card-change up">▲ Up from $6B in 2022</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">BlackRock BUIDL Fund</div>
+        <div class="data-card-value blue">$2.85B</div>
+        <div class="data-card-sub">Largest single RWA product</div>
+        <span class="data-card-change up">▲ T-bills, cash, repos</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">Tokenized Treasuries Market</div>
+        <div class="data-card-value green">$9B+</div>
+        <div class="data-card-sub">From $2B in 18 months</div>
+        <span class="data-card-change up">▲ +350% growth</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">2026 Projected RWA TVL</div>
+        <div class="data-card-value green">$100B+</div>
+        <div class="data-card-sub">Conservative analyst target</div>
+        <span class="data-card-change up">▲ vs $14B tokenized T-bills</span>
+      </div>
+    </div>
+
+    <div class="body-text">
+      The timeline here is extraordinary: on-chain tokenized RWA value went from roughly $6 billion in 2022 to more than $30 billion by late 2025 — a nearly 5× increase in three years. That growth rate dwarfs traditional asset management industry expansion of 5–8% annually. But the bigger story isn't the numbers already on the board. It's the regulatory infrastructure that just got built around them.
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4 style="font-size:15px; font-weight:600; margin-bottom:16px;">Regulatory Milestones That Made This Possible</h4>
+        <div class="timeline-item">
+          <div class="timeline-marker"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-date">2025 · US</div>
+            <div class="timeline-title">GENIUS Act Passes</div>
+            <div class="timeline-text">Stablecoin legislation becomes law, providing the legal framework for on-chain dollar instruments that underpin RWA products. Five national trust bank charters approved for digital assets (BitGo, Circle, Fidelity Digital Assets, Paxos, Ripple).</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Feb 6, 2026 · China</div>
+            <div class="timeline-title">PBoC Defines RWA Regulation</div>
+            <div class="timeline-text">People's Bank of China issues joint notice formally defining RWA tokenization for the first time — classifying unauthorized tokenization as illegal. Effectively cuts off Chinese RWA activity but clarifies global regulatory direction.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"><div class="timeline-dot"></div></div>
+          <div class="timeline-content">
+            <div class="timeline-date">H2 2026 · US (Expected)</div>
+            <div class="timeline-title">SEC Innovation Exemption</div>
+            <div class="timeline-text">SEC's "Project Crypto" expected to introduce an exemption enabling non-wrapped tokenized securities to trade directly on public DeFi chains. Major unlock for institutional RWA adoption.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:15px; font-weight:600; margin-bottom:16px;">Top RWA Protocols to Watch</h4>
+        <table class="data-table">
+          <thead><tr><th>Protocol</th><th>Focus</th><th>TVL / AUM</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">BlackRock BUIDL</td><td>US Treasuries, cash</td><td class="td-up">$2.85B</td></tr>
+            <tr><td class="td-name">Franklin Templeton</td><td>Tokenized gov bonds</td><td class="td-up">$500M+</td></tr>
+            <tr><td class="td-name">Maple Finance (Syrup)</td><td>Institutional credit</td><td class="td-up">$4B+</td></tr>
+            <tr><td class="td-name">Centrifuge</td><td>Private credit, CLOs</td><td class="td-neutral">$1.3–1.45B</td></tr>
+            <tr><td class="td-name">Ondo Finance</td><td>US Treasuries on-chain</td><td class="td-up">Growing fast</td></tr>
+            <tr><td class="td-name">Plume Network</td><td>Consumer-grade RWAs</td><td class="td-neutral">Emerging</td></tr>
+          </tbody>
+        </table>
+        <div class="body-text" style="margin-top:16px; font-size:13px;">
+          <strong>Why Maple Finance is interesting:</strong> TVL grew from $500M to over $4B in one cycle. Targets the prior CeFi lending peak of $69B. Primary concern is the reputational risk from the Core injunction — but institutional demand for structured credit is non-cyclical.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-label">💡 The Investment Logic</div>
+      <div class="highlight-box-text">
+        Surveys show <strong>11% of institutions already hold tokenized assets</strong>, with another <em>61% expecting to invest within a few years</em>. Analysts project $100B+ TVL by end-2026 and multi-trillion scale by 2030. The infrastructure is Chainlink (oracle layer), BlackRock and Circle (product layer), and Ethereum/Avalanche/Polygon (settlement layer). The bottleneck is no longer technology — it's regulation and distribution. Both are clearing in 2026.
+      </div>
+    </div>
+
+    <div class="section-footer">
+      <span class="section-footer-note">Data: RWA.xyz, Coindesk Research, CoinLaw.io, Pantera Capital · Feb 2026</span>
+      <span class="section-footer-author">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: DEFI ===== -->
+  <div class="report-section">
+    <div class="section-eyebrow">
+      <span class="section-num">04</span>
+      <span class="section-tag">DeFi Structural Analysis</span>
+    </div>
+    <h2 class="section-title">DeFi's Structural Maturation: <span class="italic">From Speculative Sandbox to Parallel Financial Infrastructure</span></h2>
+    <div class="section-deck">
+      DeFi TVL sits at $130–140B in early 2026. The meme-coin frenzy peaked and rotated. But beneath the noise, something more durable is happening: institutional capital is entering DeFi not for yield chasing, but for infrastructure. This section maps where it's going and why.
+    </div>
+
+    <div class="three-col">
+      <div class="data-card">
+        <div class="data-card-label">Total DeFi TVL (early 2026)</div>
+        <div class="data-card-value gold">$130–140B</div>
+        <div class="data-card-sub">Up from $50B post-FTX low</div>
+        <span class="data-card-change up">▲ Structural recovery</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">AAVE TVL (13 chains)</div>
+        <div class="data-card-value blue">$24.4B</div>
+        <div class="data-card-sub">+19.78% in 30 days</div>
+        <span class="data-card-change up">▲ Clear market leader</span>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">DeFi CAGR Forecast (2026–30)</div>
+        <div class="data-card-value green">43.3%</div>
+        <div class="data-card-sub">Fastest-growing fin. segment</div>
+        <span class="data-card-change up">▲ Structural growth</span>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          The composition of DeFi in 2026 looks very different from 2021. Lending and borrowing protocols now command ~21.3% of total DeFi TVL — dominated by AAVE's $24.4B across 13 blockchains. Lido holds $22.6B in liquid staking. EigenLayer's $10.9B restaking TVL represents an entirely new primitive. And RWA-native protocols are anchoring 34%+ of some chains' total TVL. <strong>This is not DeFi Summer. This is DeFi Infrastructure.</strong>
+        </div>
+        <div class="body-text">
+          The most important structural shift: stablecoin-native protocols like USDC and RWA projects (Ondo, Securitize) now anchor 34% of DeFi TVL. This is significant because stablecoin TVL is less reflexive to crypto price — it doesn't vanish in a bear market the way speculative TVL does. It makes the DeFi ecosystem more resilient by construction.
+        </div>
+
+        <h4 style="font-size:14px; font-weight:600; margin-bottom:14px;">Protocols With Notable 2026 Momentum</h4>
+        <div class="signal-card" style="margin-bottom:12px;">
+          <div class="signal-icon bull">⬡</div>
+          <div>
+            <div class="signal-title">AAVE v3 — Multi-Chain Dominance</div>
+            <div class="signal-desc">$24.4B TVL across 13 chains, eMode enabling 97% LTV on correlated assets. Multi-chain strategy is paying off. +19.78% growth in 30 days suggests institutional inflows.</div>
+            <span class="signal-badge badge-bull">BULLISH</span>
+          </div>
+        </div>
+        <div class="signal-card" style="margin-bottom:12px;">
+          <div class="signal-icon bull">🔄</div>
+          <div>
+            <div class="signal-title">Uniswap — Fee Switch Governance</div>
+            <div class="signal-desc">Governance vote to expand fee switch across 8 additional chains and automate collection on all v3 pools — potentially adding $27M in annualized revenue. UNI jumped 15% on the news.</div>
+            <span class="signal-badge badge-bull">WATCH</span>
+          </div>
+        </div>
+        <div class="signal-card">
+          <div class="signal-icon neutral">📊</div>
+          <div>
+            <div class="signal-title">EigenLayer Restaking — Unpriced Risk</div>
+            <div class="signal-desc">$10.9B TVL but AVS slashing not yet live in production. Current restaking yields are not fully bearing the risk they're priced for. When slashing goes live, the market will find out if risk was correctly priced.</div>
+            <span class="signal-badge badge-watch">RISK FLAG</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:14px; font-weight:600; margin-bottom:16px;">DeFi TVL by Category</h4>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Liquid Staking (Lido, Jito)</span><span class="sector-bar-val">~$30B+ · 22%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:75%; background: var(--gold);"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Lending (AAVE, Spark)</span><span class="sector-bar-val">~$28B · 21.3%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:71%; background: #7080f0;"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Restaking (EigenLayer)</span><span class="sector-bar-val">~$11B · 8%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:37%; background: var(--green);"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">DEX / AMM (Uniswap)</span><span class="sector-bar-val">~$18B · 14%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:47%; background: #f05050;"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">RWA-Native Protocols</span><span class="sector-bar-val">~$17B · 13%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:43%; background: #c0a040;"></div></div>
+        </div>
+        <div class="sector-bar">
+          <div class="sector-bar-header"><span class="sector-bar-name">Other (CDP, Derivatives)</span><span class="sector-bar-val">~$28B · 21%</span></div>
+          <div class="sector-bar-track"><div class="sector-bar-fill" style="width:35%; background: #888;"></div></div>
+        </div>
+
+        <div class="pullquote" style="margin-top:24px;">
+          <div class="pullquote-text">"The market's underlying strength lies in the accelerating adoption of tokenization, stablecoins and DeFi infrastructure, supported by steady institutional inflows."</div>
+          <div class="pullquote-source">Jamie Elkaleh, Bitget Wallet CMO · Nasdaq, Dec 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+      One emerging theme worth watching: perpetual futures are evolving from isolated leverage tools to core DeFi primitives — integrated with lending, collateral, and hedging. As global retail participation in US equities continues to grow, equity perps could become the preferred trading instrument for the next generation: 24/7 access, capital efficient, and crypto-native. Prediction markets (Kalshi, Polymarket) are also maturing rapidly, with Coinbase predicting volumes to broaden significantly in 2026 as US tax changes tilt users toward these derivative-anchored instruments.
+    </div>
+
+    <div class="section-footer">
+      <span class="section-footer-note">Data: DefiLlama, CoinLaw.io, Coinbase Institutional, Nasdaq · Feb 2026</span>
+      <span class="section-footer-author">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 5: MACRO ===== -->
+  <div class="report-section">
+    <div class="section-eyebrow">
+      <span class="section-num">05</span>
+      <span class="section-tag">Macro × Crypto</span>
+    </div>
+    <h2 class="section-title">Signal Watch: <span class="italic">The 6 Macro Variables That Will Decide Crypto's H1 2026</span></h2>
+    <div class="section-deck">
+      Crypto doesn't trade in isolation. The six variables below are the ones that matter most for price direction over the next six months. Each one tells a part of the story — and together, they paint a picture of a market that is not broken, but is not ready to run just yet.
+    </div>
+
+    <div class="two-col" style="margin-bottom:32px;">
+      <div class="signal-card">
+        <div class="signal-icon neutral">🏦</div>
+        <div>
+          <div class="signal-title">1. Fed Policy: Rate Plateau, Not Cut</div>
+          <div class="signal-desc">The Fed has held rates steady through multiple meetings. Crypto's best historical performance comes not during cuts, but during extended plateaus — when rate uncertainty fades and liquidity stabilizes. This is constructive but not a catalyst by itself. Watch global M2, which has ticked up ~3.2% over the past quarter.</div>
+          <span class="signal-badge badge-watch">MILDLY BULLISH</span>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-icon bear">💵</div>
+        <div>
+          <div class="signal-title">2. Dollar Strength: Persistent Headwind</div>
+          <div class="signal-desc">DXY strength remains one of the clearest headwinds for risk assets globally. Until dollar liquidity conditions loosen meaningfully, crypto will struggle to mount sustained rallies. The correlation between DXY direction and BTC price remains historically tight on 30-day timeframes.</div>
+          <span class="signal-badge badge-bear">HEADWIND</span>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-icon bull">📋</div>
+        <div>
+          <div class="signal-title">3. Regulatory Clarity: Accelerating Fast</div>
+          <div class="signal-desc">2025 saw the GENIUS Act (stablecoins), MiCA enforcement in Europe, and a complete U-turn in SEC posture toward crypto. Grayscale expects bipartisan crypto market structure legislation to become US law in 2026. This is the most bullish structural backdrop crypto has ever had from a regulatory standpoint.</div>
+          <span class="signal-badge badge-bull">STRONGLY BULLISH</span>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-icon bull">🏛️</div>
+        <div>
+          <div class="signal-title">4. Institutional Adoption: Real and Growing</div>
+          <div class="signal-desc">76% of global investors plan to expand digital asset exposure in 2026, with 60% expecting to allocate more than 5% of AUM. Combined BTC + ETH spot ETF AUM exceeded $115B by late 2025. Corporate treasuries holding BTC: 172+ publicly traded companies. These are demand floors, not speculation.</div>
+          <span class="signal-badge badge-bull">BULLISH</span>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-icon bear">😰</div>
+        <div>
+          <div class="signal-title">5. Sentiment: Fear-Zone, Historically Significant</div>
+          <div class="signal-desc">The Fear & Greed Index compressed to levels last seen post-FTX collapse by end-2025. Pantera Capital notes that the current non-BTC drawdown duration (12–14 months) aligns with the 2018 and 2022 bear markets — both of which ended around this point in their cycles. This doesn't guarantee a bottom, but it rhymes with one.</div>
+          <span class="signal-badge badge-watch">CONTRARIAN BULL SIGNAL</span>
+        </div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-icon bull">⚡</div>
+        <div>
+          <div class="signal-title">6. AI × Crypto Convergence: Nascent Catalyst</div>
+          <div class="signal-desc">AI-crypto convergence and Ethereum L2 adoption remain the highest-conviction narratives for selective upside in altcoins. Decentralized AI infrastructure, DePIN (physical infrastructure networks generating real revenue), and agent-to-agent payment systems are early but growing. Nvidia's $68B quarterly revenue and AI infrastructure buildout may pull crypto alongside it.</div>
+          <span class="signal-badge badge-bull">EMERGING</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-box-label">📊 My H1 2026 Framework</div>
+      <div class="highlight-box-text">
+        The market in early 2026 is <strong>bifurcated at the thesis level</strong>: macro-level ETF redemptions and fear sentiment signal institutional caution, yet on-chain smart money is aggressively accumulating BTC at distressed levels ($4B in whale purchases in one week in February). Regulatory infrastructure is maturing at unprecedented pace. And sector-specific fundamentals in RWA, DePIN, and cross-chain infrastructure are demonstrating genuine economic traction. <em>The setup rhymes more with 1996 than 1999</em> — constructive going forward, but the uncertainty band is wide. Position for the structure, not the narrative.
+      </div>
+    </div>
+
+    <div class="body-text">
+      The Coinbase Institutional outlook frames it well: "We believe the US economy remains resilient, with rising labor productivity offering a buffer against slowing headline data." That's the macro floor. The crypto ceiling is set by what regulatory clarity actually enables: tokenized equities as collateral, wirehouse and retirement platform access to crypto, and continued sovereign-level adoption of Bitcoin as a reserve asset. Both the floor and the ceiling are higher than they were in any prior cycle. The volatility in between is the entry opportunity — for those with the framework to act on it.
+    </div>
+
+    <div class="section-footer">
+      <span class="section-footer-note">Data: Coinbase Institutional, Grayscale, Pantera Capital, BitcoinTAF, CoinDesk · Feb 2026</span>
+      <span class="section-footer-author">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ===== REPORT FOOTER ===== -->
+  <div class="report-footer">
+    <div class="rf-left">
+      <div class="rf-brand">NM ALPHA RESEARCH</div>
+      <div class="rf-author">Written by Chirag Mehta · Founder, NM Alpha Tribe · February 2026</div>
+    </div>
+    <div class="rf-disclaimer">
+      This report is for informational purposes only and does not constitute financial or investment advice. All data is sourced from publicly available information as of February 26, 2026. Past performance of any asset referenced does not guarantee future results.
+    </div>
+    <div class="rf-links">
+      <a href="https://x.com/NM_Founder" class="rf-link">𝕏 @NM_Founder</a>
+      <a href="https://x.com/NM_ALPHA" class="rf-link">𝕏 @NM_ALPHA</a>
+      <a href="https://discord.gg/AS5eJkUven" class="rf-link">◈ Discord Community</a>
+      <a href="mailto:chiragmehta1304@gmail.com" class="rf-link">✉ chiragmehta1304@gmail.com</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

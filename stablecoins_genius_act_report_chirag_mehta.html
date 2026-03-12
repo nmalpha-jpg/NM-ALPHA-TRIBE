@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stablecoins After the GENIUS Act — Chirag Mehta · NM Alpha Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#f0c040; --green:#22c97a; --red:#e84040; --blue:#5070e0; --purple:#9060e0;
+    --ink:#08080f; --paper:#f6f4ef; --paper2:#edeae0; --surface:#fff;
+    --border:#e2ddd4; --text:#18182a; --muted:#70708a; --light:#a0a0b8;
+    --teal:#20b0a0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ink);font-family:'Outfit',sans-serif;color:var(--text);}
+
+  /* ═══════════════ COVER ═══════════════ */
+  .cover{
+    width:100%;min-height:100vh;background:var(--ink);
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+    page-break-after:always;
+  }
+  .cv-grid{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(240,192,64,.04)1px,transparent 1px),
+      linear-gradient(90deg,rgba(240,192,64,.04)1px,transparent 1px);
+    background-size:52px 52px;}
+  .cv-orb1{position:absolute;width:680px;height:680px;border-radius:50%;
+    background:radial-gradient(circle,rgba(240,192,64,.16)0%,transparent 65%);
+    top:-220px;right:-180px;}
+  .cv-orb2{position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(34,201,122,.1)0%,transparent 65%);
+    bottom:-80px;left:-80px;}
+  .cv-orb3{position:absolute;width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(80,112,224,.09)0%,transparent 65%);
+    top:35%;left:40%;}
+  .cv-slash{position:absolute;width:3px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(240,192,64,.22),transparent);
+    top:-15vh;left:53%;transform:rotate(9deg);}
+  .cv-slash2{position:absolute;width:1px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(240,192,64,.08),transparent);
+    top:-15vh;left:55.5%;transform:rotate(9deg);}
+
+  .cv-top{position:relative;z-index:10;display:flex;align-items:center;
+    justify-content:space-between;padding:26px 52px;
+    border-bottom:1px solid rgba(255,255,255,.06);}
+  .cv-brand-wrap{display:flex;align-items:center;gap:10px;}
+  .cv-logo{width:34px;height:34px;background:var(--gold);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--ink);}
+  .cv-brand{font-family:'DM Mono',monospace;font-size:12px;
+    color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;}
+  .cv-vol{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.25);letter-spacing:2px;}
+
+  .cv-body{position:relative;z-index:10;flex:1;display:flex;
+    flex-direction:column;justify-content:center;padding:52px 52px 40px;}
+  .cv-pill{display:inline-flex;align-items:center;gap:8px;
+    background:rgba(34,201,122,.1);border:1px solid rgba(34,201,122,.25);
+    color:var(--green);font-family:'DM Mono',monospace;font-size:11px;
+    letter-spacing:3px;text-transform:uppercase;padding:7px 16px;
+    border-radius:100px;width:fit-content;margin-bottom:28px;}
+  .cv-pill .dot{width:6px;height:6px;background:var(--green);border-radius:50%;
+    box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .cv-h1{font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(54px,7.5vw,100px);letter-spacing:3px;line-height:.88;
+    color:#e8e8f0;margin-bottom:6px;}
+  .cv-h1 .a1{color:var(--green);display:block;}
+  .cv-h1 .a2{color:var(--gold);display:block;}
+  .cv-h1 .a3{color:rgba(255,255,255,.3);display:block;
+    font-size:.48em;letter-spacing:6px;margin-top:10px;}
+
+  .cv-desc{max-width:560px;font-size:15px;font-weight:300;
+    color:rgba(255,255,255,.42);line-height:1.75;margin-top:26px;margin-bottom:44px;}
+  .cv-desc strong{color:rgba(255,255,255,.72);font-weight:500;}
+
+  .cv-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;overflow:hidden;width:fit-content;}
+  .cv-stat{padding:18px 30px;border-right:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+  .cv-stat:last-child{border-right:none;}
+  .cv-sn{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;line-height:1;}
+  .cv-sn.g{color:var(--gold);} .cv-sn.gr{color:var(--green);}
+  .cv-sn.b{color:var(--blue);} .cv-sn.r{color:var(--red);}
+  .cv-sl{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+  .cv-toc{position:absolute;right:52px;top:50%;transform:translateY(-50%);
+    z-index:10;width:210px;}
+  .cv-toc-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:14px;}
+  .cv-toc-item{display:flex;align-items:center;gap:10px;padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);}
+  .cv-toc-item:last-child{border-bottom:none;}
+  .cv-tn{font-family:'Bebas Neue',sans-serif;font-size:17px;
+    color:rgba(240,192,64,.22);min-width:22px;}
+  .cv-tt{font-family:'Outfit',sans-serif;font-size:11.5px;
+    color:rgba(255,255,255,.32);line-height:1.4;}
+
+  .cv-bot{position:relative;z-index:10;padding:26px 52px;
+    border-top:1px solid rgba(255,255,255,.06);
+    display:flex;align-items:center;justify-content:space-between;}
+  .cv-author{display:flex;align-items:center;gap:14px;}
+  .cv-avatar{width:42px;height:42px;
+    background:linear-gradient(135deg,var(--gold),var(--green));
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--ink);}
+  .cv-aname{font-size:14px;font-weight:500;color:rgba(255,255,255,.82);}
+  .cv-arole{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.32);letter-spacing:1px;margin-top:2px;}
+  .cv-tags{display:flex;gap:8px;}
+  .cv-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;padding:4px 11px;border-radius:100px;
+    color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+
+  /* ═══════════════ BODY ═══════════════ */
+  .report{background:var(--paper);color:var(--text);}
+
+  .ph{background:var(--ink);padding:14px 52px;display:flex;
+    align-items:center;justify-content:space-between;}
+  .ph-l{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.32);letter-spacing:2px;text-transform:uppercase;}
+  .ph-r{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.22);}
+
+  .rs{padding:52px 52px;border-bottom:2px solid var(--border);position:relative;}
+
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .snum{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;
+    color:var(--gold);background:rgba(240,192,64,.08);
+    border:1px solid rgba(240,192,64,.2);padding:3px 10px;border-radius:100px;}
+  .stag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--light);}
+
+  .stitle{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.2;
+    color:var(--text);margin-bottom:8px;}
+  .stitle .it{font-style:italic;color:#555;}
+
+  .deck{font-size:15.5px;color:#555;font-weight:300;line-height:1.65;
+    max-width:680px;border-left:3px solid var(--gold);
+    padding-left:16px;margin-bottom:36px;}
+
+  .body{font-size:14px;line-height:1.82;color:#333;margin-bottom:20px;font-weight:300;}
+  .body strong{color:var(--text);font-weight:600;}
+  .body em{color:#666;}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:24px;}
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px;}
+  .four{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;}
+
+  /* DATA CARDS */
+  .dc{background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;padding:20px 22px;transition:box-shadow .2s;}
+  .dc:hover{box-shadow:0 4px 18px rgba(0,0,0,.07);}
+  .dc-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:8px;}
+  .dc-val{font-family:'Bebas Neue',sans-serif;font-size:36px;
+    letter-spacing:1px;line-height:1;margin-bottom:4px;}
+  .dc-val.g{color:var(--gold);} .dc-val.gr{color:var(--green);}
+  .dc-val.r{color:var(--red);} .dc-val.b{color:var(--blue);}
+  .dc-val.p{color:var(--purple);}
+  .dc-sub{font-size:11.5px;color:var(--light);font-family:'DM Mono',monospace;}
+  .dc-ch{display:inline-block;font-size:11px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;}
+  .up{background:rgba(34,201,122,.08);color:var(--green);}
+  .dn{background:rgba(232,64,64,.08);color:var(--red);}
+  .nt{background:rgba(160,160,184,.1);color:var(--light);}
+
+  /* HIGHLIGHT BOX */
+  .hbox{background:var(--ink);border-radius:14px;padding:28px 32px;
+    margin:24px 0;position:relative;overflow:hidden;}
+  .hbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--green),var(--gold));}
+  .hbox-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+  .hbox-txt{font-size:15.5px;font-weight:300;line-height:1.72;
+    color:rgba(255,255,255,.72);}
+  .hbox-txt strong{color:var(--gold);font-weight:600;}
+  .hbox-txt em{color:var(--green);font-style:normal;}
+
+  /* PULLQUOTE */
+  .pq{border-left:4px solid var(--green);background:rgba(34,201,122,.04);
+    padding:18px 24px;margin:24px 0;border-radius:0 10px 10px 0;}
+  .pq-t{font-family:'DM Serif Display',serif;font-size:18px;font-style:italic;
+    color:var(--text);line-height:1.5;margin-bottom:8px;}
+  .pq-s{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+
+  /* TABLE */
+  .dt{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+  .dt thead tr{background:var(--ink);}
+  .dt thead th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(255,255,255,.45);padding:11px 14px;text-align:left;}
+  .dt tbody tr{border-bottom:1px solid var(--border);}
+  .dt tbody tr:hover{background:rgba(240,192,64,.025);}
+  .dt tbody td{padding:11px 14px;font-family:'DM Mono',monospace;color:var(--text);}
+  .tdn{font-family:'Outfit',sans-serif;font-weight:500;font-size:13.5px;}
+  .tdu{color:var(--green);} .tdd{color:var(--red);} .tdn2{color:var(--light);}
+
+  /* SIGNAL CARDS */
+  .sc{background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:18px 20px;display:flex;gap:12px;
+    align-items:flex-start;margin-bottom:12px;}
+  .si{width:34px;height:34px;border-radius:8px;display:flex;
+    align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .si.bull{background:rgba(34,201,122,.1);}
+  .si.bear{background:rgba(232,64,64,.1);}
+  .si.neu{background:rgba(160,160,184,.1);}
+  .si.warn{background:rgba(240,192,64,.1);}
+  .sc-t{font-size:13.5px;font-weight:600;margin-bottom:5px;}
+  .sc-d{font-size:12px;color:#666;line-height:1.6;}
+  .sbadge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;letter-spacing:1px;}
+  .sb-bull{background:rgba(34,201,122,.08);color:var(--green);
+    border:1px solid rgba(34,201,122,.2);}
+  .sb-bear{background:rgba(232,64,64,.08);color:var(--red);
+    border:1px solid rgba(232,64,64,.2);}
+  .sb-warn{background:rgba(240,192,64,.1);color:#b08020;
+    border:1px solid rgba(240,192,64,.3);}
+  .sb-neu{background:rgba(160,160,184,.1);color:var(--light);
+    border:1px solid rgba(160,160,184,.2);}
+
+  /* BAR CHART */
+  .bar-row{margin-bottom:14px;}
+  .bar-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .bar-nm{font-size:12.5px;font-weight:500;}
+  .bar-vl{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--light);}
+  .bar-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+
+  /* ══ CHARTS ══ */
+  .chart-wrap{background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:24px;margin-bottom:24px;}
+  .chart-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:18px;}
+  .chart-note{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;
+    margin-top:10px;}
+
+  /* ── Area / Line Chart (SVG) ── */
+  svg text{font-family:'DM Mono',monospace;}
+
+  /* DONUT CHART */
+  .donut-wrap{display:flex;align-items:center;gap:28px;}
+  .donut-legend{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .dl-item{display:flex;align-items:center;gap:8px;}
+  .dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .dl-lbl{font-size:12px;color:var(--text);}
+  .dl-val{margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;color:var(--light);}
+
+  /* TIMELINE */
+  .tl-item{display:flex;gap:18px;margin-bottom:26px;}
+  .tl-mark{display:flex;flex-direction:column;align-items:center;min-width:14px;}
+  .tl-dot{width:11px;height:11px;border-radius:50%;
+    border:2px solid var(--gold);background:var(--gold);flex-shrink:0;margin-top:4px;}
+  .tl-line{width:1px;background:var(--border);flex:1;margin-top:5px;}
+  .tl-c{flex:1;padding-bottom:6px;}
+  .tl-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin-bottom:3px;}
+  .tl-t{font-size:14px;font-weight:600;margin-bottom:5px;}
+  .tl-d{font-size:12.5px;color:#555;line-height:1.65;}
+
+  /* RESERVE PIE */
+  .reserve-grid{display:grid;grid-template-columns:auto 1fr;
+    gap:24px;align-items:center;}
+
+  /* RISK MATRIX */
+  .risk-matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+  .rm-cell{border-radius:10px;padding:14px 16px;}
+  .rm-cell.high{background:rgba(232,64,64,.07);border:1px solid rgba(232,64,64,.15);}
+  .rm-cell.med{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);}
+  .rm-cell.low{background:rgba(34,201,122,.06);border:1px solid rgba(34,201,122,.15);}
+  .rm-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:4px;}
+  .rm-cell.high .rm-lbl{color:var(--red);}
+  .rm-cell.med .rm-lbl{color:#b08020;}
+  .rm-cell.low .rm-lbl{color:var(--green);}
+  .rm-txt{font-size:12.5px;color:var(--text);line-height:1.5;}
+
+  /* SF */
+  .sf{display:flex;align-items:center;justify-content:space-between;
+    padding-top:20px;border-top:1px solid var(--border);margin-top:12px;}
+  .sf-n{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;}
+
+  /* FOOTER */
+  .rfooter{background:var(--ink);padding:28px 52px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .rf-brand{font-family:'Bebas Neue',sans-serif;font-size:19px;
+    color:var(--gold);letter-spacing:2px;}
+  .rf-auth{font-size:11px;color:rgba(255,255,255,.3);
+    font-family:'DM Mono',monospace;margin-top:3px;}
+  .rf-disc{font-size:10px;color:rgba(255,255,255,.18);
+    font-family:'DM Mono',monospace;max-width:420px;line-height:1.65;}
+  .rf-links{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+  .rf-link{font-size:11px;color:rgba(240,192,64,.55);
+    font-family:'DM Mono',monospace;text-decoration:none;}
+
+  @media print{.cover{page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ COVER ══════════════════ -->
+<div class="cover">
+  <div class="cv-grid"></div><div class="cv-orb1"></div><div class="cv-orb2"></div>
+  <div class="cv-orb3"></div><div class="cv-slash"></div><div class="cv-slash2"></div>
+
+  <div class="cv-top">
+    <div class="cv-brand-wrap">
+      <div class="cv-logo">NM</div>
+      <div class="cv-brand">NM Alpha Research</div>
+    </div>
+    <div class="cv-vol">Vol. 02 · February 2026</div>
+  </div>
+
+  <div class="cv-body">
+    <div class="cv-pill"><div class="dot"></div>Payments & Regulation Intelligence</div>
+    <div class="cv-h1">
+      STABLECOINS
+      <span class="a1">AFTER THE</span>
+      <span class="a2">GENIUS ACT</span>
+      <span class="a3">USDC · USDT · NEW ENTRANTS · 2026 OUTLOOK</span>
+    </div>
+    <div class="cv-desc">
+      In July 2025, the GENIUS Act became US law — the first federal framework for stablecoins in history. What happened next reshaped global payments infrastructure. <strong>$33 trillion in annual transactions. $306B in market cap. Visa, Stripe, and four of the largest US banks now building stablecoin rails.</strong> This is where we are. This is where it goes.
+    </div>
+    <div class="cv-stats">
+      <div class="cv-stat"><div class="cv-sn g">$306B</div><div class="cv-sl">Stablecoin Mkt Cap</div></div>
+      <div class="cv-stat"><div class="cv-sn gr">$33T</div><div class="cv-sl">2025 Tx Volume</div></div>
+      <div class="cv-stat"><div class="cv-sn b">+49%</div><div class="cv-sl">YoY Growth</div></div>
+      <div class="cv-stat"><div class="cv-sn r">142</div><div class="cv-sl">New Entrants</div></div>
+    </div>
+  </div>
+
+  <div class="cv-toc">
+    <div class="cv-toc-lbl">Contents</div>
+    <div class="cv-toc-item"><div class="cv-tn">01</div><div class="cv-tt">The GENIUS Act: What Changed</div></div>
+    <div class="cv-toc-item"><div class="cv-tn">02</div><div class="cv-tt">USDT: Dominance & Its Cracks</div></div>
+    <div class="cv-toc-item"><div class="cv-tn">03</div><div class="cv-tt">USDC: The Compliance Play</div></div>
+    <div class="cv-toc-item"><div class="cv-tn">04</div><div class="cv-tt">New Entrants Reshaping Payments</div></div>
+    <div class="cv-toc-item"><div class="cv-tn">05</div><div class="cv-tt">2026 Outlook & Risk Map</div></div>
+  </div>
+
+  <div class="cv-bot">
+    <div class="cv-author">
+      <div class="cv-avatar">CM</div>
+      <div>
+        <div class="cv-aname">Chirag Mehta</div>
+        <div class="cv-arole">Crypto Research Analyst · Founder, NM Alpha Tribe</div>
+      </div>
+    </div>
+    <div class="cv-tags">
+      <span class="cv-tag">Stablecoins</span>
+      <span class="cv-tag">Regulation</span>
+      <span class="cv-tag">Payments</span>
+      <span class="cv-tag">Institutional</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ REPORT BODY ══════════════════ -->
+<div class="report">
+
+  <div class="ph">
+    <span class="ph-l">NM Alpha Research · Chirag Mehta · Stablecoin Report</span>
+    <span class="ph-r">February 26, 2026</span>
+  </div>
+
+  <!-- ─── SECTION 1: GENIUS ACT ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">01</span><span class="stag">Regulation & Macro Context</span></div>
+    <h2 class="stitle">The GENIUS Act: <span class="it">How One Law Changed Everything for Stablecoins</span></h2>
+    <div class="deck">
+      Signed into law in July 2025, the Guiding and Establishing National Innovation for U.S. Stablecoins Act created the first comprehensive federal regulatory framework for payment stablecoins in US history. The market's response was immediate and unmistakable: stablecoin supply grew 7% in July–August alone — the fastest single two-month surge ever recorded.
+    </div>
+
+    <div class="four">
+      <div class="dc"><div class="dc-lbl">Market Cap (Jan 2025)</div><div class="dc-val g">$205B</div><div class="dc-sub">Start of year baseline</div><span class="dc-ch nt">→ Pre-GENIUS</span></div>
+      <div class="dc"><div class="dc-lbl">Market Cap (Dec 2025)</div><div class="dc-val gr">$306B</div><div class="dc-sub">+49% year-on-year</div><span class="dc-ch up">▲ Record high</span></div>
+      <div class="dc"><div class="dc-lbl">Annual Tx Volume</div><div class="dc-val g">$33T</div><div class="dc-sub">+72% YoY (Artemis)</div><span class="dc-ch up">▲ Payment-network scale</span></div>
+      <div class="dc"><div class="dc-lbl">Organic Payments Vol.</div><div class="dc-val b">$9T</div><div class="dc-sub">+87% YoY (a16z)</div><span class="dc-ch up">▲ Utility, not speculation</span></div>
+    </div>
+
+    <!-- GROWTH CHART -->
+    <div class="chart-wrap">
+      <div class="chart-title">📈 Stablecoin Market Cap Growth — 2020 to 2026 (USD Billions)</div>
+      <svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22c97a" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#22c97a" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#5070e0"/>
+            <stop offset="60%" stop-color="#22c97a"/>
+            <stop offset="100%" stop-color="#f0c040"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="60" x2="760" y2="60" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="100" x2="760" y2="100" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="180" x2="760" y2="180" stroke="#e2ddd4" stroke-width="1"/>
+        <!-- Y labels -->
+        <text x="50" y="24" text-anchor="end" font-size="10" fill="#a0a0b8">$350B</text>
+        <text x="50" y="64" text-anchor="end" font-size="10" fill="#a0a0b8">$280B</text>
+        <text x="50" y="104" text-anchor="end" font-size="10" fill="#a0a0b8">$200B</text>
+        <text x="50" y="144" text-anchor="end" font-size="10" fill="#a0a0b8">$120B</text>
+        <text x="50" y="184" text-anchor="end" font-size="10" fill="#a0a0b8">$20B</text>
+        <!-- X labels: 2020-2026 -->
+        <text x="100" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2020</text>
+        <text x="210" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2021</text>
+        <text x="320" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2022</text>
+        <text x="430" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2023</text>
+        <text x="540" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2024</text>
+        <text x="650" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2025</text>
+        <text x="760" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">2026</text>
+        <!-- Data: 20, 160, 150, 130, 170, 306, 307 → mapped to y (180=20B, 20=350B) -->
+        <!-- y = 180 - (val-20)/(330)*160 -->
+        <!-- 20→180, 160→113.9, 150→117.3, 130→124.8, 170→110.9, 306→57.5, 307→57 -->
+        <polygon points="100,180 210,114 320,117 430,125 540,111 650,57 760,57 760,180 100,180" fill="url(#areaGrad)"/>
+        <polyline points="100,180 210,114 320,117 430,125 540,111 650,57 760,57" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Dots -->
+        <circle cx="100" cy="180" r="4" fill="#5070e0"/>
+        <circle cx="210" cy="114" r="4" fill="#5070e0"/>
+        <circle cx="320" cy="117" r="4" fill="#5070e0"/>
+        <circle cx="430" cy="125" r="4" fill="#22c97a"/>
+        <circle cx="540" cy="111" r="4" fill="#22c97a"/>
+        <circle cx="650" cy="57" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="57" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <!-- Value labels -->
+        <text x="100" y="175" text-anchor="middle" font-size="9" fill="#a0a0b8">$20B</text>
+        <text x="210" y="109" text-anchor="middle" font-size="9" fill="#a0a0b8">$160B</text>
+        <text x="320" y="112" text-anchor="middle" font-size="9" fill="#a0a0b8">$150B</text>
+        <text x="430" y="120" text-anchor="middle" font-size="9" fill="#a0a0b8">$130B</text>
+        <text x="540" y="106" text-anchor="middle" font-size="9" fill="#a0a0b8">$170B</text>
+        <text x="650" y="51" text-anchor="middle" font-size="10" font-weight="bold" fill="#f0c040">$306B</text>
+        <text x="760" y="51" text-anchor="middle" font-size="10" font-weight="bold" fill="#f0c040">$307B+</text>
+        <!-- GENIUS Act marker -->
+        <line x1="620" y1="20" x2="620" y2="190" stroke="rgba(34,201,122,0.4)" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="625" y="35" font-size="9" fill="#22c97a">GENIUS Act</text>
+        <text x="625" y="47" font-size="9" fill="#22c97a">Signed Jul 2025</text>
+      </svg>
+      <div class="chart-note">Sources: DeFiLlama, Artemis Analytics, a16z Crypto State of Crypto 2025 · Visualisation: NM Alpha Research</div>
+    </div>
+
+    <div class="body">
+      The GENIUS Act isn't just a regulatory milestone — it's a structural demand accelerant. The law mandates 1:1 reserve backing with high-quality liquid assets, monthly public attestations, annual independent audits, and full Bank Secrecy Act / AML compliance. <strong>What this effectively does is create two classes of stablecoin:</strong> GENIUS-compliant instruments (backed primarily by US Treasuries and cash equivalents), and everything else. Institutional capital is, predictably, flowing toward the former.
+    </div>
+
+    <!-- Timeline -->
+    <h3 style="font-size:17px;font-weight:600;margin-bottom:20px;margin-top:8px;">The Regulatory Timeline That Got Us Here</h3>
+    <div class="two">
+      <div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">MAY 2025 · US SENATE</div>
+            <div class="tl-t">GENIUS Act Introduced</div>
+            <div class="tl-d">Senator Bill Haggerty introduces the bill. Clears the Senate in June on bipartisan support — a rarity in US crypto legislation.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">JULY 2025 · SIGNED INTO LAW</div>
+            <div class="tl-t">President Trump Signs GENIUS Act</div>
+            <div class="tl-d">First federal stablecoin framework in US history. Stablecoin supply grows 7% in July–August alone — fastest two-month surge ever recorded.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">DEC 2025 · OCC</div>
+            <div class="tl-t">Banking Charters Approved</div>
+            <div class="tl-d">Five national trust bank charters provisionally approved: Circle, Ripple, Paxos, BitGo, and Fidelity Digital Assets — giving them access to Federal Reserve master accounts.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">DEC 2025 · FDIC</div>
+            <div class="tl-t">First Stablecoin Rulemaking</div>
+            <div class="tl-d">FDIC approves its first proposed rulemaking for bank-issued stablecoins. JPMorgan, BofA, Citi, Wells Fargo begin joint stablecoin consortium talks.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">FEB 2026 · CHINA</div>
+            <div class="tl-t">PBoC Defines RWA / Stablecoins</div>
+            <div class="tl-d">People's Bank of China formally classifies unauthorized stablecoin tokenization as illegal — effectively exiting the market and ceding global stablecoin influence to US-regulated issuers.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">Q1–Q2 2026 · EXPECTED</div>
+            <div class="tl-t">GENIUS Act Implementation Kicks In</div>
+            <div class="tl-d">Full enforcement expected as early as late March 2026. Non-compliant issuers face deadline pressure. Capital rotation toward GENIUS-compliant stablecoins accelerates.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hbox-lbl">💡 The Big Picture</div>
+      <div class="hbox-txt">
+        <strong>Stablecoins have decisively graduated from a crypto-native trading tool into a foundational layer of global financial infrastructure.</strong> The numbers prove it: stablecoin transaction volumes in 2025 exceeded those of Visa and Mastercard combined on an annualised basis. Natalia Karayaneva, CEO of Propy, captured it best: <em>"Stablecoins stopped being 'crypto products' and started acting like infrastructure."</em> The GENIUS Act didn't create this shift — it ratified it and accelerated it.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Decrypt, Stablecoin Insider, DeFiLlama, a16z, Artemis Analytics · Feb 2026</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 2: USDT ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">02</span><span class="stag">Issuer Deep-Dive</span></div>
+    <h2 class="stitle">USDT: <span class="it">The $187B Giant With a Crack in Its Foundation</span></h2>
+    <div class="deck">
+      Tether's USDT remains the undisputed king of stablecoins — $187B in circulation, 60%+ market dominance, and the backbone of global crypto liquidity. But S&P's November 2025 downgrade to "Weak" (the lowest possible score) flagged a structural vulnerability that no issuer of this scale has ever faced. Is USDT too big to fail, or too big to fix?
+    </div>
+
+    <div class="four">
+      <div class="dc"><div class="dc-lbl">USDT Circulating Supply</div><div class="dc-val g">$187B</div><div class="dc-sub">Jan 2026 figure</div><span class="dc-ch up">▲ All-time high</span></div>
+      <div class="dc"><div class="dc-lbl">Market Share (Stablecoins)</div><div class="dc-val g">60%+</div><div class="dc-sub">Down from 91.6% (2024)</div><span class="dc-ch dn">▼ Losing ground</span></div>
+      <div class="dc"><div class="dc-lbl">S&P Stability Rating</div><div class="dc-val r">WEAK</div><div class="dc-sub">5/5 — lowest possible</div><span class="dc-ch dn">▼ Nov 2025 downgrade</span></div>
+      <div class="dc"><div class="dc-lbl">Tether 9M 2025 Profit</div><div class="dc-val gr">$10B+</div><div class="dc-sub">YTD through Sep 2025</div><span class="dc-ch up">▲ Highly profitable</span></div>
+    </div>
+
+    <div class="two">
+      <div>
+        <!-- RESERVE DONUT -->
+        <div class="chart-wrap">
+          <div class="chart-title">🥧 USDT Reserve Composition (Sep 2025)</div>
+          <div class="donut-wrap">
+            <svg viewBox="0 0 160 160" width="160" height="160" style="flex-shrink:0;">
+              <!-- Using conic-gradient via SVG arcs -->
+              <!-- US Treasuries 77%, BTC 5.6%, Gold ~5%, Secured Loans 8%, Other 4.4% -->
+              <!-- r=60, cx=80, cy=80 -->
+              <!-- Arcs via stroke-dasharray on circle r=50 circumference=314.16 -->
+              <circle cx="80" cy="80" r="50" fill="none" stroke="#f0c040"
+                stroke-width="28" stroke-dasharray="241.9 72.3"
+                stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="50" fill="none" stroke="#e84040"
+                stroke-width="28" stroke-dasharray="17.6 296.6"
+                stroke-dashoffset="-241.9" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="50" fill="none" stroke="#f8c800"
+                stroke-width="28" stroke-dasharray="15.7 298.4"
+                stroke-dashoffset="-259.5" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="50" fill="none" stroke="#5070e0"
+                stroke-width="28" stroke-dasharray="25.1 289.0"
+                stroke-dashoffset="-275.2" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="50" fill="none" stroke="#d0c8bc"
+                stroke-width="28" stroke-dasharray="13.8 300.4"
+                stroke-dashoffset="-300.3" transform="rotate(-90 80 80)"/>
+              <circle cx="80" cy="80" r="38" fill="white"/>
+              <text x="80" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#18182a">$181B+</text>
+              <text x="80" y="90" text-anchor="middle" font-size="9" fill="#70708a">Reserves</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="dl-item"><div class="dl-dot" style="background:#f0c040"></div><div class="dl-lbl">US Treasuries & Cash</div><div class="dl-val">77%</div></div>
+              <div class="dl-item"><div class="dl-dot" style="background:#5070e0"></div><div class="dl-lbl">Secured Loans</div><div class="dl-val">8%</div></div>
+              <div class="dl-item"><div class="dl-dot" style="background:#f8c800"></div><div class="dl-lbl">Gold (LBMA)</div><div class="dl-val">5%</div></div>
+              <div class="dl-item"><div class="dl-dot" style="background:#e84040"></div><div class="dl-lbl">Bitcoin Holdings</div><div class="dl-val">5.6%</div></div>
+              <div class="dl-item"><div class="dl-dot" style="background:#d0c8bc"></div><div class="dl-lbl">Other (Corp. Bonds etc.)</div><div class="dl-val">4.4%</div></div>
+            </div>
+          </div>
+          <div class="chart-note">Source: Tether Attestation (BDO Italy) · Sep 30, 2025 · Note: Not a full audit</div>
+        </div>
+      </div>
+      <div>
+        <div class="body">
+          <strong>Why the S&P downgrade matters more than Tether admits:</strong> Tether's BTC holdings represent approximately 5.6% of USDT in circulation — and that exceeds Tether's 3.9% overcollateralization buffer. In plain English: if Bitcoin drops significantly, Tether's reserves cannot fully absorb the decline, and USDT could theoretically become undercollateralized. A $19.7B drop in BTC value following a 20% correction would eliminate Tether's entire buffer.
+        </div>
+        <div class="body">
+          <strong>What makes this uniquely dangerous</strong> is that USDT doesn't have full audit coverage — only quarterly attestations from BDO Italy, not Big Four audits. S&P specifically flagged "limited transparency on reserve management and risk appetite" and "no asset segregation to protect against issuer insolvency." These aren't new criticisms. But the GENIUS Act, when fully implemented, may force Tether to choose: restructure reserves to qualify as compliant, or cede regulated markets entirely.
+        </div>
+        <div class="pq">
+          <div class="pq-t">"We wear your loathing with pride."</div>
+          <div class="pq-s">Paolo Ardoino, Tether CEO — responding to S&P's 'Weak' downgrade, Nov 2025</div>
+        </div>
+        <div class="sc">
+          <div class="si bear">⚠️</div>
+          <div>
+            <div class="sc-t">The Core Risk: GENIUS Act Compliance</div>
+            <div class="sc-d">The GENIUS Act requires 100% liquid reserve backing (short-term gov bonds, money market funds, repo). Tether's current reserve mix — with BTC, gold, secured loans, and limited audit transparency — may not qualify. If Tether cannot or will not comply, it risks being excluded from US-regulated markets. USDT delisting already happened on EU exchanges under MiCA.</div>
+            <span class="sbadge sb-bear">HIGH RISK FLAG</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hbox-lbl">🔍 The Tether Paradox</div>
+      <div class="hbox-txt">
+        Tether is simultaneously the most dominant and most structurally vulnerable actor in the stablecoin space. It controls 60%+ of the market. It earns $10B+ annually from Treasury yields on its massive float — making it one of the most profitable financial entities in the world relative to headcount. <strong>And yet it has never undergone a full Big Four audit, carries BTC in reserves that exceeds its overcollateralization buffer, and has already been delisted from EU exchanges for MiCA non-compliance.</strong> HSBC analysts put it precisely: <em>"Institutional and corporate adoption will likely reward the best-regulated, highest-quality reserves"</em> — which structurally redirects new institutional flows away from USDT regardless of its dominance.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: CoinDesk, S&P Global, Tether Q3 Attestation, HSBC Research · Nov–Feb 2026</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 3: USDC ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">03</span><span class="stag">Issuer Deep-Dive</span></div>
+    <h2 class="stitle">USDC: <span class="it">The Compliance Bet That's Paying Off</span></h2>
+    <div class="deck">
+      Circle's USDC grew from $53B to $75B in 2025 — a 78% YoY surge — while leading all stablecoins by transaction flow at $18.3T. Then came the IPO, the banking charter, and the Visa integration. USDC isn't just winning the regulatory race. It's becoming the default dollar for the institutional internet.
+    </div>
+
+    <div class="four">
+      <div class="dc"><div class="dc-lbl">USDC Market Cap (2025 close)</div><div class="dc-val b">$75B</div><div class="dc-sub">Up from $53B Jan 2025</div><span class="dc-ch up">▲ +78% YoY</span></div>
+      <div class="dc"><div class="dc-lbl">USDC Transaction Volume</div><div class="dc-val gr">$18.3T</div><div class="dc-sub">#1 by flow, all stablecoins</div><span class="dc-ch up">▲ Led all issuers</span></div>
+      <div class="dc"><div class="dc-lbl">S&P Stability Rating</div><div class="dc-val gr">STRONG</div><div class="dc-sub">Score 2 of 5 (2024 assessment)</div><span class="dc-ch up">▲ Very strong reserves</span></div>
+      <div class="dc"><div class="dc-lbl">Visa Settlement (annualised)</div><div class="dc-val g">$4.5B</div><div class="dc-sub">USDC on Solana, Dec 2025 launch</div><span class="dc-ch up">▲ Growing fast</span></div>
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="body">
+          <strong>Three events in 2025 structurally elevated USDC's position:</strong> First, Circle completed its IPO (trading as CRCL), giving it public market accountability and the balance sheet transparency that institutional allocators demand. Second, the OCC provisionally approved Circle's national trust bank charter — giving it access to Federal Reserve infrastructure. Third, Visa launched USDC settlement on Solana in December 2025, with Cross River Bank and Lead Bank as the first banking participants — and broader US rollout planned through 2026.
+        </div>
+        <div class="body">
+          The reserve picture is the starkest contrast with USDT. USDC is backed entirely by cash and short-dated US Treasury securities, with monthly independent audits (not just quarterly attestations). Every reserve dollar is documented. Every custodian is disclosed. <strong>This isn't just a regulatory advantage — it's the exact structure the GENIUS Act was written to enable.</strong>
+        </div>
+        <div class="sc">
+          <div class="si bull">🏦</div>
+          <div>
+            <div class="sc-t">Circle Arc: L1 Built for USDC</div>
+            <div class="sc-d">Circle is developing Arc, a purpose-built Layer 1 blockchain for USDC-native activity. Visa is already a design partner and plans to operate a validator node. This isn't just a product — it's infrastructure that would make USDC the settlement primitive of a new payments chain.</div>
+            <span class="sbadge sb-bull">BULLISH LONG-TERM</span>
+          </div>
+        </div>
+        <div class="sc" style="margin-top:12px;">
+          <div class="si warn">⚡</div>
+          <div>
+            <div class="sc-t">The 2023 SVB Moment: A Cautionary Note</div>
+            <div class="sc-d">In March 2023, USDC briefly de-pegged to $0.87 after Circle disclosed $3.3B in reserves were held at Silicon Valley Bank during its collapse. A centralised stablecoin's peg is only as strong as its banking relationships — a lesson the market has not forgotten.</div>
+            <span class="sbadge sb-warn">WATCH: COUNTERPARTY RISK</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- USDC chain distribution chart -->
+        <div class="chart-wrap">
+          <div class="chart-title">⬡ USDC On-Chain Distribution by Blockchain</div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Ethereum</span><span class="bar-vl">~$39.7B · 52.9%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:52.9%;background:#5070e0;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Solana</span><span class="bar-vl">~$12.4B · 16.5%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:16.5%;background:#9060e0;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Base (Coinbase L2)</span><span class="bar-vl">~$9.1B · 12.1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:12.1%;background:#22c97a;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Arbitrum</span><span class="bar-vl">~$5.3B · 7.1%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:7.1%;background:#f0c040;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Polygon</span><span class="bar-vl">~$3.0B · 4.0%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:4.0%;background:#e84040;"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-hd"><span class="bar-nm">Others</span><span class="bar-vl">~$5.5B · 7.3%</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:7.3%;background:#a0a0b8;"></div></div>
+          </div>
+          <div class="chart-note">Source: CoinLaw.io stablecoin chain statistics · Mid-2025 estimates</div>
+        </div>
+
+        <div class="chart-wrap" style="margin-top:0;">
+          <div class="chart-title">📊 USDC vs USDT Market Share Over Time</div>
+          <svg viewBox="0 0 440 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+            <!-- background bars -->
+            <!-- Years: 2022, 2023, 2024, 2025 (4 groups) -->
+            <!-- USDT share: 60%, 70%, 75%, 60% -->
+            <!-- USDC share: 30%, 20%, 20%, 25% -->
+            <text x="70" y="148" text-anchor="middle" font-size="9" fill="#a0a0b8">2022</text>
+            <text x="180" y="148" text-anchor="middle" font-size="9" fill="#a0a0b8">2023</text>
+            <text x="290" y="148" text-anchor="middle" font-size="9" fill="#a0a0b8">2024</text>
+            <text x="400" y="148" text-anchor="middle" font-size="9" fill="#a0a0b8">2025</text>
+            <!-- Grid -->
+            <line x1="20" y1="20" x2="440" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="20" y1="55" x2="440" y2="55" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="20" y1="90" x2="440" y2="90" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="20" y1="125" x2="440" y2="125" stroke="#e2ddd4" stroke-width="1"/>
+            <text x="15" y="23" text-anchor="end" font-size="8" fill="#a0a0b8">100%</text>
+            <text x="15" y="58" text-anchor="end" font-size="8" fill="#a0a0b8">75%</text>
+            <text x="15" y="93" text-anchor="end" font-size="8" fill="#a0a0b8">50%</text>
+            <text x="15" y="128" text-anchor="end" font-size="8" fill="#a0a0b8">25%</text>
+            <!-- USDT bars: height = share * 105/100, bottom=125 -->
+            <!-- 2022 USDT 60% → h=63, y=62 -->
+            <rect x="40" y="62" width="28" height="63" fill="#f0c040" rx="3"/>
+            <rect x="150" y="51" width="28" height="74" fill="#f0c040" rx="3"/>
+            <rect x="260" y="46" width="28" height="79" fill="#f0c040" rx="3"/>
+            <rect x="370" y="62" width="28" height="63" fill="#f0c040" rx="3"/>
+            <!-- USDC bars -->
+            <rect x="72" y="94" width="28" height="31" fill="#5070e0" rx="3"/>
+            <rect x="182" y="104" width="28" height="21" fill="#5070e0" rx="3"/>
+            <rect x="292" y="104" width="28" height="21" fill="#5070e0" rx="3"/>
+            <rect x="402" y="98" width="28" height="27" fill="#5070e0" rx="3"/>
+            <!-- Legend -->
+            <rect x="20" y="5" width="10" height="8" fill="#f0c040" rx="2"/>
+            <text x="34" y="12" font-size="8" fill="#70708a">USDT</text>
+            <rect x="75" y="5" width="10" height="8" fill="#5070e0" rx="2"/>
+            <text x="89" y="12" font-size="8" fill="#70708a">USDC</text>
+          </svg>
+          <div class="chart-note">Source: Artemis Analytics, Decrypt, CoinLaw · Estimates, market share % of total stablecoin cap</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Circle, Visa Press Release, CoinLaw, S&P Global, DeFiLlama · 2025–2026</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 4: NEW ENTRANTS ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">04</span><span class="stag">New Entrants & Payments Infrastructure</span></div>
+    <h2 class="stitle">The New Entrants: <span class="it">Banks, Fintechs, and the Synthetic Challengers Reshaping Payments</span></h2>
+    <div class="deck">
+      2025 saw the number of stablecoins above $10M in supply double from 75 to 142. Stripe acquired Bridge for over $1B. Visa launched USDC settlement. JPMorgan, BofA, Citi, and Wells Fargo formed a joint stablecoin consortium. PayPal expanded PYUSD. And Ethena's USDe hit $14B in supply. The stablecoin market is no longer a two-horse race.
+    </div>
+
+    <div class="two" style="margin-bottom:28px;">
+      <div>
+        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">The New Entrant Landscape</h3>
+        <table class="dt">
+          <thead><tr>
+            <th>Issuer / Product</th><th>Type</th><th>Size / Status</th><th>Angle</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td class="tdn">Ethena USDe</td>
+              <td class="tdn2">Synthetic</td>
+              <td class="tdu">$14B+</td>
+              <td class="tdn2">Delta-hedge, DeFi yield</td>
+            </tr>
+            <tr>
+              <td class="tdn">PayPal PYUSD</td>
+              <td class="tdn2">Fiat-backed</td>
+              <td class="tdu">Growing</td>
+              <td class="tdn2">Consumer payments, PayPal 430M users</td>
+            </tr>
+            <tr>
+              <td class="tdn">Stripe/Bridge USDH</td>
+              <td class="tdn2">Fiat-backed</td>
+              <td class="tdu">Emerging</td>
+              <td class="tdn2">API-native, merchant payouts</td>
+            </tr>
+            <tr>
+              <td class="tdn">JPM/BofA/Citi/WF Joint</td>
+              <td class="tdn2">Tokenised deposit</td>
+              <td class="tdu">In development</td>
+              <td class="tdn2">Bank-grade, programmable dollar</td>
+            </tr>
+            <tr>
+              <td class="tdn">Qivalis (10 EU banks)</td>
+              <td class="tdn2">Euro-pegged</td>
+              <td class="tdu">H2 2026 launch</td>
+              <td class="tdn2">Cross-border EU settlement</td>
+            </tr>
+            <tr>
+              <td class="tdn">Tether USAT (planned)</td>
+              <td class="tdn2">Fiat-backed</td>
+              <td class="tdu">US-compliant version</td>
+              <td class="tdn2">GENIUS Act response product</td>
+            </tr>
+            <tr>
+              <td class="tdn">Ripple RLUSD</td>
+              <td class="tdn2">Fiat-backed</td>
+              <td class="tdu">OCC charter approved</td>
+              <td class="tdn2">XRP Ledger payments</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <!-- Stablecoin card spend chart -->
+        <div class="chart-wrap">
+          <div class="chart-title">💳 Stablecoin Card Spend Growth (Monthly, USD Millions)</div>
+          <svg viewBox="0 0 380 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+            <defs>
+              <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#9060e0" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#9060e0" stop-opacity="0.02"/>
+              </linearGradient>
+            </defs>
+            <line x1="50" y1="20" x2="370" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="50" y1="60" x2="370" y2="60" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="50" y1="100" x2="370" y2="100" stroke="#e2ddd4" stroke-width="1"/>
+            <line x1="50" y1="140" x2="370" y2="140" stroke="#e2ddd4" stroke-width="1"/>
+            <text x="45" y="23" text-anchor="end" font-size="9" fill="#a0a0b8">$1,500M</text>
+            <text x="45" y="63" text-anchor="end" font-size="9" fill="#a0a0b8">$1,000M</text>
+            <text x="45" y="103" text-anchor="end" font-size="9" fill="#a0a0b8">$500M</text>
+            <text x="45" y="143" text-anchor="end" font-size="9" fill="#a0a0b8">$100M</text>
+            <!-- x: Q1'23=80, Q2'23=120, Q3'23=150, Q4'23=180, Q1'24=210, Q2'24=240, Q3'24=270, Q4'24=300, Q1'25=330, Q4'25=360 -->
+            <!-- y: 100,150,200,250,400,550,700,900,1200,1500 → map to svg (140=100M, 20=1500M → range 120) -->
+            <!-- y_svg = 140 - (val-100)/1400*120 -->
+            <!-- 100→140, 150→135.7, 200→131.4, 250→127.1, 400→117.1, 550→107.1, 700→97.1, 900→83.6, 1200→61.4, 1500→40 -->
+            <polygon points="80,140 120,136 150,131 180,127 210,117 240,107 270,97 300,84 330,61 360,40 360,140 80,140"
+              fill="url(#cardGrad)"/>
+            <polyline points="80,140 120,136 150,131 180,127 210,117 240,107 270,97 300,84 330,61 360,40"
+              fill="none" stroke="#9060e0" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="80" cy="140" r="3" fill="#9060e0"/>
+            <circle cx="360" cy="40" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+            <text x="50" y="165" text-anchor="middle" font-size="9" fill="#a0a0b8">Q1'23</text>
+            <text x="210" y="165" text-anchor="middle" font-size="9" fill="#a0a0b8">Q1'24</text>
+            <text x="360" y="165" text-anchor="middle" font-size="9" fill="#a0a0b8">Q4'25</text>
+            <text x="362" y="35" text-anchor="start" font-size="9" font-weight="bold" fill="#f0c040">$1.5B/mo</text>
+            <text x="82" y="135" text-anchor="start" font-size="9" fill="#a0a0b8">$100M/mo</text>
+          </svg>
+          <div class="chart-note">~$18B annualised run rate by late 2025. 15× growth in 2.5 years. Source: Insights4VC, Stablecoin Insider · Jan 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The key players breakdown -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">The Three Most Consequential Entrants</h3>
+    <div class="three">
+      <div>
+        <div class="sc" style="margin-bottom:0;height:auto;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div class="si bull" style="font-size:20px;">💸</div>
+            <div class="sc-t" style="font-size:14px;">Stripe + Bridge</div>
+          </div>
+          <div class="sc-d" style="font-size:12.5px;">Stripe acquired Bridge — the stablecoin API infrastructure company — for over $1B in 2025. Bridge won the bid to issue USDH on Hyperliquid. Stripe is embedding stablecoin functionality as a developer primitive: payouts, wallet balances, corporate card settlement. With $1.9T in 2025 payment volume, even backend stablecoin adoption at the margin moves material volume. The pitch: access stablecoins as easily as card or bank rails.</div>
+          <span class="sbadge sb-bull">DISTRIBUTION MOAT</span>
+        </div>
+      </div>
+      <div>
+        <div class="sc" style="margin-bottom:0;height:auto;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div class="si warn" style="font-size:20px;">📊</div>
+            <div class="sc-t" style="font-size:14px;">Ethena USDe</div>
+          </div>
+          <div class="sc-d" style="font-size:12.5px;">The synthetic dollar. USDe hit $14B in 2025 — the fastest growth of any new stablecoin in history. It maintains its peg through delta-hedging: staked ETH as collateral + short perpetual positions. The GENIUS Act's prohibition on yield-bearing stablecoins for US retail paradoxically drove a 70% supply surge since July 2025, as non-US users sought yield. Risk: the mechanism unwinds violently in extreme market dislocations. Not GENIUS-compliant — positioned as DeFi infrastructure, not payments.</div>
+          <span class="sbadge sb-warn">HIGH RISK / HIGH YIELD</span>
+        </div>
+      </div>
+      <div>
+        <div class="sc" style="margin-bottom:0;height:auto;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div class="si neu" style="font-size:20px;">🏛️</div>
+            <div class="sc-t" style="font-size:14px;">JPM / Big Bank Consortium</div>
+          </div>
+          <div class="sc-d" style="font-size:12.5px;">JPMorgan Chase, BofA, Citigroup, and Wells Fargo began joint stablecoin consortium discussions in May 2025. Their product: a fully collateralised digital token, redeemable through member banks, extending the dollar into programmable form. Citigroup CEO Jane Fraser confirmed the bank is actively considering issuing its own stablecoin. The irony: these institutions spent years warning about crypto risk. By mid-2025, they were designing their own digital dollar. Fintech pressure left them no choice.</div>
+          <span class="sbadge sb-neu">WATCH: H2 2026 LAUNCH</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox" style="margin-top:24px;">
+      <div class="hbox-lbl">💡 The Infrastructure Shift in One Paragraph</div>
+      <div class="hbox-txt">
+        Visa launched USDC settlement on Solana in December 2025 — <strong>the first time a global card network settled transactions on a public blockchain.</strong> Monthly crypto card spend grew from $100M in early 2023 to $1.5B by late 2025, implying $18B annualised. Stripe processed $1.9 trillion in payment volume in 2025 and is now embedding stablecoin APIs for merchant payouts. PayPal is expanding PYUSD to 100+ countries. Stablecoin settlement is not approaching mainstream payments infrastructure. <em>It is already inside it.</em>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: PYMNTS, American Banker, Insights4VC, FinTech Weekly, Visa Press Release · 2025–2026</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 5: OUTLOOK + RISK ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">05</span><span class="stag">2026 Outlook & Risk Framework</span></div>
+    <h2 class="stitle">2026 Outlook: <span class="it">The Five Dynamics That Will Define the Next 12 Months</span></h2>
+    <div class="deck">
+      The stablecoin market has crossed $307B and processed $33T in 2025 transactions. Regulation is coming into force. Banks are building. Fintechs have a head start. Here's the framework for thinking about where value accrues — and what can go wrong — over the next 12 months.
+    </div>
+
+    <!-- Growth projections chart -->
+    <div class="chart-wrap">
+      <div class="chart-title">🎯 Stablecoin Market Cap — 2026–2028 Growth Projections (Analyst Consensus)</div>
+      <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="bullGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22c97a" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#22c97a" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0c040" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#f0c040" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid -->
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="55" x2="760" y2="55" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="90" x2="760" y2="90" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="125" x2="760" y2="125" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="160" x2="760" y2="160" stroke="#e2ddd4" stroke-width="1"/>
+        <text x="55" y="23" text-anchor="end" font-size="9" fill="#a0a0b8">$2T</text>
+        <text x="55" y="58" text-anchor="end" font-size="9" fill="#a0a0b8">$1.5T</text>
+        <text x="55" y="93" text-anchor="end" font-size="9" fill="#a0a0b8">$1T</text>
+        <text x="55" y="128" text-anchor="end" font-size="9" fill="#a0a0b8">$500B</text>
+        <text x="55" y="163" text-anchor="end" font-size="9" fill="#a0a0b8">$100B</text>
+        <!-- Points: 2025=$306B, 2026=bull$700B/base$550B/bear$380B, 2027=bull$1.15T/base$750B, 2028=bull$1.9T/base$1T -->
+        <!-- y = 160 - (val-100)/(1900)*140 -->
+        <!-- 306→145.7, 700→118.5, 550→126.1, 380→135.7, 1150→88.9, 750→113.5, 1900→20, 1000→100 -->
+        <!-- BULL scenario area -->
+        <polygon points="200,145.7 400,118.5 600,88.9 760,20 760,160 200,160" fill="url(#bullGrad)"/>
+        <!-- BASE scenario area -->
+        <polygon points="200,145.7 400,126.1 600,113.5 760,100 760,160 200,160" fill="url(#baseGrad)"/>
+        <!-- BEAR line -->
+        <polyline points="200,145.7 400,135.7 600,128 760,118" fill="none" stroke="#e84040" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <!-- BASE line -->
+        <polyline points="200,145.7 400,126.1 600,113.5 760,100" fill="none" stroke="#f0c040" stroke-width="2"/>
+        <!-- BULL line -->
+        <polyline points="200,145.7 400,118.5 600,88.9 760,20" fill="none" stroke="#22c97a" stroke-width="2.5"/>
+        <!-- Dots -->
+        <circle cx="200" cy="145.7" r="5" fill="#5070e0" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="20" r="5" fill="#22c97a" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="100" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="118" r="4" fill="#e84040" stroke="#fff" stroke-width="1.5"/>
+        <!-- Labels -->
+        <text x="180" y="140" text-anchor="middle" font-size="9" fill="#5070e0">$306B</text>
+        <text x="762" y="16" text-anchor="start" font-size="9" fill="#22c97a">$1.9T (Bull)</text>
+        <text x="762" y="96" text-anchor="start" font-size="9" fill="#f0c040">$1T (Base)</text>
+        <text x="762" y="114" text-anchor="start" font-size="9" fill="#e84040">$550B (Bear)</text>
+        <!-- X labels -->
+        <text x="200" y="185" text-anchor="middle" font-size="10" fill="#a0a0b8">2025</text>
+        <text x="400" y="185" text-anchor="middle" font-size="10" fill="#a0a0b8">2026</text>
+        <text x="600" y="185" text-anchor="middle" font-size="10" fill="#a0a0b8">2027</text>
+        <text x="760" y="185" text-anchor="middle" font-size="10" fill="#a0a0b8">2028</text>
+        <!-- Legend -->
+        <rect x="64" y="6" width="12" height="4" fill="#22c97a" rx="2"/><text x="80" y="12" font-size="8" fill="#70708a">Bull case</text>
+        <rect x="135" y="6" width="12" height="4" fill="#f0c040" rx="2"/><text x="151" y="12" font-size="8" fill="#70708a">Base case</text>
+        <rect x="206" y="6" width="12" height="4" fill="#e84040" rx="2"/><text x="222" y="12" font-size="8" fill="#70708a">Bear case</text>
+      </svg>
+      <div class="chart-note">Standard Chartered projects $2T by 2028 (bull), Arkham base ~$1T, bear assumes regulatory fragmentation. Source: Standard Chartered, Arkham Research, Stablecoin Insider · NM Alpha estimates</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">5 Dynamics to Watch in 2026</h3>
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bull">📋</div>
+          <div>
+            <div class="sc-t">1. GENIUS Act Full Enforcement (Q1–Q2 2026)</div>
+            <div class="sc-d">Full implementation expected as early as late March 2026. Non-compliant issuers (read: Tether in its current form) face hard choices. Capital rotation toward GENIUS-compliant instruments — USDC, Paxos, bank-issued tokens — could be the single largest structural flow of the year.</div>
+            <span class="sbadge sb-bull">ACCELERANT FOR USDC</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">🏦</div>
+          <div>
+            <div class="sc-t">2. Big Bank Stablecoin Launch</div>
+            <div class="sc-d">JPMorgan, Citigroup, BofA, and Wells Fargo have all signalled intent. A joint bank consortium stablecoin would instantly command institutional trust, deep liquidity, and Federal Reserve infrastructure access. If launched in H2 2026, it resets the competitive map entirely — and validates the asset class at the highest possible level.</div>
+            <span class="sbadge sb-bull">MARKET LEGITIMISING</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">🌍</div>
+          <div>
+            <div class="sc-t">3. Emerging Market Dollar Substitution</div>
+            <div class="sc-d">Standard Chartered projects $1 trillion in bank deposits from emerging markets could flow into stablecoins. In countries where the local currency is weak — Argentina, Nigeria, Turkey — USDT is already functioning as a shadow dollar banking system. This use case is structurally durable and largely immune to US regulatory risk.</div>
+            <span class="sbadge sb-warn">LONG-DURATION GROWTH</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si warn">⚡</div>
+          <div>
+            <div class="sc-t">4. Non-USD Stablecoins Proliferate</div>
+            <div class="sc-d">Qivalis (10 European banks, Euro-pegged, H2 2026 launch), Sony Bank (yen-denominated), and a growing slate of EUR/GBP stablecoins will launch under MiCA. The shift: companies and consumers in local markets will no longer need to convert through USD stablecoins for on-chain activity. A multi-currency programmable money layer emerges.</div>
+            <span class="sbadge sb-warn">WATCH: EURO STABLECOIN LAUNCH</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bear">⚠️</div>
+          <div>
+            <div class="sc-t">5. Tether's Reserve Crisis Risk</div>
+            <div class="sc-d">If BTC drops 30%+, Tether's overcollateralization buffer is eliminated. A simultaneous redemption wave — even at 5% of circulating supply — would require $9B+ in liquid assets. Tether has survived this scenario before. But in a GENIUS Act world, with institutional capital now preferring compliant instruments, redemption pressure could be qualitatively different from prior cycles.</div>
+            <span class="sbadge sb-bear">TAIL RISK: HIGH IMPACT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISK MATRIX -->
+    <h3 style="font-size:16px;font-weight:600;margin:24px 0 16px;">Risk Matrix: Stablecoin Ecosystem 2026</h3>
+    <div class="risk-matrix">
+      <div class="rm-cell high">
+        <div class="rm-lbl">High Impact / High Probability</div>
+        <div class="rm-txt"><strong>USDT GENIUS Act Exclusion:</strong> Tether delisted or loses share in regulated US/EU markets as compliant alternatives take institutional flow. Structural shift already underway.</div>
+      </div>
+      <div class="rm-cell high">
+        <div class="rm-lbl">High Impact / Medium Probability</div>
+        <div class="rm-txt"><strong>Tether Reserve Stress:</strong> BTC price decline combined with redemption pressure could test the $6.8B equity buffer. S&P downgrade and GENIUS non-compliance amplify the risk.</div>
+      </div>
+      <div class="rm-cell med">
+        <div class="rm-lbl">Medium Impact / High Probability</div>
+        <div class="rm-txt"><strong>USDe Mechanism Stress:</strong> Ethena's delta-hedge model works in range-bound markets. A crypto market dislocation that spikes perp funding rates or causes liquidation cascades could temporarily break the peg.</div>
+      </div>
+      <div class="rm-cell low">
+        <div class="rm-lbl">Positive Asymmetry</div>
+        <div class="rm-txt"><strong>Bank Stablecoin Launch:</strong> A JPMorgan/Citi consortium stablecoin launch in H2 2026 would mainstream institutional adoption, attract hundreds of billions in deposits, and validate USDC's infrastructure thesis.</div>
+      </div>
+    </div>
+
+    <div class="hbox" style="margin-top:24px;">
+      <div class="hbox-lbl">📊 My 2026 Framework: Where Value Accrues</div>
+      <div class="hbox-txt">
+        The stablecoin market is bifurcating along regulatory lines. <strong>GENIUS-compliant instruments (USDC, Paxos, bank-issued tokens) will capture the majority of new institutional and payments flows.</strong> Tether will retain dominance in emerging markets and DeFi, where GENIUS compliance is irrelevant — but will increasingly cede regulated institutional markets. Ethena's USDe serves a specific DeFi-native yield niche that grows or collapses with DeFi TVL. The biggest 2026 opportunity is not picking which stablecoin wins — it's identifying which <em>infrastructure layer</em> wins: Stripe's API stack, Circle's Arc blockchain, Visa's settlement rails, or the bank consortium's tokenised deposit system. <strong>The stablecoin itself is the commodity. The rails around it are where the durable moat lives.</strong>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Standard Chartered, Arkham, Stablecoin Insider, PYMNTS, FinTech Weekly · Feb 2026</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <div class="rfooter">
+    <div>
+      <div class="rf-brand">NM ALPHA RESEARCH</div>
+      <div class="rf-auth">Written by Chirag Mehta · Founder, NM Alpha Tribe · February 2026</div>
+    </div>
+    <div class="rf-disc">
+      This report is for informational purposes only and does not constitute financial or investment advice. All data sourced from publicly available information as of February 26, 2026. Past performance does not guarantee future results. NM Alpha Research and Chirag Mehta hold no financial interest in any issuer mentioned.
+    </div>
+    <div class="rf-links">
+      <a class="rf-link" href="https://x.com/NM_ALPHA">𝕏 @NM_ALPHA</a>
+      <a class="rf-link" href="https://x.com/NM_Founder">𝕏 @NM_Founder</a>
+      <a class="rf-link" href="https://discord.gg/AS5eJkUven">◈ Discord</a>
+      <a class="rf-link" href="mailto:chiragmehta1304@gmail.com">✉ chiragmehta1304@gmail.com</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

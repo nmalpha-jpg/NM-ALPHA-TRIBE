@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 2026 Crypto Cycle Playbook — Chirag Mehta · NM Alpha Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#f0c040; --green:#22c97a; --red:#e84040; --blue:#5070e0; --purple:#9060e0;
+    --ink:#08080f; --paper:#f6f4ef; --paper2:#edeae0; --surface:#fff;
+    --border:#e2ddd4; --text:#18182a; --muted:#70708a; --light:#a0a0b8;
+    --teal:#20b0a0; --orange:#f08030;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ink);font-family:'Outfit',sans-serif;color:var(--text);}
+
+  /* ═══════════════ COVER ═══════════════ */
+  .cover{
+    width:100%;min-height:100vh;background:var(--ink);
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+    page-break-after:always;
+  }
+  .cv-grid{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(240,192,64,.04)1px,transparent 1px),
+      linear-gradient(90deg,rgba(240,192,64,.04)1px,transparent 1px);
+    background-size:52px 52px;}
+  .cv-orb1{position:absolute;width:680px;height:680px;border-radius:50%;
+    background:radial-gradient(circle,rgba(240,192,64,.18)0%,transparent 65%);
+    top:-220px;right:-180px;}
+  .cv-orb2{position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(34,201,122,.12)0%,transparent 65%);
+    bottom:-80px;left:-80px;}
+  .cv-orb3{position:absolute;width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(80,112,224,.09)0%,transparent 65%);
+    top:35%;left:40%;}
+  .cv-slash{position:absolute;width:3px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(240,192,64,.22),transparent);
+    top:-15vh;left:53%;transform:rotate(9deg);}
+  .cv-slash2{position:absolute;width:1px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(240,192,64,.08),transparent);
+    top:-15vh;left:55.5%;transform:rotate(9deg);}
+
+  .cv-top{position:relative;z-index:10;display:flex;align-items:center;
+    justify-content:space-between;padding:26px 52px;
+    border-bottom:1px solid rgba(255,255,255,.06);}
+  .cv-brand-wrap{display:flex;align-items:center;gap:10px;}
+  .cv-logo{width:34px;height:34px;background:var(--gold);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--ink);}
+  .cv-brand{font-family:'DM Mono',monospace;font-size:12px;
+    color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;}
+  .cv-vol{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.25);letter-spacing:2px;}
+
+  .cv-body{position:relative;z-index:10;flex:1;display:flex;
+    flex-direction:column;justify-content:center;padding:52px 52px 40px;}
+  .cv-pill{display:inline-flex;align-items:center;gap:8px;
+    background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.3);
+    color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;
+    letter-spacing:3px;text-transform:uppercase;padding:7px 16px;
+    border-radius:100px;width:fit-content;margin-bottom:28px;}
+  .cv-pill .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;
+    box-shadow:0 0 8px var(--gold);animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .cv-h1{font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(54px,7.5vw,100px);letter-spacing:3px;line-height:.88;
+    color:#e8e8f0;margin-bottom:6px;}
+  .cv-h1 .a1{color:var(--gold);display:block;}
+  .cv-h1 .a2{color:var(--green);display:block;}
+  .cv-h1 .a3{color:rgba(255,255,255,.3);display:block;
+    font-size:.48em;letter-spacing:6px;margin-top:10px;}
+
+  .cv-desc{max-width:560px;font-size:15px;font-weight:300;
+    color:rgba(255,255,255,.42);line-height:1.75;margin-top:26px;margin-bottom:44px;}
+  .cv-desc strong{color:rgba(255,255,255,.72);font-weight:500;}
+
+  .cv-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;overflow:hidden;width:fit-content;}
+  .cv-stat{padding:18px 30px;border-right:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+  .cv-stat:last-child{border-right:none;}
+  .cv-sn{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;line-height:1;}
+  .cv-sn.g{color:var(--gold);} .cv-sn.gr{color:var(--green);}
+  .cv-sn.b{color:var(--blue);} .cv-sn.r{color:var(--red);}
+  .cv-sl{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+  .cv-toc{position:absolute;right:52px;top:50%;transform:translateY(-50%);
+    z-index:10;width:220px;}
+  .cv-toc-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:14px;}
+  .cv-toc-item{display:flex;align-items:center;gap:10px;padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);}
+  .cv-toc-item:last-child{border-bottom:none;}
+  .cv-tn{font-family:'Bebas Neue',sans-serif;font-size:17px;
+    color:rgba(240,192,64,.22);min-width:22px;}
+  .cv-tt{font-family:'Outfit',sans-serif;font-size:11.5px;
+    color:rgba(255,255,255,.32);line-height:1.4;}
+
+  .cv-bot{position:relative;z-index:10;padding:26px 52px;
+    border-top:1px solid rgba(255,255,255,.06);
+    display:flex;align-items:center;justify-content:space-between;}
+  .cv-author{display:flex;align-items:center;gap:14px;}
+  .cv-avatar{width:42px;height:42px;
+    background:linear-gradient(135deg,var(--gold),var(--green));
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--ink);}
+  .cv-aname{font-size:14px;font-weight:500;color:rgba(255,255,255,.82);}
+  .cv-arole{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.32);letter-spacing:1px;margin-top:2px;}
+  .cv-tags{display:flex;gap:8px;}
+  .cv-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;padding:4px 11px;border-radius:100px;
+    color:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+
+  /* ═══════════════ BODY ═══════════════ */
+  .report{background:var(--paper);color:var(--text);}
+
+  .ph{background:var(--ink);padding:14px 52px;display:flex;
+    align-items:center;justify-content:space-between;}
+  .ph-l{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.32);letter-spacing:2px;text-transform:uppercase;}
+  .ph-r{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.22);}
+
+  .rs{padding:52px 52px;border-bottom:2px solid var(--border);position:relative;}
+
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .snum{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;
+    color:var(--gold);background:rgba(240,192,64,.08);
+    border:1px solid rgba(240,192,64,.2);padding:3px 10px;border-radius:100px;}
+  .stag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--light);}
+
+  .stitle{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.2;
+    color:var(--text);margin-bottom:8px;}
+  .stitle .it{font-style:italic;color:#555;}
+
+  .deck{font-size:15.5px;color:#555;font-weight:300;line-height:1.65;
+    max-width:680px;border-left:3px solid var(--gold);
+    padding-left:16px;margin-bottom:36px;}
+
+  .body{font-size:14px;line-height:1.82;color:#333;margin-bottom:20px;font-weight:300;}
+  .body strong{color:var(--text);font-weight:600;}
+  .body em{color:#666;}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:24px;}
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px;}
+  .four{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;}
+
+  /* DATA CARDS */
+  .dc{background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;padding:20px 22px;}
+  .dc-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:8px;}
+  .dc-val{font-family:'Bebas Neue',sans-serif;font-size:36px;
+    letter-spacing:1px;line-height:1;margin-bottom:4px;}
+  .dc-val.g{color:var(--gold);} .dc-val.gr{color:var(--green);}
+  .dc-val.r{color:var(--red);} .dc-val.b{color:var(--blue);}
+  .dc-val.p{color:var(--purple);} .dc-val.o{color:var(--orange);}
+  .dc-sub{font-size:11.5px;color:var(--light);font-family:'DM Mono',monospace;}
+  .dc-ch{display:inline-block;font-size:11px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;}
+  .up{background:rgba(34,201,122,.08);color:var(--green);}
+  .dn{background:rgba(232,64,64,.08);color:var(--red);}
+  .nt{background:rgba(160,160,184,.1);color:var(--light);}
+
+  /* HIGHLIGHT BOX */
+  .hbox{background:var(--ink);border-radius:14px;padding:28px 32px;
+    margin:24px 0;position:relative;overflow:hidden;}
+  .hbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--gold),var(--green));}
+  .hbox-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .hbox-txt{font-size:15.5px;font-weight:300;line-height:1.72;
+    color:rgba(255,255,255,.72);}
+  .hbox-txt strong{color:var(--gold);font-weight:600;}
+  .hbox-txt em{color:var(--green);font-style:normal;}
+
+  /* PULLQUOTE */
+  .pq{border-left:4px solid var(--gold);background:rgba(240,192,64,.04);
+    padding:18px 24px;margin:24px 0;border-radius:0 10px 10px 0;}
+  .pq-t{font-family:'DM Serif Display',serif;font-size:18px;font-style:italic;
+    color:var(--text);line-height:1.5;margin-bottom:8px;}
+  .pq-s{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+
+  /* TABLE */
+  .dt{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+  .dt thead tr{background:var(--ink);}
+  .dt thead th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(255,255,255,.45);padding:11px 14px;text-align:left;}
+  .dt tbody tr{border-bottom:1px solid var(--border);}
+  .dt tbody tr:hover{background:rgba(240,192,64,.025);}
+  .dt tbody td{padding:11px 14px;font-family:'DM Mono',monospace;color:var(--text);}
+  .tdn{font-family:'Outfit',sans-serif;font-weight:500;font-size:13.5px;}
+  .tdu{color:var(--green);} .tdd{color:var(--red);} .tdn2{color:var(--light);}
+
+  /* SIGNAL CARDS */
+  .sc{background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:18px 20px;display:flex;gap:12px;
+    align-items:flex-start;margin-bottom:12px;}
+  .si{width:34px;height:34px;border-radius:8px;display:flex;
+    align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .si.bull{background:rgba(34,201,122,.1);}
+  .si.bear{background:rgba(232,64,64,.1);}
+  .si.neu{background:rgba(160,160,184,.1);}
+  .si.warn{background:rgba(240,192,64,.1);}
+  .sc-t{font-size:13.5px;font-weight:600;margin-bottom:5px;}
+  .sc-d{font-size:12px;color:#666;line-height:1.6;}
+  .sbadge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;letter-spacing:1px;}
+  .sb-bull{background:rgba(34,201,122,.08);color:var(--green);border:1px solid rgba(34,201,122,.2);}
+  .sb-bear{background:rgba(232,64,64,.08);color:var(--red);border:1px solid rgba(232,64,64,.2);}
+  .sb-warn{background:rgba(240,192,64,.1);color:#b08020;border:1px solid rgba(240,192,64,.3);}
+  .sb-neu{background:rgba(160,160,184,.1);color:var(--light);border:1px solid rgba(160,160,184,.2);}
+
+  /* BAR CHART */
+  .bar-row{margin-bottom:14px;}
+  .bar-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .bar-nm{font-size:12.5px;font-weight:500;}
+  .bar-vl{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--light);}
+  .bar-track{height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;}
+
+  /* CHART */
+  .chart-wrap{background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:24px;margin-bottom:24px;}
+  .chart-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:18px;}
+  .chart-note{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;
+    margin-top:10px;}
+
+  svg text{font-family:'DM Mono',monospace;}
+
+  /* TIMELINE */
+  .tl-item{display:flex;gap:18px;margin-bottom:26px;}
+  .tl-mark{display:flex;flex-direction:column;align-items:center;}
+  .tl-dot{width:12px;height:12px;border-radius:50%;background:var(--gold);
+    border:2px solid var(--paper);box-shadow:0 0 0 2px var(--gold);flex-shrink:0;margin-top:3px;}
+  .tl-line{width:2px;flex:1;background:var(--border);margin-top:6px;}
+  .tl-c{flex:1;padding-bottom:4px;}
+  .tl-date{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .tl-t{font-size:14px;font-weight:600;margin-bottom:4px;}
+  .tl-d{font-size:12px;color:var(--muted);line-height:1.55;}
+
+  /* RISK MATRIX */
+  .risk-matrix{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+  .rm-cell{border-radius:10px;padding:18px 20px;border:1px solid;}
+  .rm-cell.high{background:rgba(232,64,64,.04);border-color:rgba(232,64,64,.2);}
+  .rm-cell.med{background:rgba(240,192,64,.04);border-color:rgba(240,192,64,.2);}
+  .rm-cell.low{background:rgba(34,201,122,.04);border-color:rgba(34,201,122,.2);}
+  .rm-lbl{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:2px;
+    text-transform:uppercase;margin-bottom:8px;}
+  .rm-cell.high .rm-lbl{color:var(--red);}
+  .rm-cell.med .rm-lbl{color:#b08020;}
+  .rm-cell.low .rm-lbl{color:var(--green);}
+  .rm-txt{font-size:12.5px;color:#444;line-height:1.6;}
+
+  /* ALLOCATION TABLE */
+  .alloc-row{display:flex;align-items:center;gap:14px;padding:12px 0;
+    border-bottom:1px solid var(--border);}
+  .alloc-row:last-child{border-bottom:none;}
+  .alloc-asset{font-weight:600;font-size:14px;min-width:120px;}
+  .alloc-bar{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .alloc-fill{height:100%;border-radius:4px;}
+  .alloc-pct{font-family:'Bebas Neue',sans-serif;font-size:20px;min-width:50px;text-align:right;}
+  .alloc-note{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);min-width:140px;}
+
+  /* FOOTER */
+  .rfooter{background:var(--ink);padding:40px 52px;
+    display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:start;}
+  .rf-brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;
+    color:rgba(255,255,255,.5);margin-bottom:6px;}
+  .rf-auth{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.25);letter-spacing:1px;}
+  .rf-disc{font-size:11.5px;color:rgba(255,255,255,.18);line-height:1.6;max-width:480px;}
+  .rf-links{display:flex;flex-direction:column;gap:6px;align-items:flex-end;}
+  .rf-link{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.28);text-decoration:none;
+    border:1px solid rgba(255,255,255,.08);padding:4px 10px;border-radius:5px;}
+  .sf{display:flex;justify-content:space-between;margin-top:28px;
+    padding-top:16px;border-top:1px solid var(--border);}
+  .sf-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--light);letter-spacing:1px;}
+
+  /* PLAYBOOK BOX */
+  .playbook{background:linear-gradient(135deg,rgba(240,192,64,.06),rgba(34,201,122,.04));
+    border:1px solid rgba(240,192,64,.2);border-radius:14px;padding:24px 28px;margin-bottom:16px;}
+  .playbook-num{font-family:'Bebas Neue',sans-serif;font-size:42px;color:rgba(240,192,64,.25);
+    line-height:1;margin-bottom:2px;}
+  .playbook-title{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text);}
+  .playbook-body{font-size:13px;color:#555;line-height:1.7;}
+  .playbook-badge{display:inline-flex;gap:6px;align-items:center;
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    color:var(--gold);background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2);
+    padding:3px 10px;border-radius:100px;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ COVER ══════════════════ -->
+<div class="cover">
+  <div class="cv-grid"></div>
+  <div class="cv-orb1"></div>
+  <div class="cv-orb2"></div>
+  <div class="cv-orb3"></div>
+  <div class="cv-slash"></div>
+  <div class="cv-slash2"></div>
+
+  <div class="cv-top">
+    <div class="cv-brand-wrap">
+      <div class="cv-logo">NM</div>
+      <div class="cv-brand">NM Alpha Research</div>
+    </div>
+    <div class="cv-vol">SPECIAL REPORT · APRIL 2025 · VOL. III</div>
+  </div>
+
+  <div class="cv-body">
+    <div class="cv-pill"><span class="dot"></span> Cycle Intelligence · April 2025</div>
+
+    <div class="cv-h1">
+      <span class="a1">The 2026</span>
+      <span class="a2">Crypto Cycle</span>
+      <span style="color:#e8e8f0;display:block;">Playbook</span>
+      <span class="a3">A Data-Backed Framework for Navigating the Next Bull Market</span>
+    </div>
+
+    <div class="cv-desc">
+      <strong>Where are we in the cycle?</strong> Bitcoin just hit $109K, then dropped 30%+. Altcoins lagged 2025 predictions. The 4-year cycle thesis is under fire. And yet institutional capital keeps accumulating. This report cuts through the noise: <strong>seven data-backed frameworks, sector-by-sector analysis, and a concrete playbook for the 2026 bull run</strong> — covering BTC price scenarios, alt rotation timing, macro triggers, and where the real asymmetric upside lives.
+    </div>
+
+    <div class="cv-stats">
+      <div class="cv-stat">
+        <div class="cv-sn g">$3.2T</div>
+        <div class="cv-sl">Total Crypto MCap</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-sn gr">$87B</div>
+        <div class="cv-sl">BTC ETF Net Inflows</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-sn b">61%</div>
+        <div class="cv-sl">BTC Dominance (Peak)</div>
+      </div>
+      <div class="cv-stat">
+        <div class="cv-sn r">−30%</div>
+        <div class="cv-sl">BTC Peak-to-Trough</div>
+      </div>
+    </div>
+
+    <div class="cv-toc">
+      <div class="cv-toc-lbl">Contents</div>
+      <div class="cv-toc-item"><div class="cv-tn">01</div><div class="cv-tt">Where We Are in the Cycle</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">02</div><div class="cv-tt">Bitcoin Price Scenarios & Targets</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">03</div><div class="cv-tt">The Institutional Era Has Arrived</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">04</div><div class="cv-tt">Altcoin Rotation Playbook</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">05</div><div class="cv-tt">Sector-by-Sector Breakdown</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">06</div><div class="cv-tt">Macro Triggers to Watch</div></div>
+      <div class="cv-toc-item"><div class="cv-tn">07</div><div class="cv-tt">NM Portfolio Framework</div></div>
+    </div>
+  </div>
+
+  <div class="cv-bot">
+    <div class="cv-author">
+      <div class="cv-avatar">CM</div>
+      <div>
+        <div class="cv-aname">Chirag Mehta</div>
+        <div class="cv-arole">Founder, NM Alpha Tribe · April 2025</div>
+      </div>
+    </div>
+    <div class="cv-tags">
+      <div class="cv-tag">Bitcoin</div>
+      <div class="cv-tag">Altcoins</div>
+      <div class="cv-tag">Macro</div>
+      <div class="cv-tag">Cycle Analysis</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ REPORT BODY ══════════════════ -->
+<div class="report">
+
+  <div class="ph">
+    <div class="ph-l">NM Alpha Research · Crypto Cycle Playbook 2026</div>
+    <div class="ph-r">Chirag Mehta · April 2025</div>
+  </div>
+
+  <!-- ══════ SECTION 1: CYCLE POSITIONING ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 01</div>
+      <div class="stag">Cycle Positioning</div>
+    </div>
+    <h2 class="stitle">Where Are We in the Cycle?<br><span class="it">Reading the Signals When Everyone Is Confused</span></h2>
+    <div class="deck">
+      Bitcoin peaked at ~$109K in January 2025, then fell 30%+ to ~$74K in April. Altcoins underperformed forecasts across the board. The traditional 4-year halving cycle model is being challenged — and yet structural institutional demand has never been stronger. Let's orient ourselves properly before we trade.
+    </div>
+
+    <div class="four">
+      <div class="dc">
+        <div class="dc-lbl">BTC ATH (Jan 2025)</div>
+        <div class="dc-val g">$109K</div>
+        <div class="dc-sub">Post-inauguration spike</div>
+        <span class="dc-ch up">▲ Cycle high so far</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">BTC Cycle Trough</div>
+        <div class="dc-val r">$74K</div>
+        <div class="dc-sub">April 2025 low (tariffs)</div>
+        <span class="dc-ch dn">▼ −32% from ATH</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">BTC Current Price</div>
+        <div class="dc-val gr">$92K</div>
+        <div class="dc-sub">April 2025 recovery</div>
+        <span class="dc-ch nt">→ Consolidation phase</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">Total Crypto MCap</div>
+        <div class="dc-val b">$3.2T</div>
+        <div class="dc-sub">CoinMarketCap, Apr 2025</div>
+        <span class="dc-ch nt">→ Below Jan peak of $3.7T</span>
+      </div>
+    </div>
+
+    <div class="body">
+      The 2024–25 halving cycle has played out with unusual structure. Unlike 2020–21, where liquidity flowed broadly into the entire market, <strong>this cycle has been driven by two very specific forces: spot ETF demand and corporate treasury adoption</strong>. That explains why Bitcoin has dramatically outperformed altcoins — the new buyers are regulated institutions and RIAs, not degenerate retail. Their mandates don't include SOL or PEPE.
+    </div>
+
+    <!-- Chart: BTC Cycle Price Action -->
+    <div class="chart-wrap">
+      <div class="chart-title">📊 Bitcoin Price — 2024 Halving Cycle vs Prior Cycles (Indexed from Halving Date)</div>
+      <svg viewBox="0 0 780 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="grad2026" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0c040" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#f0c040" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid -->
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="60" x2="760" y2="60" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="100" x2="760" y2="100" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="180" x2="760" y2="180" stroke="#e2ddd4" stroke-width="1"/>
+        <!-- Y axis labels (% from halving, 0% to 800%) -->
+        <text x="50" y="24" text-anchor="end" font-size="10" fill="#a0a0b8">800%</text>
+        <text x="50" y="64" text-anchor="end" font-size="10" fill="#a0a0b8">600%</text>
+        <text x="50" y="104" text-anchor="end" font-size="10" fill="#a0a0b8">400%</text>
+        <text x="50" y="144" text-anchor="end" font-size="10" fill="#a0a0b8">200%</text>
+        <text x="50" y="184" text-anchor="end" font-size="10" fill="#a0a0b8">0%</text>
+        <!-- X labels: Month 0 to Month 24 -->
+        <text x="60" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M0</text>
+        <text x="185" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M6</text>
+        <text x="310" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M12</text>
+        <text x="435" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M18</text>
+        <text x="560" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M24</text>
+        <text x="685" y="205" text-anchor="middle" font-size="10" fill="#a0a0b8">M30</text>
+        <!-- 2020 Cycle (green, peaked ~550% at M18) -->
+        <polyline points="60,180 185,162 310,130 435,24 560,44 685,110" fill="none" stroke="#22c97a" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+        <!-- 2024 Current Cycle (gold) — more muted, peaked M9 ~170% then correction -->
+        <polygon points="60,180 185,168 310,130 435,118 560,153 560,180 60,180" fill="url(#grad2026)" opacity="0.5"/>
+        <polyline points="60,180 185,168 310,130 435,118 560,153" fill="none" stroke="#f0c040" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- "We are here" marker -->
+        <line x1="560" y1="20" x2="560" y2="190" stroke="rgba(240,192,64,.4)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="565" y="35" font-size="9" fill="#f0c040">← We are here</text>
+        <text x="565" y="47" font-size="9" fill="#f0c040">April 2025</text>
+        <!-- Dots -->
+        <circle cx="435" cy="118" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="435" cy="24" r="4" fill="#22c97a" opacity="0.7"/>
+        <!-- Labels -->
+        <text x="690" y="107" text-anchor="start" font-size="9" fill="#22c97a" opacity="0.8">2020 Cycle</text>
+        <text x="563" y="150" text-anchor="start" font-size="9" fill="#f0c040">2024 Cycle</text>
+        <!-- BTC ATH annotation -->
+        <text x="430" y="113" text-anchor="middle" font-size="9" fill="#f0c040">$109K ATH</text>
+        <text x="430" y="123" text-anchor="middle" font-size="8" fill="#a0a0b8">Jan 2025</text>
+      </svg>
+      <div class="chart-note">Note: 2024 cycle indexed from April 2024 halving. 2020 cycle peak was ~550% at month 18. Current cycle has shown a more compressed, institutional-driven rally. Source: Glassnode, CoinGecko · NM Alpha Research</div>
+    </div>
+
+    <div class="pq">
+      <div class="pq-t">"The 2025 rally wasn't driven by a huge macro wave in liquidity like past cycles. This explains why altcoins fell flat. 2026 will be the real cycle peak — as global liquidity conditions improve and retail rejoins the market."</div>
+      <div class="pq-s">— Jesse Eckel, Crypto Analyst · 276K Subscribers, Jan 2026</div>
+    </div>
+
+    <div class="body">
+      <strong>The critical insight for April 2025:</strong> We are in a post-ATH consolidation phase, not a confirmed bear market. The distinction matters enormously for strategy. In 2021, BTC fell from $64K to $29K in May before rocketing to $69K in November. A comparable setup here would have BTC bottoming in Q1–Q2 2025 and making its next major leg toward $150K+ in H2 2025 or H1 2026. Grayscale and multiple institutional analysts maintain this as their base case.
+    </div>
+
+    <h3 style="font-size:17px;font-weight:600;margin-bottom:16px;margin-top:8px;">Cycle Phase Indicators — Current Readings (April 2025)</h3>
+    <div class="two">
+      <div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">BTC Dominance</span><span class="bar-vl">~58% (declining from 61%)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:58%;background:var(--gold);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">Altcoin Season Index (CMC)</span><span class="bar-vl">28/100 (Bitcoin Season)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--blue);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">Fear & Greed Index</span><span class="bar-vl">22/100 (Extreme Fear)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:22%;background:var(--red);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">Global M2 Money Supply YoY</span><span class="bar-vl">+5.8% (Expanding)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--green);"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">BTC ETF Cumulative Net Inflows</span><span class="bar-vl">$87B (Jan 2024–Apr 2025)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:87%;background:var(--green);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">Institutional Wallet Addresses Growth</span><span class="bar-vl">+62% YoY (Glassnode)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--gold);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">Long-Term Holder Supply</span><span class="bar-vl">13.2M BTC (76% of supply)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:76%;background:var(--teal);"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-hd"><span class="bar-nm">DeFi TVL</span><span class="bar-vl">$160B+ (+41% YoY, DeFiLlama)</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%;background:var(--purple);"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hbox-lbl">🔍 NM Read: Phase Assessment — April 2025</div>
+      <div class="hbox-txt">
+        Based on these indicators, we are in <strong>late Phase 1 / early Phase 2</strong> of the alt cycle. BTC dominance peaked and is rolling over from 61%. Fear is extreme — which historically marks accumulation zones, not exits. ETF demand never stopped. Long-term holders haven't moved. The narrative that the cycle is over is wrong. <em>We are in the most dangerous-feeling, highest-conviction buying window of the entire cycle.</em> The next 6–12 months are where generational wealth gets made — or missed.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Glassnode, CoinMarketCap, CoinGecko, DeFiLlama · April 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 2: BITCOIN PRICE SCENARIOS ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 02</div>
+      <div class="stag">Price Scenarios</div>
+    </div>
+    <h2 class="stitle">Bitcoin Price Scenarios for<br><span class="it">H2 2025 Through 2026</span></h2>
+    <div class="deck">
+      Institutional forecasts for 2026 BTC are extraordinarily dispersed — ranging from $60K bear-case floors to $250K ultra-bull scenarios. I've mapped the frameworks behind each, so you can track which scenario is playing out in real time.
+    </div>
+
+    <!-- Price Target Table -->
+    <table class="dt">
+      <thead>
+        <tr>
+          <th>Institution / Analyst</th>
+          <th>BTC Target</th>
+          <th>Scenario</th>
+          <th>Key Thesis Driver</th>
+          <th>Conviction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tdn">Standard Chartered (Geoff Kendrick)</td><td class="tdu">$175K–$250K</td><td><span class="sbadge sb-bull">BULL</span></td><td>ETF inflows + sovereign adoption</td><td class="tdu">High</td></tr>
+        <tr><td class="tdn">J.P. Morgan Research</td><td class="tdu">$170K</td><td><span class="sbadge sb-bull">BULL</span></td><td>MicroStrategy model + treasury adoption</td><td class="tdu">Medium-High</td></tr>
+        <tr><td class="tdn">Bernstein (Gautam Chhugani)</td><td class="tdu">$150K</td><td><span class="sbadge sb-bull">BULL</span></td><td>Elongated bull cycle, altcoin rotation starts</td><td class="tdu">High</td></tr>
+        <tr><td class="tdn">Citi Bank</td><td class="tdu">$143K</td><td><span class="sbadge sb-bull">BULL</span></td><td>ETF capital influx + regulatory clarity</td><td class="tdn2">Medium</td></tr>
+        <tr><td class="tdn">Grayscale Research</td><td class="tdu">New ATH H1 2026</td><td><span class="sbadge sb-bull">BULL</span></td><td>Four-year cycle ending, institutional era begins</td><td class="tdu">High</td></tr>
+        <tr><td class="tdn">Galaxy Research (Alex Thorn)</td><td class="tdu">$250K by 2027</td><td><span class="sbadge sb-bull">BULL (extended)</span></td><td>Liquidity cycle acceleration + ETF demand doubling</td><td class="tdn2">Medium</td></tr>
+        <tr><td class="tdn">FX Empire Base Case</td><td class="tdu">$150K</td><td><span class="sbadge sb-bull">BASE</span></td><td>Fed dovish pivot + institutional absorption</td><td class="tdn2">Medium</td></tr>
+        <tr><td class="tdn">Fidelity (Jurien Timmer)</td><td class="tdd">$65K–$75K floor</td><td><span class="sbadge sb-bear">BEAR</span></td><td>4-year cycle intact, bear market begins 2026</td><td class="tdn2">Medium</td></tr>
+        <tr><td class="tdn">Fundstrat</td><td class="tdd">$60K (worst case)</td><td><span class="sbadge sb-bear">BEAR</span></td><td>Tariff shock + persistent inflation</td><td class="tdd">Low-Medium</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Scenario Chart -->
+    <div class="chart-wrap">
+      <div class="chart-title">📈 Bitcoin Price — 3 Scenario Paths: Apr 2025 → End 2026 (USD)</div>
+      <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="bullGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22c97a" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#22c97a" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid -->
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="60" x2="760" y2="60" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="100" x2="760" y2="100" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="175" x2="760" y2="175" stroke="#e2ddd4" stroke-width="1"/>
+        <!-- Y labels -->
+        <text x="50" y="24" text-anchor="end" font-size="10" fill="#a0a0b8">$200K</text>
+        <text x="50" y="64" text-anchor="end" font-size="10" fill="#a0a0b8">$150K</text>
+        <text x="50" y="104" text-anchor="end" font-size="10" fill="#a0a0b8">$120K</text>
+        <text x="50" y="144" text-anchor="end" font-size="10" fill="#a0a0b8">$90K</text>
+        <text x="50" y="179" text-anchor="end" font-size="10" fill="#a0a0b8">$60K</text>
+        <!-- X labels -->
+        <text x="100" y="195" text-anchor="middle" font-size="10" fill="#a0a0b8">Apr'25</text>
+        <text x="245" y="195" text-anchor="middle" font-size="10" fill="#a0a0b8">Jul'25</text>
+        <text x="390" y="195" text-anchor="middle" font-size="10" fill="#a0a0b8">Oct'25</text>
+        <text x="535" y="195" text-anchor="middle" font-size="10" fill="#a0a0b8">Jan'26</text>
+        <text x="680" y="195" text-anchor="middle" font-size="10" fill="#a0a0b8">Jun'26</text>
+        <!-- Bull Case: 92K→110K→150K→200K -->
+        <polygon points="100,139 245,120 390,60 535,20 680,20 680,139 100,139" fill="url(#bullGrad)"/>
+        <polyline points="100,139 245,120 390,60 535,20 680,20" fill="none" stroke="#22c97a" stroke-width="2.5"/>
+        <!-- Base Case: 92K→100K→130K→150K -->
+        <polyline points="100,139 245,131 390,95 535,60 680,60" fill="none" stroke="#f0c040" stroke-width="2"/>
+        <!-- Bear Case: 92K→75K→70K→80K -->
+        <polyline points="100,139 245,163 390,168 535,157 680,150" fill="none" stroke="#e84040" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <!-- Start dot -->
+        <circle cx="100" cy="139" r="5" fill="#5070e0" stroke="#fff" stroke-width="1.5"/>
+        <text x="105" y="134" font-size="9" fill="#5070e0">$92K</text>
+        <!-- End labels -->
+        <text x="685" y="17" text-anchor="start" font-size="9" fill="#22c97a">$200K (Bull)</text>
+        <text x="685" y="57" text-anchor="start" font-size="9" fill="#f0c040">$150K (Base)</text>
+        <text x="685" y="147" text-anchor="start" font-size="9" fill="#e84040">$70K (Bear)</text>
+        <!-- Legend -->
+        <rect x="64" y="6" width="12" height="4" fill="#22c97a" rx="2"/><text x="80" y="12" font-size="8" fill="#70708a">Bull — $200K</text>
+        <rect x="145" y="6" width="12" height="4" fill="#f0c040" rx="2"/><text x="161" y="12" font-size="8" fill="#70708a">Base — $150K</text>
+        <rect x="226" y="6" width="12" height="4" fill="#e84040" rx="2"/><text x="242" y="12" font-size="8" fill="#70708a">Bear — $70K</text>
+      </svg>
+      <div class="chart-note">Bull: ETF inflows double, Fed cuts 2× in 2025, institutional allocation exceeds 1%. Base: Gradual recovery, halving tailwind persists. Bear: Macro shock, 4-year cycle repeat, ETF flows stall. Source: Standard Chartered, Bernstein, FX Empire, Citi, J.P. Morgan · NM Alpha estimates</div>
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bull">🟢</div>
+          <div>
+            <div class="sc-t">Bull Scenario: $150K–$200K (H2 2025–H1 2026)</div>
+            <div class="sc-d">Triggers: Fed delivers 2+ rate cuts, spot ETF flows return to $500M+/week, corporate treasury adoption accelerates (S&P 500 companies follow MicroStrategy model), US passes CLARITY Digital Asset Market Structure Act. Grayscale, Standard Chartered, J.P. Morgan all align on this path.</div>
+            <span class="sbadge sb-bull">PROBABILITY: ~45%</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">🟡</div>
+          <div>
+            <div class="sc-t">Base Scenario: $120K–$150K (End 2025/Early 2026)</div>
+            <div class="sc-d">Triggers: One Fed cut in 2025, ETF inflows steady but not explosive, regulatory clarity partial (GENIUS Act passed, CLARITY pending). BTC consolidates above $90K, then grinds to new ATH in H1 2026. Bernstein and Citi's framework. The most likely outcome.</div>
+            <span class="sbadge sb-warn">PROBABILITY: ~40%</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si bear">🔴</div>
+          <div>
+            <div class="sc-t">Bear Scenario: $60K–$80K (4-Year Cycle Repeat)</div>
+            <div class="sc-d">Triggers: Fed stays restrictive, US economy enters recession, trade war escalates, ETF outflows accelerate. 4-year cycle theory wins. BTC finds bottom in Q4 2025, setting up 2027 as the next bull market. Fidelity and Fundstrat's framework.</div>
+            <span class="sbadge sb-bear">PROBABILITY: ~15%</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">⚡</div>
+          <div>
+            <div class="sc-t">Black Swan Bull: $250K+ (Supercycle Activation)</div>
+            <div class="sc-d">Triggers: Sovereign wealth funds enter BTC market at scale, US government expands Strategic Bitcoin Reserve, global dollar debasement narrative goes mainstream, 401(k) allocations to BTC begin. Jesse Eckel and Galaxy Research's extended bull thesis.</div>
+            <span class="sbadge sb-bull">PROBABILITY: ~10% (high impact)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Standard Chartered, J.P. Morgan, Bernstein, Citi, Grayscale, Fidelity, Galaxy Research · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 3: INSTITUTIONAL ERA ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 03</div>
+      <div class="stag">Structural Shift</div>
+    </div>
+    <h2 class="stitle">The Institutional Era Has Arrived<br><span class="it">Why This Cycle Is Structurally Different from 2021</span></h2>
+    <div class="deck">
+      Since spot Bitcoin ETFs launched in January 2024, global crypto ETPs have seen $87 billion in net inflows. Less than 0.5% of US advised wealth is currently allocated to crypto. The structural setup for the next leg has never been stronger — it's just slower and less obvious than 2021's meme-driven frenzy.
+    </div>
+
+    <div class="four">
+      <div class="dc">
+        <div class="dc-lbl">BTC ETF Net Inflows</div>
+        <div class="dc-val g">$87B</div>
+        <div class="dc-sub">Since Jan 2024 launch</div>
+        <span class="dc-ch up">▲ 2× new BTC issuance</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">ETF AUM (Apr 2025)</div>
+        <div class="dc-val gr">$110B+</div>
+        <div class="dc-sub">All US spot BTC ETFs</div>
+        <span class="dc-ch up">▲ Largest-ever asset class debut</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">US Advised Wealth in BTC</div>
+        <div class="dc-val r">&lt;0.5%</div>
+        <div class="dc-sub">Of $30T+ in advised AUM</div>
+        <span class="dc-ch nt">→ Early innings</span>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl">Corporate BTC Treasuries</div>
+        <div class="dc-val b">70+</div>
+        <div class="dc-sub">Public companies, Glassnode</div>
+        <span class="dc-ch up">▲ MicroStrategy model spreading</span>
+      </div>
+    </div>
+
+    <div class="body">
+      The single most important structural change of this cycle: <strong>Bitcoin's demand is now institutionally anchored</strong>. When retail panics and sells, ETFs continue to accumulate on behalf of long-term institutional allocators. This changes the volatility profile of the asset. Drawdowns are shallower; recoveries are more gradual. This also explains why the "one good news event = 30% pump" dynamic of 2020–21 has been replaced by a slow, grinding institutional bid.
+    </div>
+
+    <div class="pq">
+      <div class="pq-t">"We continue to see a shift to an entirely new cohort and class of investors. Traditional money managers have begun buying Bitcoin and other digital assets, but we've only scratched the surface of the amount of capital they could bring."</div>
+      <div class="pq-s">— Fidelity Digital Assets, 2026 Crypto Outlook</div>
+    </div>
+
+    <!-- Institutional Adoption Timeline -->
+    <h3 style="font-size:17px;font-weight:600;margin-bottom:20px;">Institutional Milestones: The Timeline That Changes Everything</h3>
+    <div class="two">
+      <div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">JAN 2024 · SEC</div>
+            <div class="tl-t">11 Spot Bitcoin ETFs Approved</div>
+            <div class="tl-d">BlackRock, Fidelity, Invesco, Bitwise and others launch. First week alone sees $1.9B in net inflows. The largest debut in ETF history by AUM accumulation speed.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">MAR 2025 · WHITE HOUSE</div>
+            <div class="tl-t">US Strategic Bitcoin Reserve Established</div>
+            <div class="tl-d">President Trump signs executive order designating all government-held BTC as strategic reserve assets — the first sovereign-level Bitcoin adoption in history. Geopolitical thesis validated.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">2025 · MSCI</div>
+            <div class="tl-t">Crypto-Exposed Firms Retained in MSCI Indexes</div>
+            <div class="tl-d">MSCI retains crypto-exposed companies in flagship indexes. Morgan Stanley and others file fresh Bitcoin-linked ETF products. Institutional distribution infrastructure expands.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">MAY 2025 · SENATE</div>
+            <div class="tl-t">GENIUS Act Signed — Stablecoin Framework</div>
+            <div class="tl-d">First comprehensive federal stablecoin law. Banking-grade compliance now required for payment stablecoins. Opens the door for bank-issued tokens and institutional stablecoin integration.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div><div class="tl-line"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">2025 · HARVARD / MUBADALA</div>
+            <div class="tl-t">Sovereign Wealth + Endowment Adoption</div>
+            <div class="tl-d">Harvard Management Company and Mubadala (Abu Dhabi sovereign wealth) confirm crypto ETP allocations. Grayscale expects this list to grow significantly — unlocking billions in sovereign capital flow.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-mark"><div class="tl-dot"></div></div>
+          <div class="tl-c">
+            <div class="tl-date">2026 · EXPECTED</div>
+            <div class="tl-t">CLARITY Act + 401(k) Crypto Access</div>
+            <div class="tl-d">Bipartisan digital asset market structure bill expected to pass. An executive directive already orders regulators to reconsider 401(k) crypto restrictions — if 1% of $8.7T in DC plans flows to BTC, that's $87B of fresh demand.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hbox-lbl">📊 The 1% Calculation — Why The Next Leg Could Be the Biggest</div>
+      <div class="hbox-txt">
+        US advised wealth stands at over $30 trillion. Current crypto allocation: under 0.5%. If that figure moves to just 2% — a modest reallocation — that's <strong>$450B+ in new crypto demand</strong>. 401(k) alone could generate $87B from a 1% allocation. Sovereign wealth funds globally manage $10T+. Even a 0.1% allocation is $10B. <em>The runway is orders of magnitude longer than retail markets alone could ever sustain.</em> This is not hype. This is arithmetic.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: Grayscale 2026 Outlook, Fidelity Digital Assets, Glassnode, CoinDesk · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 4: ALTCOIN ROTATION PLAYBOOK ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 04</div>
+      <div class="stag">Alt Season Framework</div>
+    </div>
+    <h2 class="stitle">The Altcoin Rotation Playbook<br><span class="it">How, When &amp; Where Capital Flows After Bitcoin</span></h2>
+    <div class="deck">
+      Every altcoin season follows the same three-phase arc. We are in Phase 1–2 right now. The question is not whether alts will run — they always do after BTC dominance peaks. The question is which sectors lead Phase 2, and how to size accordingly without getting wrecked.
+    </div>
+
+    <!-- Phase Framework -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">The Three-Phase Alt Season Framework</h3>
+    <div class="three">
+      <div class="playbook">
+        <div class="playbook-num">01</div>
+        <div class="playbook-title">Phase 1 — BTC Dominance Compression</div>
+        <div class="playbook-body">Bitcoin stops outperforming. BTC dominance rolls over from peak (we saw 61% in Feb 2025, now declining). ETH begins to outperform. Large-cap alts wake up first. Fear is extreme. Most people aren't paying attention yet.</div>
+        <div class="playbook-badge">📍 WE ARE HERE (April 2025)</div>
+      </div>
+      <div class="playbook">
+        <div class="playbook-num">02</div>
+        <div class="playbook-title">Phase 2 — Selective Rotation</div>
+        <div class="playbook-body">Capital targets specific narratives: AI, RWA, DeFi, L2s. ETH and SOL ETFs start seeing inflows. BTC dominance below 55%. Quality mid-cap alts begin 3–5× moves. Altcoin Season Index reaches 40–60. Retail starts paying attention but is still skeptical.</div>
+        <div class="playbook-badge">📍 EXPECTED H2 2025</div>
+      </div>
+      <div class="playbook">
+        <div class="playbook-num">03</div>
+        <div class="playbook-title">Phase 3 — Retail Flood</div>
+        <div class="playbook-body">Everyone is talking crypto. Memecoins explode. BTC dominance below 45%. New wallet registrations spike. Fear & Greed hits 90+. Altcoin Season Index above 75. This is exit territory — the best gains are already in. Most retail investors arrive here.</div>
+        <div class="playbook-badge">📍 EXPECTED 2026 PEAK</div>
+      </div>
+    </div>
+
+    <!-- BTC Dominance Signal -->
+    <div class="chart-wrap">
+      <div class="chart-title">📉 BTC Dominance — Historical Pattern & 2026 Projection</div>
+      <svg viewBox="0 0 780 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <!-- Grid -->
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="60" x2="760" y2="60" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="100" x2="760" y2="100" stroke="#e2ddd4" stroke-width="1"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#e2ddd4" stroke-width="1"/>
+        <!-- Y labels (% dominance) -->
+        <text x="50" y="24" text-anchor="end" font-size="10" fill="#a0a0b8">70%</text>
+        <text x="50" y="64" text-anchor="end" font-size="10" fill="#a0a0b8">60%</text>
+        <text x="50" y="104" text-anchor="end" font-size="10" fill="#a0a0b8">50%</text>
+        <text x="50" y="144" text-anchor="end" font-size="10" fill="#a0a0b8">40%</text>
+        <!-- X labels -->
+        <text x="100" y="170" text-anchor="middle" font-size="10" fill="#a0a0b8">2021 Jan</text>
+        <text x="250" y="170" text-anchor="middle" font-size="10" fill="#a0a0b8">2021 Nov</text>
+        <text x="400" y="170" text-anchor="middle" font-size="10" fill="#a0a0b8">2024 Jan</text>
+        <text x="520" y="170" text-anchor="middle" font-size="10" fill="#a0a0b8">Apr 2025</text>
+        <text x="680" y="170" text-anchor="middle" font-size="10" fill="#a0a0b8">2026 Est.</text>
+        <!-- Historical: 2021 Jan high 70%, declined to 40% by Nov 2021 (alt season peak) -->
+        <polyline points="100,20 250,140" fill="none" stroke="#22c97a" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
+        <!-- 2024–2026: starting 55%, rising to 61%, now rolling over toward 45% -->
+        <polyline points="400,100 460,60 520,68 620,86 680,126" fill="none" stroke="#f0c040" stroke-width="2.5"/>
+        <!-- Projected decline -->
+        <polyline points="620,86 680,126" fill="none" stroke="#f0c040" stroke-width="2" stroke-dasharray="6,4"/>
+        <!-- Alt Season threshold line -->
+        <line x1="60" y1="120" x2="760" y2="120" stroke="rgba(34,201,122,0.4)" stroke-width="1.5" stroke-dasharray="8,4"/>
+        <text x="765" y="124" font-size="9" fill="#22c97a">Alt Season</text>
+        <text x="765" y="134" font-size="9" fill="#22c97a">Threshold ~45%</text>
+        <!-- Dots -->
+        <circle cx="520" cy="68" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <text x="525" y="63" font-size="9" fill="#f0c040">61% Peak</text>
+        <text x="525" y="73" font-size="8" fill="#a0a0b8">Feb 2025</text>
+        <!-- 2021 alt season annotation -->
+        <circle cx="250" cy="140" r="4" fill="#22c97a" opacity="0.7"/>
+        <text x="252" y="152" font-size="8" fill="#22c97a" opacity="0.7">2021 Alt Season</text>
+        <text x="252" y="162" font-size="8" fill="#a0a0b8">BTC Dom: 40%</text>
+        <!-- Legend -->
+        <rect x="64" y="6" width="12" height="4" fill="#22c97a" rx="2" opacity="0.7"/><text x="80" y="12" font-size="8" fill="#70708a">2021 Cycle</text>
+        <rect x="140" y="6" width="12" height="4" fill="#f0c040" rx="2"/><text x="156" y="12" font-size="8" fill="#70708a">2024–26 Cycle</text>
+      </svg>
+      <div class="chart-note">The last time BTC dominance peaked above 60% and reversed (Nov 2020) triggered the most explosive altcoin season in history. That signal is flashing again. Source: CoinMarketCap, Glassnode · NM Alpha Research</div>
+    </div>
+
+    <!-- Asset Comparison Table -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;margin-top:8px;">Altcoin Price Targets — Base / Bull / Bear Scenarios for 2026</h3>
+    <table class="dt">
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Apr 2025 Est.</th>
+          <th>Bear Case</th>
+          <th>Base Case</th>
+          <th>Bull Case</th>
+          <th>Primary Catalyst</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tdn">Ethereum (ETH)</td>
+          <td>~$1,800</td>
+          <td class="tdd">$1,200</td>
+          <td class="tdn2">$8,000</td>
+          <td class="tdu">$18,000</td>
+          <td>ETF flows, L2 growth, tokenization</td>
+        </tr>
+        <tr>
+          <td class="tdn">Solana (SOL)</td>
+          <td>~$135</td>
+          <td class="tdd">$60</td>
+          <td class="tdn2">$300</td>
+          <td class="tdu">$800</td>
+          <td>Alpenglow upgrade, ETF approvals, DePIN</td>
+        </tr>
+        <tr>
+          <td class="tdn">XRP</td>
+          <td>~$2.0</td>
+          <td class="tdd">$1.00</td>
+          <td class="tdn2">$3.00</td>
+          <td class="tdu">$6.00</td>
+          <td>Ripple payments, banking integration, ETFs</td>
+        </tr>
+        <tr>
+          <td class="tdn">BNB</td>
+          <td>~$560</td>
+          <td class="tdd">$280</td>
+          <td class="tdn2">$900</td>
+          <td class="tdu">$1,500</td>
+          <td>Exchange volume, BSC ecosystem growth</td>
+        </tr>
+        <tr>
+          <td class="tdn">AI Sector (FET, TAO, RNDR)</td>
+          <td>Various</td>
+          <td class="tdd">−60%</td>
+          <td class="tdn2">+300%</td>
+          <td class="tdu">+800%</td>
+          <td>AI narrative, compute demand, DePIN convergence</td>
+        </tr>
+        <tr>
+          <td class="tdn">RWA Sector (ONDO, MKR)</td>
+          <td>Various</td>
+          <td class="tdd">−50%</td>
+          <td class="tdn2">+250%</td>
+          <td class="tdu">+600%</td>
+          <td>Tokenized Treasuries, institutional RWA onboarding</td>
+        </tr>
+        <tr>
+          <td class="tdn">Memecoins (DOGE, PEPE, WIF)</td>
+          <td>Various</td>
+          <td class="tdd">−80%</td>
+          <td class="tdn2">+400%</td>
+          <td class="tdu">+2,000%</td>
+          <td>Retail flood, social virality, Phase 3 activation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hbox">
+      <div class="hbox-lbl">⚡ NM Key Insight: The 2026 Alt Season Is Different</div>
+      <div class="hbox-txt">
+        Unlike 2021's everything-goes-up alt season, <strong>2026 will reward narrative selectivity</strong>. Institutional capital entering via ETFs has specific mandates — they go to ETH, SOL, XRP. They don't touch DOGE. Retail capital, when it arrives in Phase 3, will flood memecoins and AI projects. <em>The playbook: accumulate quality narrative plays now (AI, RWA, L2) and size into memecoins only at Phase 3 entry signals</em> — rising Altcoin Season Index above 60, BTC dominance breaking below 50%, and Fear & Greed crossing 80.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: CoinMarketCap, 247WallSt, Yahoo Finance, Standard Chartered · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 5: SECTOR BREAKDOWN ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 05</div>
+      <div class="stag">Sector Analysis</div>
+    </div>
+    <h2 class="stitle">Sector-by-Sector 2026 Breakdown<br><span class="it">Where Capital Will Flow &amp; Why</span></h2>
+    <div class="deck">
+      Not all sectors are created equal in this cycle. Five dominant narratives are competing for capital rotation in 2025–26. Here is my honest assessment of each — with conviction levels, risk factors, and the signals that confirm or deny each thesis.
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bull">🤖</div>
+          <div>
+            <div class="sc-t">1. AI x Crypto — The Dominant Narrative</div>
+            <div class="sc-d">AI tokens (FET/ASI Alliance, Bittensor/TAO, Render/RNDR, Near) sit at the intersection of two of the decade's biggest themes. As data consumption and GPU compute become scarce resources, decentralized AI networks offer censorship-resistant alternatives. Bernstein predicted at least one AI crypto project will cross $100B market cap by 2026 end. The infrastructure play (Render, Akash) is more defensible than pure AI agent tokens.</div>
+            <span class="sbadge sb-bull">CONVICTION: HIGH · ENTRY: NOW</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">🏦</div>
+          <div>
+            <div class="sc-t">2. Real World Assets (RWA) — The Institutional Darling</div>
+            <div class="sc-d">Tokenized US Treasuries surpassed $5B in 2024. Ondo Finance, MakerDAO/Sky, Centrifuge, and Securitize now anchor 34% of DeFi TVL through RWA collateral. With GENIUS Act providing regulatory clarity, institutional-grade RWA protocols become the regulated on-ramp for trillions in traditional assets. Blackrock's BUIDL tokenized fund is the inflection point signal.</div>
+            <span class="sbadge sb-bull">CONVICTION: HIGH · ENTRY: ACCUMULATE</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">⚡</div>
+          <div>
+            <div class="sc-t">3. Layer 2 Ecosystems — Ethereum's Scaling Dividend</div>
+            <div class="sc-d">Arbitrum, Base, Optimism, and zkSync are processing more transactions than Ethereum mainnet. Base (Coinbase's L2) alone has become a consumer crypto hub. As ETH prices recover and DeFi activity resumes, L2 tokens receive leverage on the ETH ecosystem without ETH's supply overhead. Watch for the moment L2 TVL crosses mainnet TVL — that's the signal.</div>
+            <span class="sbadge sb-bull">CONVICTION: MEDIUM-HIGH · ENTRY: DCA</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si warn">🌐</div>
+          <div>
+            <div class="sc-t">4. DePIN (Decentralized Physical Infrastructure) — The Sleeper</div>
+            <div class="sc-d">Helium (wireless), Filecoin/Akash (compute/storage), Hivemapper (mapping) represent a $1T+ TAM over time. DePIN projects token-incentivize real-world infrastructure buildout. As AI compute demand explodes and centralized cloud providers face capacity constraints, decentralized alternatives get their moment. Still early — but 2026 is when institution attention may arrive.</div>
+            <span class="sbadge sb-warn">CONVICTION: MEDIUM · ENTRY: SELECTIVE</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">🎮</div>
+          <div>
+            <div class="sc-t">5. Consumer Crypto / Gaming / SocialFi</div>
+            <div class="sc-d">Telegram mini-apps (Notcoin, Hamster Kombat) proved that Web3 onboarding via consumer apps works — 350M+ Telegram users now have basic crypto exposure. T2E and consumer gaming tokens saw 350%+ rallies in Q3 2025 testing. The bridge from Telegram-native mini-apps to full on-chain consumer games is being built. This is the retail Phase 3 vector.</div>
+            <span class="sbadge sb-warn">CONVICTION: MEDIUM · ENTRY: PHASE 3 ONLY</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bear">💸</div>
+          <div>
+            <div class="sc-t">Legacy L1s (ADA, ATOM, etc.) — Avoid</div>
+            <div class="sc-d">Cardano trades 90% below its ATH. LINK has failed to break 2021 highs despite years of development. The infrastructure narrative that drove these projects in prior cycles is being captured by Ethereum L2s and Solana's ecosystem. Without a new catalytic narrative, legacy L1s are capital graveyards in 2026's selective rotation environment.</div>
+            <span class="sbadge sb-bear">CONVICTION: LOW · AVOID</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: DeFiLlama, Glassnode, Bernstein Research, Bitget Academy · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 6: MACRO TRIGGERS ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 06</div>
+      <div class="stag">Macro Framework</div>
+    </div>
+    <h2 class="stitle">Macro Triggers to Watch<br><span class="it">The 7 Signals That Will Confirm or Kill the 2026 Bull Run</span></h2>
+    <div class="deck">
+      Macro remains the dominant force above all else in 2025. The Fed, the dollar, and global liquidity are the real cycle determinants — not on-chain metrics. Here are the seven triggers that matter, with current status and what to watch.
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bull">📉</div>
+          <div>
+            <div class="sc-t">1. Federal Reserve Rate Cuts (BULLISH)</div>
+            <div class="sc-d">The Fed delivered 3 rate cuts in 2025. CME FedWatch currently prices 2+ additional cuts in 2026. This is the single most powerful macro tailwind for crypto. Historical data: every crypto bear market occurred during tightening cycles (2018, 2022). 2026 rate outlook is structurally different — contrasting sharply with prior tops.</div>
+            <span class="sbadge sb-bull">STATUS: BULLISH · Watch: CME FedWatch</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">📊</div>
+          <div>
+            <div class="sc-t">2. US Dollar Weakness (BULLISH)</div>
+            <div class="sc-d">The DXY (US Dollar Index) fell 7–9% in 2025, its biggest annual decline since 2017. A weakening dollar historically correlates strongly with BTC outperformance — it both expands global liquidity and strengthens the "scarce, non-sovereign asset" narrative that underpins Bitcoin's value proposition. EUR gained 13%, GBP +7.8% in 2025.</div>
+            <span class="sbadge sb-bull">STATUS: TAILWIND ACTIVE · Watch: DXY below 100</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">🌏</div>
+          <div>
+            <div class="sc-t">3. Global M2 Expansion (BULLISH)</div>
+            <div class="sc-d">Global M2 money supply growing at +5.8% YoY. Bitcoin price has historically tracked global M2 with a ~12-week lag. When central banks (PBoC, ECB, BoJ) all ease simultaneously, crypto benefits. China's PBoC has maintained accommodative policy in 2025 to offset trade war impacts.</div>
+            <span class="sbadge sb-bull">STATUS: FAVORABLE · Watch: PBoC, ECB stance</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">📋</div>
+          <div>
+            <div class="sc-t">4. CLARITY Digital Asset Market Structure Act (BULLISH)</div>
+            <div class="sc-d">David Sacks (White House Crypto Czar) has signalled a Senate vote by mid-2025. Full implementation expected by mid-2026. This would be the most significant regulatory unlock in US crypto history — enabling tokenized securities, on-chain ICOs, and full institutional market access. Already the catalyst behind ICO revival speculation.</div>
+            <span class="sbadge sb-warn">STATUS: PENDING · Timeline: H2 2025</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si warn">⛽</div>
+          <div>
+            <div class="sc-t">5. US Trade War / Tariff Escalation (BEARISH RISK)</div>
+            <div class="sc-d">The April 2025 tariff escalation was the single biggest catalyst for the BTC drawdown to $74K. Crypto correlation to NASDAQ has doubled year-over-year (avg 0.52 vs 0.23 in 2024). Any further trade war escalation that triggers risk-off across equity markets now has direct crypto spillover. This is the clearest near-term tail risk.</div>
+            <span class="sbadge sb-bear">STATUS: ACTIVE RISK · Watch: US–China trade talks</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si warn">📈</div>
+          <div>
+            <div class="sc-t">6. US Debt &amp; Fiat Debasement (STRUCTURAL BULL)</div>
+            <div class="sc-d">The US national debt surpasses $36T. The 20 millionth Bitcoin will be mined in March 2026, crystallizing the supply scarcity narrative against an infinite-issuance fiat backdrop. Grayscale specifically highlights this dynamic as a structural driver of portfolio demand for Bitcoin as an "alternative store of value."</div>
+            <span class="sbadge sb-warn">STATUS: BUILDING · Long-duration bullish</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bear">💣</div>
+          <div>
+            <div class="sc-t">7. Tether / Stablecoin Systemic Risk (TAIL RISK)</div>
+            <div class="sc-d">If BTC drops 30%+, Tether's overcollateralization buffer (partly backed by BTC reserves) is eliminated. A concurrent redemption wave of even 5% of $140B USDT supply requires $7B+ in liquid assets instantly. In the GENIUS Act era, institutional capital prefers USDC — meaning any USDT stress event could trigger an accelerated flight to GENIUS-compliant instruments.</div>
+            <span class="sbadge sb-bear">STATUS: TAIL RISK · Low probability, extreme impact</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Matrix -->
+    <h3 style="font-size:16px;font-weight:600;margin:24px 0 16px;">2026 Bull Run — Risk / Reward Matrix</h3>
+    <div class="risk-matrix">
+      <div class="rm-cell high">
+        <div class="rm-lbl">High Impact / High Probability — BULLISH</div>
+        <div class="rm-txt"><strong>Fed Rate Cuts + Dollar Weakness:</strong> Already in motion. Two more cuts priced for 2026. Dollar already down 7–9% in 2025. This is the most reliable macro tailwind and is actively in play. The structural setup contrasts sharply with 2018 and 2022 bear cycles.</div>
+      </div>
+      <div class="rm-cell high">
+        <div class="rm-lbl">High Impact / Medium Probability — BULLISH</div>
+        <div class="rm-txt"><strong>CLARITY Act Passage + Institutional Access:</strong> If passed in H2 2025 or early 2026, opens the door to tokenized securities, regulated ICOs, and ETF expansion. JPMorgan, PayPal, Visa, Mastercard are already positioned. Full passage is a structural demand multiplier.</div>
+      </div>
+      <div class="rm-cell med">
+        <div class="rm-lbl">High Impact / Low Probability — BEARISH</div>
+        <div class="rm-txt"><strong>Tether Reserve Stress:</strong> A BTC crash + simultaneous redemption wave could test Tether's $7B+ liquidity buffer. In the GENIUS Act era, flight to USDC would compound the pressure. Low probability in current environment, but the highest-impact tail risk in the entire system.</div>
+      </div>
+      <div class="rm-cell low">
+        <div class="rm-lbl">Positive Asymmetry — MEGA BULL</div>
+        <div class="rm-txt"><strong>Sovereign Wealth / 401(k) Crypto Adoption:</strong> If one major sovereign wealth fund announces a public BTC allocation, or if 401(k) crypto access is formally approved, the resulting demand wave dwarfs anything we have seen. This is the scenario that takes BTC to $250K+.</div>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Data: CME FedWatch, Investing.com, Bitcoin Suisse Outlook 2026, Grayscale Research · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION 7: NM PORTFOLIO FRAMEWORK ══════ -->
+  <div class="rs">
+    <div class="eyebrow">
+      <div class="snum">SECTION 07</div>
+      <div class="stag">NM Playbook</div>
+    </div>
+    <h2 class="stitle">The NM Portfolio Framework<br><span class="it">How I'm Navigating the 2026 Cycle</span></h2>
+    <div class="deck">
+      This is not financial advice. This is how I personally think about positioning across the cycle phases. The framework is designed to survive the bear case, participate fully in the base case, and extract asymmetric gains in the bull case — without ever getting fully wrecked.
+    </div>
+
+    <!-- Portfolio Allocation -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:20px;">Phase 1–2 Allocation (Current: April 2025)</h3>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;">
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--gold);">Bitcoin (BTC)</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:40%;background:var(--gold);"></div></div>
+        <div class="alloc-pct" style="color:var(--gold);">40%</div>
+        <div class="alloc-note">Institutional foundation</div>
+      </div>
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--blue);">Ethereum (ETH)</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:20%;background:var(--blue);"></div></div>
+        <div class="alloc-pct" style="color:var(--blue);">20%</div>
+        <div class="alloc-note">Best risk-adjusted alt</div>
+      </div>
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--green);">Solana (SOL)</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:10%;background:var(--green);"></div></div>
+        <div class="alloc-pct" style="color:var(--green);">10%</div>
+        <div class="alloc-note">Highest beta ETF play</div>
+      </div>
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--purple);">AI / RWA Sector</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:15%;background:var(--purple);"></div></div>
+        <div class="alloc-pct" style="color:var(--purple);">15%</div>
+        <div class="alloc-note">Narrative leaders</div>
+      </div>
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--teal);">DePIN / L2 Alts</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:5%;background:var(--teal);"></div></div>
+        <div class="alloc-pct" style="color:var(--teal);">5%</div>
+        <div class="alloc-note">High-conviction bets</div>
+      </div>
+      <div class="alloc-row">
+        <div class="alloc-asset" style="color:var(--light);">Stablecoins (USDC)</div>
+        <div class="alloc-bar"><div class="alloc-fill" style="width:10%;background:var(--light);"></div></div>
+        <div class="alloc-pct" style="color:var(--light);">10%</div>
+        <div class="alloc-note">Dry powder / deploy on dips</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:28px 0 16px;">The 7 Rules of the 2026 Playbook</h3>
+    <div class="two">
+      <div>
+        <div class="playbook">
+          <div class="playbook-num">01</div>
+          <div class="playbook-title">Never Sell the Macro Narrative</div>
+          <div class="playbook-body">Tariffs, corrections, and bad CPI prints are noise. The macro structure — Fed pivoting, dollar weakening, institutions allocating — is the signal. Panic sellers in April 2021 ($29K) missed the $69K high in November. Don't repeat that mistake.</div>
+        </div>
+        <div class="playbook">
+          <div class="playbook-num">02</div>
+          <div class="playbook-title">ETH Before Alts, Always</div>
+          <div class="playbook-body">Ethereum is the gateway asset. Before rotating into AI tokens, RWA, or L2s, ETH needs to be leading. Watch the ETH/BTC ratio — when it starts rising, the alt season clock starts ticking. Until then, your alt allocation is speculation, not strategy.</div>
+        </div>
+        <div class="playbook">
+          <div class="playbook-num">03</div>
+          <div class="playbook-title">Size Memecoins for Phase 3 Only</div>
+          <div class="playbook-body">Memecoins will generate the most spectacular returns of the cycle — and wipe out the most capital. Allocate 5–10% maximum, only when the Altcoin Season Index exceeds 65, BTC dominance is below 50%, and Fear & Greed is above 75. Then exit ruthlessly.</div>
+        </div>
+      </div>
+      <div>
+        <div class="playbook">
+          <div class="playbook-num">04</div>
+          <div class="playbook-title">Track ETF Flows Weekly</div>
+          <div class="playbook-body">BTC spot ETF weekly net inflows are the most reliable leading indicator of institutional sentiment. Weeks above $500M net inflows signal continuation. Outflow weeks above $300M signal de-risking. Track it at BitMEX Research and The Block — every single week.</div>
+        </div>
+        <div class="playbook">
+          <div class="playbook-num">05</div>
+          <div class="playbook-title">Know Your Exit Signals</div>
+          <div class="playbook-body">Peak cycle signals: Altcoin Season Index above 85, Fear & Greed sustained above 90, BTC dominance below 40%, friends who never owned crypto suddenly asking "should I buy?" — when 3 or more of these fire simultaneously, start exiting in tranches.</div>
+        </div>
+        <div class="playbook">
+          <div class="playbook-num">06</div>
+          <div class="playbook-title">Hold Stablecoin Reserve</div>
+          <div class="playbook-body">10% USDC minimum at all times. Not because the market will crash — but because the best buying opportunities come when fear spikes suddenly (like April 2025). The investors who deploy stablecoins into 30% dips consistently outperform those fully deployed. Dry powder is strategy, not cowardice.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hbox-lbl">🎯 My Bottom Line — April 2025</div>
+      <div class="hbox-txt">
+        We are in the most fear-filled, highest-conviction accumulation window of the 2024–26 cycle. Bitcoin has completed its post-ATH consolidation. Institutional demand never stopped. The macro backdrop — rate cuts, dollar weakness, global M2 expansion — is structurally aligned for the next leg. <strong>My base case: BTC reaches $130K–$150K by Q4 2025, with alts exploding in 2026 H1.</strong> The sectors I'm betting on: AI/Compute infrastructure, RWA protocols, Ethereum L2 ecosystems, and Solana's consumer layer. The playbook is clear. <em>The only question is whether you have the conviction to execute it when everyone around you is panicking.</em>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sf-n">Framework: NM Alpha Research · Based on Grayscale, Bernstein, Bitcoin Suisse, CoinMarketCap data · Apr 2025</span>
+      <span class="sf-n">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<div class="rfooter">
+  <div>
+    <div class="rf-brand">NM ALPHA RESEARCH</div>
+    <div class="rf-auth">Written by Chirag Mehta · Founder, NM Alpha Tribe · April 2025</div>
+  </div>
+  <div class="rf-disc">
+    This report is for informational purposes only and does not constitute financial or investment advice. All data sourced from publicly available institutional research as of April 2025, including Grayscale 2026 Digital Asset Outlook, Bernstein Research, Standard Chartered, Fidelity Digital Assets, J.P. Morgan, and CoinMarketCap. Past performance does not guarantee future results. NM Alpha Research and Chirag Mehta may hold positions in assets discussed.
+  </div>
+  <div class="rf-links">
+    <a class="rf-link" href="https://x.com/NM_ALPHA">𝕏 @NM_ALPHA</a>
+    <a class="rf-link" href="https://x.com/NM_Founder">𝕏 @NM_Founder</a>
+    <a class="rf-link" href="https://discord.gg/AS5eJkUven">◈ Discord</a>
+  </div>
+</div>
+
+</body>
+</html>

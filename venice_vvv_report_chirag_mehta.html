@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$VVV: The Most Mispriced Asset in Crypto-AI — Chirag Mehta · NM Alpha Research</title>
+
+  <!-- ═══ Open Graph (LinkedIn, Facebook, WhatsApp) ═══ -->
+  <meta property="og:type"        content="article" />
+  <meta property="og:url"         content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/venice_vvv_report_chirag_mehta.html" />
+  <meta property="og:title"       content="$VVV Is Up 600% — And It's Still Undervalued" />
+  <meta property="og:description" content="Venice.ai's $VVV token rose 600% from its December low. 2M+ users, $30–42M estimated ARR, 42.7% of supply permanently burned, and a deflationary flywheel that hasn't reached escape velocity. The most mispriced asset in Crypto-AI — and here's the math." />
+  <meta property="og:image"       content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/vvv_og_thumbnail.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="$VVV Is Up 600% And It's Still Undervalued — NM Alpha Research by Chirag Mehta" />
+  <meta property="og:site_name"   content="NM Alpha Research" />
+  <meta property="article:author" content="Chirag Mehta" />
+
+  <!-- ═══ Twitter Card (X previews) ═══ -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@NM_ALPHA" />
+  <meta name="twitter:creator"     content="@NM_Founder" />
+  <meta name="twitter:title"       content="$VVV Is Up 600% — And It's Still Undervalued" />
+  <meta name="twitter:description" content="Venice.ai deep-dive: 2M+ users, $514M FDV, 42.7% supply burned, deflationary flywheel. Full tokenomics + valuation by Chirag Mehta · NM Alpha Research." />
+  <meta name="twitter:image"       content="https://chiragmehta1304-hub.github.io/chiragmehta-portfolio/vvv_og_thumbnail.png" />
+  <meta name="twitter:image:alt"   content="$VVV NM Alpha Research Report Thumbnail" />
+
+  <!-- ═══ General SEO ═══ -->
+  <meta name="description" content="Venice.ai $VVV deep-dive: 2M+ users, $514M FDV, 42.7% supply burned. Full protocol breakdown, tokenomics analysis and valuation by Chirag Mehta · NM Alpha Research. March 2026." />
+  <meta name="author"      content="Chirag Mehta" />
+  <meta name="keywords"    content="VVV, Venice AI, Crypto-AI, tokenomics, DePIN, valuation, NM Alpha, Chirag Mehta" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --v:#8b5cf6; --vl:#a78bfa; --gold:#f0c040; --grn:#22c97a;
+    --red:#e84040; --org:#f07030; --blue:#4080f0;
+    --ink:#07070d; --paper:#f4f2ed; --surface:#fff;
+    --border:#dedad2; --text:#14142a; --muted:#68688a; --light:#9898b8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ink);font-family:'Outfit',sans-serif;color:var(--text);}
+
+  /* ══════════════ COVER ══════════════ */
+  .cover{width:100%;min-height:100vh;background:var(--ink);position:relative;
+    overflow:hidden;display:flex;flex-direction:column;page-break-after:always;}
+  .cvg{position:absolute;inset:0;
+    background-image:linear-gradient(rgba(139,92,246,.05)1px,transparent 1px),
+      linear-gradient(90deg,rgba(139,92,246,.05)1px,transparent 1px);
+    background-size:50px 50px;}
+  .o{position:absolute;border-radius:50%;}
+  .o1{width:720px;height:720px;top:-260px;left:50%;transform:translateX(-50%);
+    background:radial-gradient(circle,rgba(139,92,246,.18)0%,transparent 65%);}
+  .o2{width:480px;height:480px;bottom:-80px;left:-80px;
+    background:radial-gradient(circle,rgba(240,192,64,.11)0%,transparent 65%);}
+  .o3{width:380px;height:380px;bottom:-40px;right:-40px;
+    background:radial-gradient(circle,rgba(34,201,122,.09)0%,transparent 65%);}
+  .o4{width:260px;height:260px;top:28%;right:8%;
+    background:radial-gradient(circle,rgba(240,112,48,.07)0%,transparent 65%);}
+  .slash{position:absolute;width:3px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(139,92,246,.25),transparent);
+    top:-15vh;left:52%;transform:rotate(9deg);}
+  .slash2{position:absolute;width:1px;height:130vh;
+    background:linear-gradient(to bottom,transparent,rgba(139,92,246,.09),transparent);
+    top:-15vh;left:54.5%;transform:rotate(9deg);}
+
+  .cvtop{position:relative;z-index:10;display:flex;align-items:center;
+    justify-content:space-between;padding:26px 52px;
+    border-bottom:1px solid rgba(255,255,255,.06);}
+  .cvbrand{display:flex;align-items:center;gap:10px;}
+  .cvlogo{width:34px;height:34px;background:var(--v);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;}
+  .cvbname{font-family:'DM Mono',monospace;font-size:12px;
+    color:rgba(255,255,255,.38);letter-spacing:2px;text-transform:uppercase;}
+  .cvvol{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.22);letter-spacing:2px;}
+
+  .cvbody{position:relative;z-index:10;flex:1;display:flex;
+    flex-direction:column;justify-content:center;padding:52px 52px 40px;}
+  .cvpill{display:inline-flex;align-items:center;gap:8px;
+    background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.28);
+    color:var(--vl);font-family:'DM Mono',monospace;font-size:11px;
+    letter-spacing:3px;text-transform:uppercase;padding:7px 16px;
+    border-radius:100px;width:fit-content;margin-bottom:28px;}
+  .cvpill .dot{width:6px;height:6px;background:var(--vl);border-radius:50%;
+    box-shadow:0 0 8px var(--vl);animation:blink 2s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  .cvh1{font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(50px,7vw,96px);letter-spacing:3px;line-height:.88;
+    color:#e8e8f0;margin-bottom:6px;}
+  .cvh1 .a1{color:var(--vl);display:block;}
+  .cvh1 .a2{color:var(--gold);display:block;}
+  .cvh1 .a3{color:rgba(255,255,255,.28);display:block;
+    font-size:.46em;letter-spacing:6px;margin-top:10px;}
+
+  .cvdesc{max-width:560px;font-size:15px;font-weight:300;
+    color:rgba(255,255,255,.42);line-height:1.78;margin-top:24px;margin-bottom:44px;}
+  .cvdesc strong{color:rgba(255,255,255,.75);font-weight:500;}
+
+  .cvstats{display:flex;gap:0;border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;overflow:hidden;width:fit-content;}
+  .cvst{padding:18px 30px;border-right:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+  .cvst:last-child{border-right:none;}
+  .cvsn{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;line-height:1;}
+  .cvsn.v{color:var(--vl);} .cvsn.g{color:var(--gold);}
+  .cvsn.gr{color:var(--grn);} .cvsn.r{color:var(--red);}
+  .cvsl{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.26);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+  .cvtoc{position:absolute;right:52px;top:50%;transform:translateY(-50%);
+    z-index:10;width:215px;}
+  .cvtocl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:14px;}
+  .cvtoci{display:flex;align-items:center;gap:10px;padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,.04);}
+  .cvtoci:last-child{border-bottom:none;}
+  .cvtn{font-family:'Bebas Neue',sans-serif;font-size:17px;
+    color:rgba(139,92,246,.28);min-width:22px;}
+  .cvtt{font-family:'Outfit',sans-serif;font-size:11.5px;
+    color:rgba(255,255,255,.3);line-height:1.4;}
+
+  .cvbot{position:relative;z-index:10;padding:26px 52px;
+    border-top:1px solid rgba(255,255,255,.06);
+    display:flex;align-items:center;justify-content:space-between;}
+  .cvauth{display:flex;align-items:center;gap:14px;}
+  .cvav{width:42px;height:42px;
+    background:linear-gradient(135deg,var(--v),var(--gold));
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue',sans-serif;font-size:17px;color:#fff;}
+  .cvan{font-size:14px;font-weight:500;color:rgba(255,255,255,.82);}
+  .cvar{font-family:'DM Mono',monospace;font-size:10px;
+    color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px;}
+  .cvtags{display:flex;gap:8px;}
+  .cvtag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;padding:4px 11px;border-radius:100px;
+    color:rgba(255,255,255,.26);border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.02);}
+
+  /* ══════════════ BODY ══════════════ */
+  .report{background:var(--paper);color:var(--text);}
+
+  .ph{background:var(--ink);padding:14px 52px;display:flex;
+    align-items:center;justify-content:space-between;}
+  .phl{font-family:'DM Mono',monospace;font-size:11px;
+    color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;}
+  .phr{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.2);}
+
+  .rs{padding:52px 52px;border-bottom:2px solid var(--border);}
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .snum{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;
+    color:var(--vl);background:rgba(139,92,246,.08);
+    border:1px solid rgba(139,92,246,.22);padding:3px 10px;border-radius:100px;}
+  .stag{font-family:'DM Mono',monospace;font-size:10px;
+    letter-spacing:3px;text-transform:uppercase;color:var(--light);}
+
+  .stitle{font-family:'DM Serif Display',serif;font-size:32px;
+    line-height:1.2;color:var(--text);margin-bottom:8px;}
+  .stitle .it{font-style:italic;color:#555;}
+
+  .deck{font-size:15.5px;color:#555;font-weight:300;line-height:1.65;
+    max-width:680px;border-left:3px solid var(--v);
+    padding-left:16px;margin-bottom:36px;}
+
+  .body{font-size:14px;line-height:1.82;color:#333;margin-bottom:20px;font-weight:300;}
+  .body strong{color:var(--text);font-weight:600;}
+  .body em{color:#666;}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:24px;}
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px;}
+  .four{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;}
+
+  /* DATA CARDS */
+  .dc{background:var(--surface);border:1px solid var(--border);
+    border-radius:12px;padding:20px 22px;}
+  .dclbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:8px;}
+  .dcval{font-family:'Bebas Neue',sans-serif;font-size:36px;
+    letter-spacing:1px;line-height:1;margin-bottom:4px;}
+  .dcval.v{color:var(--v);} .dcval.g{color:var(--gold);}
+  .dcval.gr{color:var(--grn);} .dcval.r{color:var(--red);}
+  .dcval.o{color:var(--org);} .dcval.b{color:var(--blue);}
+  .dcsub{font-size:11.5px;color:var(--light);font-family:'DM Mono',monospace;}
+  .dcch{display:inline-block;font-size:11px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;}
+  .up{background:rgba(34,201,122,.08);color:var(--grn);}
+  .dn{background:rgba(232,64,64,.08);color:var(--red);}
+  .nt{background:rgba(152,152,184,.1);color:var(--light);}
+  .vp{background:rgba(139,92,246,.08);color:var(--vl);}
+
+  /* HIGHLIGHT BOX */
+  .hbox{background:var(--ink);border-radius:14px;padding:28px 32px;
+    margin:24px 0;position:relative;overflow:hidden;}
+  .hbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--v),var(--gold));}
+  .hboxl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--vl);margin-bottom:10px;}
+  .hboxt{font-size:15.5px;font-weight:300;line-height:1.72;
+    color:rgba(255,255,255,.72);}
+  .hboxt strong{color:var(--gold);font-weight:600;}
+  .hboxt em{color:var(--grn);font-style:normal;}
+
+  /* PULLQUOTE */
+  .pq{border-left:4px solid var(--v);background:rgba(139,92,246,.04);
+    padding:18px 24px;margin:24px 0;border-radius:0 10px 10px 0;}
+  .pqt{font-family:'DM Serif Display',serif;font-size:18px;font-style:italic;
+    color:var(--text);line-height:1.5;margin-bottom:8px;}
+  .pqs{font-family:'DM Mono',monospace;font-size:11px;color:var(--light);}
+
+  /* TABLE */
+  .dt{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}
+  .dt thead tr{background:var(--ink);}
+  .dt thead th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:rgba(255,255,255,.45);padding:11px 14px;text-align:left;}
+  .dt tbody tr{border-bottom:1px solid var(--border);}
+  .dt tbody tr:hover{background:rgba(139,92,246,.025);}
+  .dt tbody td{padding:11px 14px;font-family:'DM Mono',monospace;color:var(--text);}
+  .tdn{font-family:'Outfit',sans-serif;font-weight:500;font-size:13.5px;}
+  .tdu{color:var(--grn);} .tdd{color:var(--red);} .tdn2{color:var(--light);}
+  .tdv{color:var(--vl);}
+
+  /* SIGNAL CARDS */
+  .sc{background:var(--surface);border:1px solid var(--border);
+    border-radius:10px;padding:18px 20px;display:flex;gap:12px;
+    align-items:flex-start;margin-bottom:12px;}
+  .si{width:34px;height:34px;border-radius:8px;display:flex;
+    align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .si.bull{background:rgba(34,201,122,.1);}
+  .si.bear{background:rgba(232,64,64,.1);}
+  .si.neu{background:rgba(152,152,184,.1);}
+  .si.warn{background:rgba(240,192,64,.1);}
+  .si.vio{background:rgba(139,92,246,.1);}
+  .sct{font-size:13.5px;font-weight:600;margin-bottom:5px;}
+  .scd{font-size:12px;color:#666;line-height:1.6;}
+  .sbadge{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;
+    padding:2px 8px;border-radius:4px;margin-top:5px;letter-spacing:1px;}
+  .sbb{background:rgba(34,201,122,.08);color:var(--grn);
+    border:1px solid rgba(34,201,122,.2);}
+  .sbr{background:rgba(232,64,64,.08);color:var(--red);
+    border:1px solid rgba(232,64,64,.2);}
+  .sbw{background:rgba(240,192,64,.1);color:#b08020;
+    border:1px solid rgba(240,192,64,.3);}
+  .sbn{background:rgba(152,152,184,.1);color:var(--light);
+    border:1px solid rgba(152,152,184,.2);}
+  .sbv{background:rgba(139,92,246,.08);color:var(--vl);
+    border:1px solid rgba(139,92,246,.2);}
+
+  /* BAR */
+  .br{margin-bottom:14px;}
+  .brhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .brnm{font-size:12.5px;font-weight:500;}
+  .brvl{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--light);}
+  .brtr{height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+  .brfl{height:100%;border-radius:4px;}
+
+  /* CHARTS */
+  .cw{background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:24px;margin-bottom:24px;}
+  .ct{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--light);margin-bottom:18px;}
+  .cn{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;margin-top:10px;}
+
+  /* FLYWHEEL */
+  .flywheel{background:var(--ink);border-radius:14px;padding:32px;
+    display:flex;align-items:center;justify-content:center;
+    gap:0;flex-wrap:wrap;margin:24px 0;position:relative;overflow:hidden;}
+  .flywheel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--v),var(--grn),var(--gold));}
+  .fw-node{display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:16px 20px;background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);border-radius:10px;min-width:120px;text-align:center;}
+  .fw-icon{font-size:22px;}
+  .fw-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px;}
+  .fw-value{font-size:12px;font-weight:500;color:rgba(255,255,255,.75);}
+  .fw-arrow{font-size:20px;color:rgba(139,92,246,.5);padding:0 8px;align-self:center;}
+
+  /* TIMELINE */
+  .tli{display:flex;gap:18px;margin-bottom:26px;}
+  .tlm{display:flex;flex-direction:column;align-items:center;min-width:14px;}
+  .tld{width:11px;height:11px;border-radius:50%;
+    border:2px solid var(--v);background:var(--v);flex-shrink:0;margin-top:4px;}
+  .tll{width:1px;background:var(--border);flex:1;margin-top:5px;}
+  .tlc{flex:1;padding-bottom:6px;}
+  .tldate{font-family:'DM Mono',monospace;font-size:11px;color:var(--vl);margin-bottom:3px;}
+  .tltt{font-size:14px;font-weight:600;margin-bottom:5px;}
+  .tlde{font-size:12.5px;color:#555;line-height:1.65;}
+
+  /* RISK MATRIX */
+  .rm{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+  .rmc{border-radius:10px;padding:14px 16px;}
+  .rmc.hi{background:rgba(232,64,64,.07);border:1px solid rgba(232,64,64,.15);}
+  .rmc.md{background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.2);}
+  .rmc.lo{background:rgba(34,201,122,.06);border:1px solid rgba(34,201,122,.15);}
+  .rmc.vio{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);}
+  .rml{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:4px;}
+  .rmc.hi .rml{color:var(--red);}
+  .rmc.md .rml{color:#b08020;}
+  .rmc.lo .rml{color:var(--grn);}
+  .rmc.vio .rml{color:var(--vl);}
+  .rmt{font-size:12.5px;color:var(--text);line-height:1.5;}
+
+  .sf{display:flex;align-items:center;justify-content:space-between;
+    padding-top:20px;border-top:1px solid var(--border);margin-top:12px;}
+  .sfn{font-size:11px;color:var(--light);font-family:'DM Mono',monospace;}
+
+  /* FOOTER */
+  .rfooter{background:var(--ink);padding:28px 52px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .rfbrand{font-family:'Bebas Neue',sans-serif;font-size:19px;
+    color:var(--vl);letter-spacing:2px;}
+  .rfauth{font-size:11px;color:rgba(255,255,255,.3);
+    font-family:'DM Mono',monospace;margin-top:3px;}
+  .rfdisc{font-size:10px;color:rgba(255,255,255,.18);
+    font-family:'DM Mono',monospace;max-width:420px;line-height:1.65;}
+  .rflinks{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+  .rflink{font-size:11px;color:rgba(139,92,246,.55);
+    font-family:'DM Mono',monospace;text-decoration:none;}
+
+  /* SOURCE TAG */
+  .src{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;
+    letter-spacing:1px;padding:1px 6px;border-radius:3px;margin-left:4px;
+    vertical-align:middle;}
+  .src.ec{background:rgba(34,201,122,.1);color:var(--grn);
+    border:1px solid rgba(34,201,122,.2);}
+  .src.oc{background:rgba(139,92,246,.1);color:var(--vl);
+    border:1px solid rgba(139,92,246,.2);}
+  .src.tp{background:rgba(152,152,184,.1);color:var(--light);
+    border:1px solid rgba(152,152,184,.2);}
+
+  @media print{.cover{page-break-after:always;}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ COVER ════════════════ -->
+<div class="cover">
+  <div class="cvg"></div>
+  <div class="o o1"></div><div class="o o2"></div>
+  <div class="o o3"></div><div class="o o4"></div>
+  <div class="slash"></div><div class="slash2"></div>
+
+  <div class="cvtop">
+    <div class="cvbrand">
+      <div class="cvlogo">NM</div>
+      <div class="cvbname">NM Alpha Research</div>
+    </div>
+    <div class="cvvol">Vol. 03 · March 2026</div>
+  </div>
+
+  <div class="cvbody">
+    <div class="cvpill"><div class="dot"></div>Crypto-AI Token Intelligence</div>
+    <div class="cvh1">
+      $VVV IS UP 600%
+      <span class="a1">AND IT'S STILL</span>
+      <span class="a2">UNDERVALUED</span>
+      <span class="a3">VENICE.AI · $VVV · $DIEM · VALUATION DEEP-DIVE · MARCH 2026</span>
+    </div>
+    <div class="cvdesc">
+      Venice.ai's $VVV token rose 600% from its December low of $0.92 to $6.50 — and the rally has structural legs the market hasn't priced yet. <strong>2M+ users, $30–42M estimated ARR, 42.7% of total supply permanently burned, and a deflationary flywheel that hasn't even reached escape velocity.</strong> This is the most mispriced asset in crypto-AI — and this report shows you the math.
+    </div>
+    <div class="cvstats">
+      <div class="cvst"><div class="cvsn v">$6.50</div><div class="cvsl">VVV Price</div></div>
+      <div class="cvst"><div class="cvsn g">$514M</div><div class="cvsl">FDV (Mar 1)</div></div>
+      <div class="cvst"><div class="cvsn gr">42.7%</div><div class="cvsl">Supply Burned</div></div>
+      <div class="cvst"><div class="cvsn r">+600%</div><div class="cvsl">Rally from Low</div></div>
+    </div>
+  </div>
+
+  <div class="cvtoc">
+    <div class="cvtocl">Contents</div>
+    <div class="cvtoci"><div class="cvtn">01</div><div class="cvtt">What Venice Actually Is</div></div>
+    <div class="cvtoci"><div class="cvtn">02</div><div class="cvtt">What Drove the 600% Move</div></div>
+    <div class="cvtoci"><div class="cvtn">03</div><div class="cvtt">The Mispricing — Comp Analysis</div></div>
+    <div class="cvtoci"><div class="cvtn">04</div><div class="cvtt">Tokenomics: $VVV & $DIEM</div></div>
+    <div class="cvtoci"><div class="cvtn">05</div><div class="cvtt">Valuation, Risks & Outlook</div></div>
+  </div>
+
+  <div class="cvbot">
+    <div class="cvauth">
+      <div class="cvav">CM</div>
+      <div>
+        <div class="cvan">Chirag Mehta</div>
+        <div class="cvar">Crypto Research Analyst · Founder, NM Alpha Tribe</div>
+      </div>
+    </div>
+    <div class="cvtags">
+      <span class="cvtag">Crypto-AI</span>
+      <span class="cvtag">Tokenomics</span>
+      <span class="cvtag">Valuation</span>
+      <span class="cvtag">Not Financial Advice</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ REPORT BODY ════════════════ -->
+<div class="report">
+
+  <div class="ph">
+    <span class="phl">NM Alpha Research · Chirag Mehta · Venice AI / $VVV Report</span>
+    <span class="phr">March 1, 2026</span>
+  </div>
+
+  <!-- ─── SECTION 1: WHAT VENICE IS ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">01</span><span class="stag">Platform Overview</span></div>
+    <h2 class="stitle">What Venice Actually Is: <span class="it">Three Businesses in One — and Why That's the Whole Point</span></h2>
+    <div class="deck">
+      The market keeps getting Venice wrong because it keeps trying to fit it into a single category. Venice isn't a crypto-AI token. It isn't a SaaS inference API. It isn't a consumer app. It is all three simultaneously — and the mispricing exists precisely because no analyst framework handles all three at once.
+    </div>
+
+    <div class="four">
+      <div class="dc"><div class="dclbl">Platform Launch</div><div class="dcval v">May '24</div><div class="dcsub">Founded by Erik Voorhees</div><span class="dcch vp">▲ SatoshiDICE · ShapeShift</span></div>
+      <div class="dc"><div class="dclbl">Registered Users (Feb 27)</div><div class="dcval gr">2M+</div><div class="dcsub">2nd million in half the time</div><span class="dcch up">▲ Erik-confirmed, X post</span></div>
+      <div class="dc"><div class="dclbl">Daily LLM Tokens (Feb 17)</div><div class="dcval g">45B</div><div class="dcsub">Doubled in 2 weeks</div><span class="dcch up">▲ The Defiant confirmed</span></div>
+      <div class="dc"><div class="dclbl">Daily API Chats (Warden)</div><div class="dcval v">1.5M</div><div class="dcsub">Via Warden integration alone</div><span class="dcch up">▲ B2B API volume</span></div>
+    </div>
+
+    <div class="body">
+      Venice AI launched in May 2024 as a simple privacy-first AI chat app. By March 2026, it had grown into a three-layer platform processing 45 billion LLM tokens per day — a figure that doubled in just two weeks in February. Understanding the full architecture is essential before any valuation discussion makes sense.
+    </div>
+
+    <!-- THREE LAYER BREAKDOWN -->
+    <div class="three" style="margin-bottom:28px;">
+      <div class="sc" style="flex-direction:column;gap:10px;margin-bottom:0;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="si vio">🖥️</div>
+          <div class="sct" style="font-size:14px;">Layer 1: Consumer App</div>
+        </div>
+        <div class="scd" style="font-size:12.5px;">
+          Web + mobile AI chat with text, image, video, and code generation. Key differentiators: <strong>fully uncensored outputs, zero server-side data logging, local-only memory (Memoria)</strong>, and 30+ models including Claude 4.5, GPT-5.2, DeepSeek V3.2, Qwen 3.5 (262K context), Grok 4.1, and Venice Uncensored (Dolphin Mistral 24B). Character creation and roleplay. 2M+ users.
+        </div>
+        <span class="sbadge sbv">CONSUMER MOAT</span>
+      </div>
+      <div class="sc" style="flex-direction:column;gap:10px;margin-bottom:0;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="si bull">⚡</div>
+          <div class="sct" style="font-size:14px;">Layer 2: API & Inference Router</div>
+        </div>
+        <div class="scd" style="font-size:12.5px;">
+          Full developer API routing inference across open-source models via <strong>decentralized GPU providers</strong>. ~20% of Venice's total volume is API-driven. Integrations into Cursor, VS Code, OpenClaw (default model), Warden (1.5M daily chats), and @bankrbot for on-chain inference payments. This is the revenue engine — placing Venice alongside Together AI ($3.3B) and OpenRouter ($500M).
+        </div>
+        <span class="sbadge sbb">REVENUE ENGINE</span>
+      </div>
+      <div class="sc" style="flex-direction:column;gap:10px;margin-bottom:0;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="si warn">🔗</div>
+          <div class="sct" style="font-size:14px;">Layer 3: Tokenized Ownership</div>
+        </div>
+        <div class="scd" style="font-size:12.5px;">
+          VVV staking grants <strong>pro-rata daily inference capacity</strong> that grows as Venice scales GPU infrastructure. DIEM converts that capacity into a tradeable, perpetual $1/day credit. Revenue buys and burns VVV monthly. This places Venice alongside Bittensor, Render, and Akash — but with a critical edge: <strong>Venice has actual growing revenue feeding the mechanics. The others largely do not.</strong>
+        </div>
+        <span class="sbadge sbw">DEFLATIONARY FLYWHEEL</span>
+      </div>
+    </div>
+
+    <div class="body">
+      <strong>Coming: V2 — "The Port City of AI."</strong> The 2026 priority is a user-generated marketplace for characters and autonomous agents. All marketplace revenue feeds VVV burns. This adds a fourth dimension where agent-created value flows directly to token holders — a use case that doesn't exist anywhere else in the crypto-AI stack. <span class="src ec">Erik-confirmed roadmap</span>
+    </div>
+
+    <!-- TIMELINE: History -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">Venice Timeline: From Idea to Crypto-AI Category Leader</h3>
+    <div class="two">
+      <div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div><div class="tll"></div></div>
+          <div class="tlc">
+            <div class="tldate">MAY 2024 · LAUNCH</div>
+            <div class="tltt">Venice.ai Goes Live</div>
+            <div class="tlde">Erik Voorhees launches Venice as a simple privacy-first AI chat app. Early traction: 400K users, 50K DAU, 15K inference requests/hour within months.</div>
+          </div>
+        </div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div><div class="tll"></div></div>
+          <div class="tlc">
+            <div class="tldate">JAN 2025 · TOKEN LAUNCH</div>
+            <div class="tltt">$VVV Launches on Base, Listed on Coinbase Day 1</div>
+            <div class="tlde">Airdrop to 100K+ holders of $AIXBT and $VADER. Hits $500M FDV within 15 minutes. Controversy follows: alleged single-entity claiming 1M+ VVV via multiple wallets, $10.2M team token sales. Price drops from $19 to $2.90.</div>
+          </div>
+        </div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div><div class="tll"></div></div>
+          <div class="tlc">
+            <div class="tldate">NOV 2025 · BURNS BEGIN</div>
+            <div class="tltt">Revenue Buyback & Burn Mechanism Activates</div>
+            <div class="tlde">Venice begins monthly revenue-funded VVV buybacks and permanent burns. Emission cuts begin: 14M → 10M annual supply. This is the structural inflection point the market later repriced.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div><div class="tll"></div></div>
+          <div class="tlc">
+            <div class="tldate">FEB 10, 2026 · PERMANENT CUT</div>
+            <div class="tltt">Final Emission Cut — 6M/Year, Permanent Floor</div>
+            <div class="tlde">Three rounds of supply cuts reduce annual emissions from 14M to 6M permanently — a 57% total reduction. Combined with burns: 33.68M tokens (42.7% of genesis supply) destroyed on-chain.</div>
+          </div>
+        </div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div><div class="tll"></div></div>
+          <div class="tlc">
+            <div class="tldate">FEB 2026 · ECOSYSTEM GROWTH</div>
+            <div class="tltt">Hackathon, Grok Imagine, Qwen 3.5 Integrations</div>
+            <div class="tlde">Open Agent Hackathon co-hosted with Akash Network. Added Grok Imagine (xAI), Qwen 3.5 (262K context), Nano Banana 2. Venice becomes default inference provider for OpenClaw. Warden integration powering 1.5M daily chats.</div>
+          </div>
+        </div>
+        <div class="tli">
+          <div class="tlm"><div class="tld"></div></div>
+          <div class="tlc">
+            <div class="tldate">FEB 27, 2026 · MILESTONE</div>
+            <div class="tltt">2M+ Users — Second Million in Half the Time</div>
+            <div class="tlde">Erik posts direct confirmation on X: 2M+ registered users, with the second million achieved in half the time of the first. Daily LLM token processing: 45B/day. The growth curve is accelerating, not flattening.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Erik Voorhees X posts (Erik-confirmed), The Defiant Feb 17 2026, Base Explorer (on-chain), CoinGecko</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 2: WHAT DROVE THE 600% ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">02</span><span class="stag">Rally Analysis</span></div>
+    <h2 class="stitle">What Drove the 600% Move: <span class="it">Four Structural Forces That Stacked Simultaneously</span></h2>
+    <div class="deck">
+      VVV went from $0.92 in December 2025 to $6.50 on March 1, 2026. The easy explanation is "AI narrative." That's wrong — or at least, it's about 10% of the story. The other 90% is four structural forces converging at the same time.
+    </div>
+
+    <!-- PRICE CHART -->
+    <div class="cw">
+      <div class="ct">📈 $VVV Price History — Dec 2025 to Mar 2026 (USD)</div>
+      <svg viewBox="0 0 780 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="vvvGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="vvvLine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#8b5cf6"/>
+            <stop offset="60%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#f0c040"/>
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="60" x2="760" y2="60" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="100" x2="760" y2="100" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="175" x2="760" y2="175" stroke="#dedad2" stroke-width="1"/>
+        <text x="52" y="23" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$7.50</text>
+        <text x="52" y="63" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$6.00</text>
+        <text x="52" y="103" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$4.00</text>
+        <text x="52" y="143" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$2.00</text>
+        <text x="52" y="178" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$0.92</text>
+        <!-- x positions: Dec=$0.92→175, Jan low=$1.20→165, Jan spike=$19→--crash, Feb1=$1.50→162, Feb5=$2.50→148, Feb10=$3.20→138, Feb17=$4.50→120, Feb21=$5.20→109, Feb27=$5.80→100, Mar1=$6.50→88 -->
+        <!-- Mapping: y = 175 - (price-0.92)/(7.5-0.92)*155 -->
+        <!-- 0.92→175, 1.20→168.4, 1.50→161.9, 2.50→139.4, 3.20→123.1, 4.50→93.3, 5.20→76.9, 5.80→63.8, 6.50→47.5 -->
+        <polygon points="100,175 160,168 200,162 280,162 340,148 400,139 460,123 540,93 620,77 680,64 740,47 740,175 100,175"
+          fill="url(#vvvGrad)"/>
+        <polyline points="100,175 160,168 200,162 280,162 340,148 400,139 460,123 540,93 620,77 680,64 740,47"
+          fill="none" stroke="url(#vvvLine)" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- Key event markers -->
+        <line x1="460" y1="20" x2="460" y2="185" stroke="rgba(34,201,122,0.35)" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="465" y="34" font-size="8" fill="#22c97a" font-family="DM Mono, monospace">Emission cuts</text>
+        <text x="465" y="45" font-size="8" fill="#22c97a" font-family="DM Mono, monospace">permanent</text>
+        <line x1="540" y1="20" x2="540" y2="185" stroke="rgba(240,192,64,0.35)" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="545" y="34" font-size="8" fill="#f0c040" font-family="DM Mono, monospace">45B tokens/day</text>
+        <text x="545" y="45" font-size="8" fill="#f0c040" font-family="DM Mono, monospace">reported</text>
+        <!-- Dots -->
+        <circle cx="100" cy="175" r="4" fill="#8b5cf6"/>
+        <circle cx="740" cy="47" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <text x="742" y="42" font-size="9" font-weight="bold" fill="#f0c040" font-family="DM Mono, monospace">$6.50</text>
+        <text x="78" y="179" font-size="9" fill="#8b5cf6" font-family="DM Mono, monospace">$0.92</text>
+        <!-- X labels -->
+        <text x="100" y="200" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Dec 2025</text>
+        <text x="300" y="200" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Jan 2026</text>
+        <text x="500" y="200" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Feb 2026</text>
+        <text x="700" y="200" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Mar 1, 2026</text>
+        <!-- +600% label -->
+        <text x="400" y="55" text-anchor="middle" font-size="13" font-weight="bold" fill="rgba(139,92,246,0.5)" font-family="Bebas Neue, sans-serif">+600% FROM LOW</text>
+      </svg>
+      <div class="cn">Sources: Kraken, CoinMarketCap, CoinGecko · Price path is illustrative of confirmed data points, not exact daily OHLC</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">The Four Forces Behind the Rally</h3>
+    <div class="two">
+      <div>
+        <div class="sc">
+          <div class="si bull">🚀</div>
+          <div>
+            <div class="sct">1. Usage Exploded — 45B Tokens/Day</div>
+            <div class="scd">Venice processed 45 billion LLM tokens per day by February 17 — a figure that doubled in just two weeks from the ~22B reported on February 4. Every token processed is real inference demand. This isn't a vanity metric; it's direct evidence of product-market fit at scale. <span class="src ec">Erik-confirmed · The Defiant, Feb 17</span></div>
+            <span class="sbadge sbb">REAL DEMAND</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si vio">🔥</div>
+          <div>
+            <div class="sct">2. Supply Got Crushed — 57% Emission Cut + 42.7% Burned</div>
+            <div class="scd">Three emission cut rounds took annual new supply from 14M → 10M → 8M → 6M permanently (Feb 10, 2026). Meanwhile revenue-funded buybacks have burned 33.68M tokens — 42.7% of total genesis supply, permanently destroyed on-chain. The circulating supply picture is radically different from what launched in January 2025. <span class="src oc">On-chain verified · Base Explorer</span></div>
+            <span class="sbadge sbv">SUPPLY SHOCK</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sc">
+          <div class="si warn">💰</div>
+          <div>
+            <div class="sct">3. The Market Discovered the Revenue</div>
+            <div class="scd">In a sea of crypto-AI tokens built on narrative and vaporware, Venice has an actual business with actual users paying actual money. Sub-$4M/month but compounding at 20% MoM — confirmed by Erik's January 1 year-recap on X. When a revenue-generating project with deflationary mechanics starts getting institutional attention, the re-rating is fast. <span class="src ec">Erik Jan 1, 2026 X post</span></div>
+            <span class="sbadge sbw">REPRICING EVENT</span>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="si bull">🔒</div>
+          <div>
+            <div class="sct">4. Staking Locked Up the Float</div>
+            <div class="scd">Over 70% of circulating supply (~31M VVV) is staked earning ~18–19% APY. Another ~8M is locked for DIEM minting. Liquid supply is extraordinarily thin. When buy pressure hits a thin float, prices move exponentially — not linearly. The staking rate is a feature, not a coincidence. <span class="src oc">On-chain · venice.ai/token dashboard</span></div>
+            <span class="sbadge sbb">THIN FLOAT DYNAMIC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hbox">
+      <div class="hboxl">💡 The Real Question</div>
+      <div class="hboxt">
+        The question isn't <strong>"why did VVV go up 600%."</strong> Anyone looking at the supply picture, the revenue trajectory, and the emission cuts can reverse-engineer the move. The real question is: <em>"why is it still only $514M FDV when the comps say it should be $1–3B?"</em> That's the gap this report is trying to close — and the answer lies in how the market categorizes (or miscategorizes) Venice.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Erik Voorhees X posts, The Defiant Feb 17 2026, Base Explorer, Kraken/CoinGecko Mar 1 2026</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 3: MISPRICING / COMP ANALYSIS ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">03</span><span class="stag">Comparable Analysis & Valuation Gap</span></div>
+    <h2 class="stitle">The Mispricing: <span class="it">Venice Is Undervalued From Both Directions Simultaneously</span></h2>
+    <div class="deck">
+      Centralized AI inference companies trade at 11–100x revenue with zero token mechanics. Decentralized crypto-AI networks trade at $121M–$3.7B FDV with near-zero revenue. Venice has both — and yet trades at just ~$514M FDV at approximately 14x revenue. The gap is structural, not cyclical.
+    </div>
+
+    <div class="two">
+      <div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:14px;">vs. Centralized AI Inference</h4>
+        <table class="dt">
+          <thead><tr><th>Company</th><th>ARR</th><th>Valuation</th><th>Rev Multiple</th></tr></thead>
+          <tbody>
+            <tr><td class="tdn">Together AI</td><td class="tdu">$300M</td><td class="tdn2">$3.3B</td><td class="tdn2">11x</td></tr>
+            <tr><td class="tdn">OpenRouter</td><td class="tdn2">$5M</td><td class="tdn2">$500M</td><td class="tdu">100x</td></tr>
+            <tr><td class="tdn">Fireworks AI</td><td class="tdn2">~$50M+</td><td class="tdn2">~$1.5B</td><td class="tdn2">~30x</td></tr>
+            <tr style="background:rgba(139,92,246,.04);">
+              <td class="tdn" style="color:#8b5cf6;">Venice.ai</td>
+              <td class="tdu">$30–42M</td>
+              <td class="tdn2">$514M</td>
+              <td class="tdd">~14x ⚠️</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="body" style="font-size:12.5px;margin-top:12px;">
+          Venice's ~14x multiple is in line with Together AI at <strong>10x the revenue scale.</strong> OpenRouter gets 100x on $5M ARR with 5 employees. Venice gets 14x with 2M users, live burns, and 20% MoM growth. The market gives Venice zero credit for the token mechanics or the burn flywheel.
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:14px;">vs. Crypto-AI Networks</h4>
+        <table class="dt">
+          <thead><tr><th>Project</th><th>MC/FDV</th><th>Revenue</th><th>Burns Live?</th></tr></thead>
+          <tbody>
+            <tr><td class="tdn">Bittensor (TAO)</td><td class="tdn2">$1.7B/$3.7B</td><td class="tdd">~$0</td><td class="tdd">No</td></tr>
+            <tr><td class="tdn">Render (RENDER)</td><td class="tdn2">$725M/$747M</td><td class="tdn2">Minimal</td><td class="tdn2">BME only</td></tr>
+            <tr><td class="tdn">Akash (AKT)</td><td class="tdn2">$88M/$121M</td><td class="tdn2">~$10M vol</td><td class="tdn2">Q1 2026</td></tr>
+            <tr style="background:rgba(139,92,246,.04);">
+              <td class="tdn" style="color:#8b5cf6;">Venice (VVV+DIEM)</td>
+              <td class="tdu">$288M/$514M</td>
+              <td class="tdu">$30–42M</td>
+              <td class="tdu">Yes (Nov '25)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="body" style="font-size:12.5px;margin-top:12px;">
+          <strong>Bittensor trades at $3.7B FDV with zero revenue.</strong> Pure narrative. Venice has 10–100x more revenue than every crypto-AI comp, a live consumer product, live burns, and a lower FDV than Bittensor. Render has a higher market cap with minimal revenue and no consumer product. The gap still hasn't closed after 600%.
+        </div>
+      </div>
+    </div>
+
+    <!-- THE GAP THAT MATTERS — full comparison bars -->
+    <div class="cw">
+      <div class="ct">📊 FDV Comparison: Venice vs Crypto-AI Peers (Mar 1, 2026)</div>
+      <div class="br">
+        <div class="brhd"><span class="brnm">Bittensor (TAO) — Zero revenue</span><span class="brvl">$3.7B FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:100%;background:#e84040;"></div></div>
+      </div>
+      <div class="br">
+        <div class="brhd"><span class="brnm">Together AI — $300M ARR (private)</span><span class="brvl">$3.3B FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:89%;background:#4080f0;"></div></div>
+      </div>
+      <div class="br">
+        <div class="brhd"><span class="brnm">Render (RENDER) — Minimal revenue</span><span class="brvl">$747M FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:20%;background:#f07030;"></div></div>
+      </div>
+      <div class="br">
+        <div class="brhd"><span class="brnm">OpenRouter — $5M ARR (100x multiple)</span><span class="brvl">$500M FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:13.5%;background:#22c97a;"></div></div>
+      </div>
+      <div class="br">
+        <div class="brhd"><span class="brnm" style="color:#8b5cf6;font-weight:700;">Venice (VVV+DIEM) — $30–42M ARR + burns</span><span class="brvl" style="color:#8b5cf6;">$514M FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:13.9%;background:#8b5cf6;"></div></div>
+      </div>
+      <div class="br">
+        <div class="brhd"><span class="brnm">Akash (AKT) — ~$10M compute vol</span><span class="brvl">$121M FDV</span></div>
+        <div class="brtr"><div class="brfl" style="width:3.3%;background:#9898b8;"></div></div>
+      </div>
+      <div class="cn">Sources: CoinGecko, CoinMarketCap, Sacra, Tracxn, PitchBook, Messari · Mar 1, 2026</div>
+    </div>
+
+    <div class="hbox">
+      <div class="hboxl">🔍 The Categorization Problem</div>
+      <div class="hboxt">
+        The mispricing persists because Venice doesn't fit into existing analyst buckets. <strong>Crypto-AI analysts benchmark it against Bittensor and Render</strong> — but those have no revenue, so Venice's revenue gets ignored. <strong>SaaS analysts benchmark it against Together AI</strong> — but Together has no token mechanics, so the burns and staking get ignored. <strong>Consumer AI analysts compare it to Character.ai</strong> — but Character.ai has no infrastructure business, so the API and tokenized compute get ignored. Venice is all three at once. <em>No other project in crypto or traditional AI holds this position.</em> The proper fair value sits between the multiples of both peer groups: $750M–$2B FDV today — 1.5–4x from current prices before any future growth is priced in.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Sacra (Sep 2025), Tracxn, PitchBook, CoinGecko/CMC Mar 1 2026, Messari</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 4: TOKENOMICS ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">04</span><span class="stag">Tokenomics Deep-Dive</span></div>
+    <h2 class="stitle">$VVV & $DIEM: <span class="it">The Most Coherent Token System in Crypto</span></h2>
+    <div class="deck">
+      Most crypto tokens are governance tokens with no real utility, or utility tokens with no real demand, or yield tokens with no real revenue feeding them. $VVV and $DIEM are different. Every mechanic is on-chain, auditable, and driven by real revenue. The flywheel has been running since November 2025 — and it's accelerating.
+    </div>
+
+    <!-- SNAPSHOT TABLE -->
+    <div class="cw" style="margin-bottom:28px;">
+      <div class="ct">📋 Current Snapshot — March 1, 2026</div>
+      <table class="dt" style="margin:0;">
+        <thead><tr><th>Metric</th><th>$VVV</th><th>$DIEM</th></tr></thead>
+        <tbody>
+          <tr><td class="tdn">Price</td><td class="tdu">$6.50</td><td class="tdu">$630–$650</td></tr>
+          <tr><td class="tdn">Market Cap</td><td class="tdn2">~$288M</td><td class="tdn2">~$24M</td></tr>
+          <tr><td class="tdn">FDV</td><td class="tdn2">~$514M</td><td class="tdn2">~$24M (near 38K soft cap)</td></tr>
+          <tr><td class="tdn">Circ / Total Supply</td><td class="tdn2">44.3M / 79M</td><td class="tdn2">~38K / ~38K</td></tr>
+          <tr><td class="tdn">Staked / Locked</td><td class="tdu">~31M (70%+), ~8M locked for DIEM</td><td class="tdu">~28.5K staked</td></tr>
+          <tr><td class="tdn">APY / Yield</td><td class="tdv">~18–19% (emissions)</td><td class="tdu">$365/yr perpetual credits</td></tr>
+          <tr><td class="tdn">All-Time Burns</td><td class="tdu">33.68M (42.7% of genesis)</td><td class="tdn2">N/A</td></tr>
+          <tr><td class="tdn">Holders</td><td class="tdn2">~126K</td><td class="tdn2">~3K</td></tr>
+        </tbody>
+      </table>
+      <div class="cn">Sources: Kraken, CoinMarketCap, CoinGecko Mar 1 2026 · Supply/staking/burns: venice.ai/token + Base Explorer</div>
+    </div>
+
+    <div class="two">
+      <div>
+        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">$VVV: Growth + Scarcity + Yield</h3>
+        <div class="body">
+          <strong>Staking Yield:</strong> 6M VVV emitted annually — the permanent floor after three supply cuts (14M → 10M → 8M → 6M). 100% of emissions go to stakers. APY ≈ 6M / ~31M staked ≈ <strong>19.2%.</strong> VVV locked for DIEM minting earns 80% of standard staking rate ≈ 15.4%. <span class="src oc">On-chain</span>
+        </div>
+        <div class="body">
+          <strong>Revenue Burns:</strong> A portion of monthly revenue buys VVV from the open market and permanently destroys it. 33.68M burned to date — 42.7% of genesis supply, gone forever. The exact burn percentage isn't publicly specified but is fully observable on-chain monthly. Erik, Feb 27: "We have only been net buyers of VVV." <span class="src ec">Erik-confirmed</span>
+        </div>
+        <div class="body">
+          <strong>Capacity Growth:</strong> Staking 1% of VVV = 1% of Venice's daily compute capacity. As Venice scales GPUs, your absolute daily allocation grows. Ownership percentage is fixed; the infrastructure it maps to is expanding. This is fundamentally different from a yield-only token. <span class="src ec">Erik-confirmed</span>
+        </div>
+        <div class="body">
+          <strong>Deflation Threshold:</strong> ~$15–16M monthly revenue triggers net deflation — when annual burns exceed the 6M emissions floor. At 20% MoM growth from ~$3M base, that threshold arrives in approximately 8–10 months. When it hits, supply starts shrinking while demand grows. <em>That's a supply shock, not a narrative.</em> <span class="src tp">Estimated from confirmed data</span>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">$DIEM: Perpetual Fixed-Yield Compute</h3>
+        <div class="body">
+          1 DIEM = $1/day of API credits, forever. Perpetuity. Minted by locking sVVV at an exponentially increasing cost: <strong>Mint Rate = 90 × e^(2 × (Supply/38,000)³).</strong> At ~37,950 supply: ~667 sVVV/DIEM (~$4,335 to mint). Market price ~$640. Arbitrage strongly favours buying DIEM over minting at current prices. <span class="src oc">On-chain · DIEM: 0xf4d97f2da56e8c3098f3a8d538db630a2606a024</span>
+        </div>
+
+        <!-- DIEM PERPETUITY TABLE -->
+        <div class="cw" style="margin-top:16px;">
+          <div class="ct" style="margin-bottom:12px;">$DIEM Perpetuity Valuation (Value = $365 / Discount Rate)</div>
+          <table class="dt" style="margin:0;font-size:12px;">
+            <thead><tr><th>Risk Regime</th><th>Discount Rate</th><th>Fair Value</th><th>From ~$640</th></tr></thead>
+            <tbody>
+              <tr><td class="tdn">High Risk</td><td class="tdn2">30%</td><td class="tdn2">$1,217</td><td class="tdu">~1.9x</td></tr>
+              <tr><td class="tdn">Moderate</td><td class="tdn2">20%</td><td class="tdn2">$1,825</td><td class="tdu">~2.9x</td></tr>
+              <tr><td class="tdn">Lower Risk</td><td class="tdn2">15%</td><td class="tdu">$2,433</td><td class="tdu">~3.8x</td></tr>
+              <tr><td class="tdn">Mature Platform</td><td class="tdn2">10%</td><td class="tdu">$3,650</td><td class="tdu">~5.7x</td></tr>
+            </tbody>
+          </table>
+          <div class="cn" style="margin-top:8px;">Current $640 price implies ~57% discount rate — market pricing extreme execution risk</div>
+        </div>
+
+        <div class="pq" style="margin-top:16px;">
+          <div class="pqt">"Agents need compute. DIEM lets an agent 'own' its compute perpetually — a use case Together AI structurally cannot offer."</div>
+          <div class="pqs">NM Alpha Research interpretation · Venice.ai architecture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE FLYWHEEL -->
+    <h3 style="font-size:16px;font-weight:600;margin:8px 0 18px;">The Flywheel — Running Since November 2025</h3>
+    <div class="flywheel">
+      <div class="fw-node">
+        <div class="fw-icon">📈</div>
+        <div class="fw-value">User Demand</div>
+        <div class="fw-label">grows platform</div>
+      </div>
+      <div class="fw-arrow">→</div>
+      <div class="fw-node">
+        <div class="fw-icon">💵</div>
+        <div class="fw-value">Revenue</div>
+        <div class="fw-label">20% MoM growth</div>
+      </div>
+      <div class="fw-arrow">→</div>
+      <div class="fw-node">
+        <div class="fw-icon">🔥</div>
+        <div class="fw-value">VVV Burns</div>
+        <div class="fw-label">33.68M destroyed</div>
+      </div>
+      <div class="fw-arrow">→</div>
+      <div class="fw-node">
+        <div class="fw-icon">📉</div>
+        <div class="fw-value">Scarcer VVV</div>
+        <div class="fw-label">supply compressed</div>
+      </div>
+      <div class="fw-arrow">→</div>
+      <div class="fw-node">
+        <div class="fw-icon">💎</div>
+        <div class="fw-value">Higher VVV Price</div>
+        <div class="fw-label">staking incentive</div>
+      </div>
+      <div class="fw-arrow">→</div>
+      <div class="fw-node">
+        <div class="fw-icon">🔒</div>
+        <div class="fw-value">More DIEM Demand</div>
+        <div class="fw-label">higher mint cost</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:var(--light);font-family:'DM Mono',monospace;margin-top:-12px;margin-bottom:24px;">Every link is on-chain and auditable · Running live since November 2025 · Not theoretical</div>
+
+    <div class="sf">
+      <span class="sfn">Data: Venice.ai/token dashboard, Base Explorer (on-chain verified), Erik Voorhees X posts</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 5: VALUATION + RISKS ─── -->
+  <div class="rs">
+    <div class="eyebrow"><span class="snum">05</span><span class="stag">Valuation Scenarios, Risks & Outlook</span></div>
+    <h2 class="stitle">Where Does This Go: <span class="it">Scenario Analysis, Risk Map, and the Market Tailwinds</span></h2>
+    <div class="deck">
+      Starting from $3M/month midpoint with 20% MoM compound growth, and applying the same revenue multiples the market gives to Venice's peers, the probability-weighted expected VVV price over 12 months is $20–$25. The bear case still delivers 50–90% upside from $6.50. Year 2 at the same growth rate implies VVV above $190. This isn't hope — it's math.
+    </div>
+
+    <!-- PRICE SCENARIO CHART -->
+    <div class="cw">
+      <div class="ct">🎯 $VVV 12-Month Price Scenarios — FDV at 12–15x Revenue Multiple</div>
+      <svg viewBox="0 0 780 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="bullg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22c97a" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#22c97a" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="baseg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="20" x2="760" y2="20" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="55" x2="760" y2="55" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="90" x2="760" y2="90" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="125" x2="760" y2="125" stroke="#dedad2" stroke-width="1"/>
+        <line x1="60" y1="160" x2="760" y2="160" stroke="#dedad2" stroke-width="1"/>
+        <text x="52" y="23" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$45</text>
+        <text x="52" y="58" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$35</text>
+        <text x="52" y="93" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$22</text>
+        <text x="52" y="128" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$12</text>
+        <text x="52" y="163" text-anchor="end" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">$6.50</text>
+        <!-- Current point at x=160, all scenarios start $6.50 → y=160 -->
+        <!-- Bull (30%MoM, $33.90-42.35): y≈22-27, use 25 -->
+        <!-- Base (20%MoM, $18.05-22.55): y≈90-103, use 95 -->
+        <!-- Bear (10%MoM, $9.75-12.20): y≈138-150, use 142 -->
+        <polygon points="160,160 760,25 760,160" fill="url(#bullg)"/>
+        <polygon points="160,160 760,95 760,160" fill="url(#baseg)"/>
+        <polyline points="160,160 760,142" fill="none" stroke="#e84040" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <polyline points="160,160 760,95" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+        <polyline points="160,160 760,25" fill="none" stroke="#22c97a" stroke-width="2.5"/>
+        <circle cx="160" cy="160" r="5" fill="#f0c040" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="25" r="5" fill="#22c97a" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="95" r="5" fill="#8b5cf6" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="760" cy="142" r="4" fill="#e84040" stroke="#fff" stroke-width="1.5"/>
+        <text x="162" y="155" font-size="9" fill="#f0c040" font-family="DM Mono, monospace">Today: $6.50</text>
+        <text x="762" y="21" font-size="9" fill="#22c97a" font-family="DM Mono, monospace">$33–42 (Bull)</text>
+        <text x="762" y="91" font-size="9" fill="#8b5cf6" font-family="DM Mono, monospace">$18–22 (Base)</text>
+        <text x="762" y="138" font-size="9" fill="#e84040" font-family="DM Mono, monospace">$9.75–12 (Bear)</text>
+        <text x="160" y="190" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Mar 2026</text>
+        <text x="460" y="190" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Sep 2026</text>
+        <text x="760" y="190" text-anchor="middle" font-size="9" fill="#9898b8" font-family="DM Mono, monospace">Mar 2027</text>
+        <rect x="64" y="6" width="10" height="4" fill="#22c97a" rx="2"/>
+        <text x="78" y="12" font-size="8" fill="#68688a" font-family="DM Mono, monospace">Bull (30% MoM)</text>
+        <rect x="160" y="6" width="10" height="4" fill="#8b5cf6" rx="2"/>
+        <text x="174" y="12" font-size="8" fill="#68688a" font-family="DM Mono, monospace">Base (20% MoM)</text>
+        <rect x="256" y="6" width="10" height="4" fill="#e84040" rx="2"/>
+        <text x="270" y="12" font-size="8" fill="#68688a" font-family="DM Mono, monospace">Bear (10% MoM)</text>
+      </svg>
+      <div class="cn">Starting from $3M/month midpoint · Compounding monthly over 12 months · FDV at 12–15x revenue divided by ~79M total supply · Not financial advice</div>
+    </div>
+
+    <!-- SCENARIO TABLE -->
+    <div class="two" style="margin-bottom:28px;">
+      <div>
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:12px;">12-Month VVV Price Scenarios</h4>
+        <table class="dt">
+          <thead><tr><th>Scenario</th><th>MoM Growth</th><th>Y1 Revenue</th><th>FDV (12-15x)</th><th>VVV Price</th></tr></thead>
+          <tbody>
+            <tr><td class="tdn">Bear</td><td class="tdn2">10%</td><td class="tdn2">~$64M</td><td class="tdn2">$770M–$962M</td><td class="tdu">$9.75–12.20</td></tr>
+            <tr><td class="tdn" style="color:#8b5cf6;">Base</td><td class="tdn2">20%</td><td class="tdn2">~$119M</td><td class="tdn2">$1.43B–$1.78B</td><td class="tdu">$18.05–22.55</td></tr>
+            <tr><td class="tdn">Bull</td><td class="tdn2">30%</td><td class="tdn2">~$223M</td><td class="tdn2">$2.68B–$3.35B</td><td class="tdu">$33.90–42.35</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:12px;">Probability-Weighted Expected Value</h4>
+        <table class="dt">
+          <thead><tr><th>Scenario</th><th>Probability</th><th>Y1 VVV Price</th><th>Weighted</th></tr></thead>
+          <tbody>
+            <tr><td class="tdn">Bear (10% MoM)</td><td class="tdn2">20%</td><td class="tdu">$9.75–12.20</td><td class="tdn2">$1.95–2.44</td></tr>
+            <tr><td class="tdn" style="color:#8b5cf6;">Base (20% MoM)</td><td class="tdn2">55%</td><td class="tdu">$18.05–22.55</td><td class="tdn2">$9.93–12.40</td></tr>
+            <tr><td class="tdn">Bull (30% MoM)</td><td class="tdn2">25%</td><td class="tdu">$33.90–42.35</td><td class="tdn2">$8.48–10.59</td></tr>
+            <tr style="background:rgba(139,92,246,.04);">
+              <td class="tdn" style="color:#8b5cf6;font-weight:700;">Expected Price</td>
+              <td class="tdu">100%</td>
+              <td class="tdu" style="font-weight:700;">—</td>
+              <td class="tdu" style="font-weight:700;">$20.35–$25.43</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="body" style="font-size:12px;margin-top:10px;">
+          Expected 12-month return: <strong>~2.7–3.4x from $6.50.</strong> That's after a 600% rally. The bear case still delivers 50–90% upside. Year 2 at continued 20% MoM: ~$1B+ cumulative revenue. At 15x FDV, VVV trades above $190.
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKET TAILWINDS -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:18px;">Market Tailwinds: Venice at Two Inflection Points</h3>
+    <div class="two" style="margin-bottom:28px;">
+      <div class="sc">
+        <div class="si bull">🖥️</div>
+        <div>
+          <div class="sct">AI Inference is Overtaking Training for the First Time</div>
+          <div class="scd">55% of AI cloud infrastructure spend ($20.6B of $37.5B IaaS) goes to inference in 2026 — not training. Total AI inference market: $97–106B in 2025, projected $254B by 2030. Inference chip revenue alone: $50B+ in 2026. Venice is pure inference infrastructure — it benefits from every dollar of this shift. <span class="src tp">Gartner, MarketsandMarkets, Deloitte</span></div>
+          <span class="sbadge sbb">$254B TAM BY 2030</span>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="si warn">🤖</div>
+        <div>
+          <div class="sct">The Agent Economy Is Arriving — and Needs Private Compute</div>
+          <div class="scd">Gartner projects 40% of enterprise apps will embed AI agents by end-2026 (up from 5%). Agents need continuous, private inference. Venice's API + DIEM is infrastructure where an agent can literally "own" its compute perpetually — a use case Together AI structurally cannot offer. This is not a feature comparison. It is a structural advantage. <span class="src tp">Gartner 2026</span></div>
+          <span class="sbadge sbw">AGENT-NATIVE INFRA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RISK MAP -->
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">Risk Map: What Could Go Wrong</h3>
+    <div class="rm">
+      <div class="rmc hi">
+        <div class="rml">High Impact · Medium Probability</div>
+        <div class="rmt"><strong>Growth Decelerates Below 10% MoM.</strong> Revenue flattens at ~$50–60M/year. Burns stay below emissions. VVV trades sideways $6–9. Even this bear case implies upside at a 12x multiple — but the bull thesis breaks. Mitigant: 2M users in a 300M+ addressable market implies enormous runway.</div>
+      </div>
+      <div class="rmc hi">
+        <div class="rml">High Impact · Low Probability</div>
+        <div class="rmt"><strong>Regulatory Risk: VVV/DIEM Classified as Securities.</strong> Pure utility token design — no presale, no VC, no promised returns. Erik Voorhees has navigated SEC scrutiny before (ShapeShift, Coinbase case). But classification risk is non-zero in a changing regulatory environment. Mitigant: pure utility design, on-chain mechanics only.</div>
+      </div>
+      <div class="rmc md">
+        <div class="rml">Medium Impact · Medium Probability</div>
+        <div class="rmt"><strong>GPU Bottleneck.</strong> Supply can't pace explosive demand growth. Mitigant: decentralised GPU network is more elastic than centralised alternatives — Venice can onboard compute providers without building data centres. The Akash hackathon partnership expands GPU sourcing options.</div>
+      </div>
+      <div class="rmc md">
+        <div class="rml">Medium Impact · Medium Probability</div>
+        <div class="rmt"><strong>Revenue Transparency Risk.</strong> Exact monthly figures never publicly disclosed — only directional corrections from Erik. Mitigant: burns are fully on-chain and observable monthly. Revenue can be inferred from burn amounts as patterns establish. This is structural, not a red flag — but institutional allocators may require more.</div>
+      </div>
+      <div class="rmc lo">
+        <div class="rml">Low Impact · Low Probability</div>
+        <div class="rmt"><strong>Crypto Bear Market.</strong> Broad risk-off compresses all tokens. Mitigant: revenue-backed token earning 18–19% APY with live monthly burns provides a structural floor that TAO and RENDER structurally lack. Real yield tokens outperform in bear markets relative to narrative tokens.</div>
+      </div>
+      <div class="rmc vio">
+        <div class="rml">Positive Asymmetry</div>
+        <div class="rmt"><strong>V2 Marketplace + Supply Overhang Mitigant.</strong> Erik confirmed "We have only been net buyers of VVV" — the company is accumulating, not selling. The 35M genesis VVV allocated to Venice.ai becomes a buyer, not an overhang. V2 marketplace adds an entirely new revenue stream feeding burns. Both are unpriced at $6.50.</div>
+      </div>
+    </div>
+
+    <div class="hbox" style="margin-top:24px;">
+      <div class="hboxl">📊 My Framework: The Character.ai Lesson Matters Here</div>
+      <div class="hboxt">
+        Character.ai had 20M MAU — 10x Venice's user base — and its valuation still collapsed 60% from $2.5B to $1B because <strong>proprietary model training costs consumed all the revenue.</strong> Venice avoids every failure mode Character.ai hit: open-source models from day one (50–60% gross margins vs. Character.ai's near-zero), no VC pressure forcing growth at any cost, self-funded with revenue funding the burn flywheel, and tokenized ownership that aligns user incentives with platform growth. <em>Venice is structurally positioned to be what Character.ai tried to be — and the token mechanics mean that if Venice wins, VVV holders win with it.</em> The bear case still delivers upside. The base case delivers 3x after 600%. The bull case delivers 5–6x. That's an asymmetric risk profile that the $514M FDV number doesn't capture.
+      </div>
+    </div>
+
+    <div class="sf">
+      <span class="sfn">Data: Gartner, MarketsandMarkets, Fortune, Deloitte, Erik X posts, CoinGecko · Mar 1, 2026 · Not financial advice</span>
+      <span class="sfn">Written by Chirag Mehta · NM Alpha Research</span>
+    </div>
+  </div>
+
+  <!-- ════════════════ FOOTER ════════════════ -->
+  <div class="rfooter">
+    <div>
+      <div class="rfbrand">NM ALPHA RESEARCH</div>
+      <div class="rfauth">Written by Chirag Mehta · Founder, NM Alpha Tribe · March 1, 2026</div>
+    </div>
+    <div class="rfdisc">
+      This report is for informational and educational purposes only. It does not constitute financial or investment advice. All data sourced from publicly available information as of March 1, 2026. Sources marked [Erik-confirmed] = direct @ErikVoorhees X statements. [On-chain] = Base Explorer verified. [Estimated] = derived from confirmed data. [Third-party] = Sacra, Gartner, CoinGecko etc. Past performance does not guarantee future results. NM Alpha Research holds no financial interest in $VVV or $DIEM at time of publication.
+    </div>
+    <div class="rflinks">
+      <a class="rflink" href="https://x.com/NM_ALPHA">𝕏 @NM_ALPHA</a>
+      <a class="rflink" href="https://x.com/NM_Founder">𝕏 @NM_Founder</a>
+      <a class="rflink" href="https://discord.gg/AS5eJkUven">◈ Discord</a>
+      <a class="rflink" href="/cdn-cgi/l/email-protection#82e1eaebf0e3e5efe7eaf6e3b3b1b2b6c2e5efe3ebeeace1edef">✉ <span class="__cf_email__"

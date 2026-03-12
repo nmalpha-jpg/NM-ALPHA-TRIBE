@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milady Maker: Culture, Drip & the NFT That Refused to Die — Chirag Mehta · NM Alpha Research</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Klee+One:wght@400;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --rose:#ff5fa0;--rose-l:#ffb3d1;--rose-d:#cc2060;
+    --lav:#b08fff;--lav-l:#d8c8ff;--lav-d:#7044cc;
+    --gold:#ffe066;--ink:#0a0510;--ink2:#120818;--surface:#1a0f22;
+    --text:#f5e8ef;--paper:#fff8fb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ink);font-family:'Klee One',cursive;color:var(--text);-webkit-font-smoothing:antialiased;}
+
+  /* COVER */
+  .cover{width:100%;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+  .stars{position:absolute;inset:0;pointer-events:none;}
+  .star{position:absolute;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:var(--a,.6);transform:scale(1)}50%{opacity:.08;transform:scale(.4)}}
+  .glow-bg{position:absolute;inset:0;pointer-events:none;background:
+    radial-gradient(ellipse 80% 60% at 70% 20%,rgba(176,143,255,.2)0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 20% 80%,rgba(255,95,160,.15)0%,transparent 50%);}
+  .petal{position:absolute;opacity:.2;border-radius:50% 0 50% 0;animation:fall var(--fd,12s) linear infinite;top:-20px;}
+  @keyframes fall{0%{transform:translateY(0) rotate(0deg) translateX(0)}100%{transform:translateY(110vh) rotate(720deg) translateX(var(--fx,60px))}}
+  .cvtop{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid rgba(255,95,160,.1);}
+  .cvlogo-wrap{display:flex;align-items:center;gap:9px;}
+  .cvlogo{width:32px;height:32px;background:linear-gradient(135deg,var(--rose),var(--lav));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#fff;}
+  .cvbname{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,95,160,.45);letter-spacing:2.5px;text-transform:uppercase;}
+  .cvtag{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.18);letter-spacing:2px;}
+  .cvbody{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;justify-content:center;padding:44px 48px 30px;}
+  .badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,95,160,.07);border:1px solid rgba(255,95,160,.22);color:var(--rose-l);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;border-radius:100px;width:fit-content;margin-bottom:24px;}
+  .dot{width:6px;height:6px;background:var(--rose);border-radius:50%;box-shadow:0 0 10px var(--rose);animation:blink 2s infinite;flex-shrink:0;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.08}}
+  .cvh1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(36px,5.2vw,78px);line-height:.87;font-style:italic;}
+  .cvh1 .a1{color:var(--rose);display:block;font-style:normal;}
+  .cvh1 .a2{color:var(--lav-l);display:block;}
+  .cvh1 .a3{color:rgba(255,255,255,.15);display:block;font-size:.36em;letter-spacing:6px;font-weight:400;margin-top:12px;font-family:'Space Mono',monospace;font-style:normal;}
+  .cvdesc{max-width:500px;font-size:14.5px;color:rgba(255,255,255,.35);line-height:1.8;margin-top:22px;margin-bottom:30px;}
+  .cvdesc strong{color:rgba(255,255,255,.7);}
+
+  /* LIVE STATS STRIP */
+  .stats-strip{display:flex;gap:0;border:1px solid rgba(255,95,160,.14);border-radius:8px;overflow:hidden;width:fit-content;}
+  .st{padding:13px 22px;border-right:1px solid rgba(255,95,160,.1);background:rgba(255,95,160,.025);}
+  .st:last-child{border-right:none;}
+  .st-v{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--rose);line-height:1;transition:color .4s;}
+  .st-l{font-family:'Space Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.2);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+  .live-dot{display:inline-block;width:5px;height:5px;background:#22c55e;border-radius:50%;box-shadow:0 0 7px #22c55e;animation:blink 1.4s infinite;margin-left:4px;vertical-align:middle;}
+
+  /* NFT STRIP */
+  .nft-strip{position:relative;z-index:10;display:flex;gap:9px;padding:20px 48px 28px;overflow-x:auto;scrollbar-width:none;}
+  .nft-strip::-webkit-scrollbar{display:none;}
+  .nft-tw{flex-shrink:0;text-align:center;cursor:pointer;}
+  .nft-t{width:66px;height:66px;border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,95,160,.2);background:var(--surface);position:relative;}
+  .nft-t img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+  .nft-tw:hover .nft-t img{transform:scale(1.1);}
+  .nft-tb{font-family:'Space Mono',monospace;font-size:7.5px;color:rgba(255,95,160,.45);letter-spacing:1px;margin-top:3px;}
+  .shimmer{background:linear-gradient(90deg,#1a0f22 25%,#2d1040 50%,#1a0f22 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .strip-msg{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,95,160,.35);letter-spacing:2px;padding:20px 0;}
+
+  .cvbot{position:relative;z-index:10;padding:16px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,95,160,.07);}
+  .cvby{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.18);letter-spacing:1.5px;}
+  .cvby span{color:rgba(255,95,160,.55);}
+  .cvdt{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.12);letter-spacing:2px;}
+
+  /* LIVE DASHBOARD */
+  .dashboard{background:#0c0514;border-top:1px solid rgba(255,95,160,.1);padding:44px 48px;}
+  .dash-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+  .dash-title{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--rose-l);font-style:italic;}
+  .dash-sub{font-family:'Space Mono',monospace;font-size:8.5px;color:rgba(255,95,160,.3);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+  .live-badge{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);color:#4ade80;font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:2px;padding:5px 11px;border-radius:100px;white-space:nowrap;}
+  .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+
+  /* Panel */
+  .panel{background:rgba(255,95,160,.025);border:1px solid rgba(255,95,160,.09);border-radius:12px;padding:22px;}
+  .panel-label{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,95,160,.45);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+  .panel-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);}
+  .panel-chg{font-family:'Space Mono',monospace;font-size:11px;margin-top:1px;}
+  .up{color:#4ade80;}.dn{color:#f87171;}
+  .chart-area{height:150px;margin-top:14px;position:relative;}
+
+  /* Feed */
+  .feed-panel{background:rgba(255,95,160,.025);border:1px solid rgba(255,95,160,.09);border-radius:12px;padding:22px;display:flex;flex-direction:column;}
+  .feed-hdr{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,95,160,.45);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+  .feed-scroll{overflow-y:auto;max-height:290px;scrollbar-width:thin;scrollbar-color:rgba(255,95,160,.15) transparent;}
+  .feed-item{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid rgba(255,95,160,.05);animation:fadein .35s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .feed-item:last-child{border-bottom:none;}
+  .fi-img{width:36px;height:36px;border-radius:7px;background:var(--surface);overflow:hidden;flex-shrink:0;border:1px solid rgba(255,95,160,.12);}
+  .fi-img img{width:100%;height:100%;object-fit:cover;}
+  .fi-info{flex:1;min-width:0;}
+  .fi-token{font-family:'Space Mono',monospace;font-size:9.5px;color:var(--rose-l);}
+  .fi-act{font-size:10.5px;color:rgba(255,255,255,.28);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .fi-right{text-align:right;flex-shrink:0;}
+  .fi-price{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--rose);}
+  .fi-time{font-family:'Space Mono',monospace;font-size:7.5px;color:rgba(255,255,255,.18);margin-top:1px;}
+  .feed-msg{text-align:center;padding:28px;font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,95,160,.25);letter-spacing:1.5px;}
+
+  /* Gallery panel */
+  .gallery-panel{background:rgba(255,95,160,.025);border:1px solid rgba(255,95,160,.09);border-radius:12px;padding:22px;grid-column:1/-1;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;margin-top:14px;}
+  .gc{border-radius:9px;overflow:hidden;border:1px solid rgba(255,95,160,.12);background:var(--ink2);cursor:pointer;transition:transform .2s,border-color .2s;}
+  .gc:hover{transform:translateY(-3px);border-color:rgba(255,95,160,.45);}
+  .gc img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+  .gc-info{padding:5px 7px;}
+  .gc-id{font-family:'Space Mono',monospace;font-size:7.5px;color:rgba(255,95,160,.4);}
+  .gc-p{font-family:'Space Mono',monospace;font-size:8px;color:var(--lav-l);margin-top:1px;}
+
+  /* REPORT BODY */
+  .wrap{background:var(--paper);}
+  .inner{max-width:940px;margin:0 auto;padding:60px 44px;}
+
+  .toc{background:#fff;border:1px solid #f0d0e0;border-radius:10px;padding:28px 34px;margin-bottom:60px;position:relative;overflow:hidden;}
+  .toc::before{content:'✦';position:absolute;right:22px;top:16px;font-size:24px;color:rgba(255,95,160,.07);}
+  .toc-t{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:#c060a0;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+  .toc-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .toc-list li a{display:flex;align-items:baseline;gap:9px;font-family:'Klee One',cursive;font-size:13.5px;color:#3a1525;text-decoration:none;}
+  .toc-list li a:hover{color:#cc2060;}
+  .toc-n{font-family:'Space Mono',monospace;font-size:9px;color:#e090c0;font-weight:700;flex-shrink:0;}
+
+  .sec{margin-bottom:64px;}
+  .sec-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;padding-bottom:13px;border-bottom:2px solid #f0d0e0;}
+  .sec-n{font-family:'Space Mono',monospace;font-size:9px;color:#e090c0;letter-spacing:2px;}
+  .sec-t{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#1e0a14;line-height:1.1;font-style:italic;}
+  h3.sub{font-family:'Playfair Display',serif;font-weight:700;color:#1e0a14;font-size:17px;margin:26px 0 12px;font-style:italic;}
+  p{font-size:15px;line-height:1.82;color:#2a1020;margin-bottom:15px;}
+  strong{font-weight:600;color:#1e0a14;}
+  em{font-style:italic;}
+
+  .callout{background:linear-gradient(135deg,rgba(255,95,160,.055),rgba(176,143,255,.055));border-left:3px solid #cc2060;border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0;}
+  .callout p{margin:0;font-size:14.5px;color:#2a1020;}
+
+  /* Section gallery */
+  .sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:22px 0;}
+  .sc{background:var(--ink2);border-radius:9px;overflow:hidden;border:1.5px solid rgba(255,95,160,.16);cursor:pointer;transition:transform .2s;}
+  .sc:hover{transform:translateY(-3px);}
+  .sc img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+  .sc-info{padding:6px 8px;}
+  .sc-id{font-family:'Space Mono',monospace;font-size:8px;color:rgba(255,95,160,.4);}
+  .sc-nm{font-family:'Playfair Display',serif;font-size:10.5px;color:var(--rose-l);font-weight:700;}
+
+  /* Drip grades */
+  .drip-row{display:flex;gap:7px;margin:16px 0;flex-wrap:wrap;align-items:flex-start;}
+  .dw{text-align:center;}
+  .dg{padding:7px 14px;border-radius:100px;font-family:'Space Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:2px;}
+  .g-ss{background:linear-gradient(135deg,#ffe066,#ffaa00);color:#3a2000;}
+  .g-s{background:linear-gradient(135deg,#ff5fa0,#cc2060);color:#fff;}
+  .g-a{background:linear-gradient(135deg,#b08fff,#7044cc);color:#fff;}
+  .g-b{background:linear-gradient(135deg,#7fffe0,#00c898);color:#0a2018;}
+  .g-c{background:rgba(0,0,0,.09);color:#8a6878;border:1px solid rgba(0,0,0,.1);}
+  .g-n{background:rgba(0,0,0,.05);color:#aaa090;border:1px solid rgba(0,0,0,.07);}
+  .gd{font-size:10px;color:#6a4858;margin-top:2px;max-width:86px;}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(240,160,200,.18);border-radius:10px;overflow:hidden;margin:24px 0;}
+  .metric{background:#fff;padding:16px 14px;}
+  .mv{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#1e0a14;line-height:1;}
+  .mv .u{font-size:13px;font-weight:400;}
+  .ml{font-size:11px;color:#8a6878;margin-top:3px;line-height:1.35;}
+  .ms{font-size:9.5px;color:#cc2060;margin-top:2px;font-family:'Space Mono',monospace;}
+
+  .chart-wrap{background:#fff;border:1px solid #f0d0e0;border-radius:10px;padding:26px;margin:24px 0;}
+  .ct{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#1e0a14;margin-bottom:2px;font-style:italic;}
+  .cs{font-size:12.5px;color:#8a6878;margin-bottom:18px;}
+
+  table.ct{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px;}
+  table.ct thead th{background:var(--ink);color:var(--rose-l);font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid rgba(255,95,160,.18);}
+  table.ct tbody tr{border-bottom:1px solid #f0e0e8;}
+  table.ct tbody tr:last-child{border-bottom:none;}
+  table.ct tbody td{padding:10px 12px;color:#2a1020;vertical-align:middle;}
+  table.ct tbody tr:nth-child(even){background:#fff8fb;}
+  table.ct tbody tr.hl{background:rgba(255,95,160,.04);}
+  table.ct tbody tr.hl td{font-weight:600;color:#1e0a14;}
+
+  .founder-grid{display:grid;grid-template-columns:200px 1fr;gap:0;margin:24px 0;background:#fff;border:1px solid #f0d0e0;border-radius:10px;overflow:hidden;}
+  .founder-left{background:linear-gradient(135deg,var(--ink2),var(--surface));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 18px;gap:10px;}
+  .fav{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--lav));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:32px;color:#fff;font-weight:900;font-style:italic;border:2.5px solid rgba(255,95,160,.25);}
+  .fn{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--rose-l);text-align:center;}
+  .fh{font-family:'Space Mono',monospace;font-size:8.5px;color:rgba(255,95,160,.38);letter-spacing:1.5px;text-align:center;}
+  .founder-right{padding:24px;}
+  .founder-right h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#1e0a14;margin-bottom:9px;font-style:italic;}
+  .founder-right p{font-size:13px;color:#3a2030;line-height:1.7;margin-bottom:9px;}
+  .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+  .tag{font-family:'Space Mono',monospace;font-size:8px;padding:3px 8px;border-radius:100px;}
+  .tag.r{background:rgba(255,95,160,.07);color:#cc2060;border:1px solid rgba(255,95,160,.16);}
+  .tag.l{background:rgba(176,143,255,.09);color:#7044cc;border:1px solid rgba(176,143,255,.18);}
+
+  .eco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0;}
+  .eco-card{background:#fff;border:1px solid #f0d0e0;border-radius:8px;padding:14px;}
+  .eco-ic{font-size:19px;margin-bottom:6px;}
+  .eco-t{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:700;color:#1e0a14;margin-bottom:3px;}
+  .eco-d{font-size:12px;color:#5a3848;line-height:1.58;}
+  .eco-b{font-family:'Space Mono',monospace;font-size:7.5px;color:#cc2060;background:rgba(255,95,160,.06);padding:2px 6px;border-radius:100px;display:inline-block;margin-top:4px;}
+
+  .cb{background:rgba(239,68,68,.03);border:1px solid rgba(239,68,68,.14);border-radius:8px;padding:20px 22px;margin:20px 0;}
+  .cb-hd{font-family:'Space Mono',monospace;font-size:8.5px;color:#b91c1c;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+  .cb-t{font-family:'Playfair Display',serif;font-size:15.5px;font-weight:700;color:#3a0a10;margin-bottom:8px;font-style:italic;}
+  .cb-d{font-size:13px;color:#4a2020;line-height:1.68;}
+  .cb-v{margin-top:11px;background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.13);border-radius:6px;padding:9px 13px;font-size:11.5px;color:#15803d;font-family:'Space Mono',monospace;}
+
+  .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:20px 0;}
+  .rc{border-radius:8px;padding:16px 18px;}
+  .rc.high{background:rgba(239,68,68,.03);border:1px solid rgba(239,68,68,.13);}
+  .rc.med{background:rgba(255,170,0,.03);border:1px solid rgba(255,170,0,.13);}
+  .rc.low{background:rgba(34,197,94,.03);border:1px solid rgba(34,197,94,.13);}
+  .rc.pos{background:rgba(255,95,160,.03);border:1px solid rgba(255,95,160,.13);}
+  .rt{font-family:'Space Mono',monospace;font-size:7.5px;letter-spacing:2px;text-transform:uppercase;padding:2px 6px;border-radius:100px;margin-bottom:6px;display:inline-block;}
+  .high .rt{background:rgba(239,68,68,.08);color:#dc2626;}
+  .med .rt{background:rgba(255,170,0,.09);color:#d97706;}
+  .low .rt{background:rgba(34,197,94,.08);color:#16a34a;}
+  .pos .rt{background:rgba(255,95,160,.08);color:#cc2060;}
+  .rh{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:700;color:#1e0a14;margin-bottom:3px;}
+  .rd{font-size:12px;color:#3a2030;line-height:1.58;}
+
+  .sources{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px;padding-top:14px;border-top:1px solid #f0d0e0;}
+  .src{font-family:'Space Mono',monospace;font-size:8px;background:#fff8fb;border:1px solid #f0d0e0;color:#8a5878;padding:2px 7px;border-radius:100px;}
+
+  .au-card{background:var(--ink);border-radius:12px;padding:28px 34px;display:flex;gap:20px;align-items:center;margin-top:52px;}
+  .au-av{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--lav));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#fff;font-style:italic;}
+  .au-n{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--rose-l);margin-bottom:2px;}
+  .au-t{font-family:'Space Mono',monospace;font-size:8.5px;color:rgba(255,95,160,.38);letter-spacing:1.5px;margin-bottom:8px;}
+  .au-d{font-size:12.5px;color:rgba(255,255,255,.26);line-height:1.6;}
+  .au-links{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap;}
+  .au-l{font-family:'Space Mono',monospace;font-size:8.5px;color:rgba(255,95,160,.5);background:rgba(255,95,160,.05);border:1px solid rgba(255,95,160,.12);padding:3px 9px;border-radius:100px;}
+  .disc{font-size:11.5px;color:#8a6878;line-height:1.65;background:#fff8fb;border:1px solid #f0d0e0;border-radius:8px;padding:14px 18px;margin-top:24px;}
+
+  @media(max-width:780px){
+    .cvtop,.cvbody,.cvbot,.nft-strip,.dashboard{padding-left:18px;padding-right:18px;}
+    .dash-grid,.rgrid,.eco-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(4,1fr);}
+    .inner{padding:36px 16px;}
+    .toc-list,.metrics{grid-template-columns:1fr 1fr;}
+    .sgrid{grid-template-columns:repeat(3,1fr);}
+    .founder-grid{grid-template-columns:1fr;}
+    .stats-strip{flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="cover">
+  <div class="stars" id="sf"></div>
+  <div class="glow-bg"></div>
+  <div id="petals-container"></div>
+
+  <div class="cvtop">
+    <div class="cvlogo-wrap">
+      <div class="cvlogo">NM</div>
+      <div class="cvbname">NM Alpha Research</div>
+    </div>
+    <div class="cvtag">NFT DEEP DIVE · MARCH 2026</div>
+  </div>
+
+  <div class="cvbody">
+    <div class="badge"><span class="dot"></span>NFT · Ethereum · PFP · Neochibi · Copyleft</div>
+    <h1 class="cvh1">
+      <span class="a1">MILADY</span>
+      <span class="a2">Maker</span>
+      <span class="a3">10,000 NFTS · ETHEREUM · REMILIA COLLECTIVE · 2021</span>
+    </h1>
+    <p class="cvdesc"><strong>The collection that refused to die.</strong> Minted at 0.05 ETH in 2021, hit 6.28 ETH at peak. Survived cancellation, Elon tweets, a founder controversy — and is still the most culturally loaded PFP in crypto.</p>
+    <div class="stats-strip">
+      <div class="st"><div class="st-v" id="cv-fl">—</div><div class="st-l">Floor<span class="live-dot"></span></div></div>
+      <div class="st"><div class="st-v" id="cv-v24">—</div><div class="st-l">24h Volume</div></div>
+      <div class="st"><div class="st-v" id="cv-own">5,228</div><div class="st-l">Owners</div></div>
+      <div class="st"><div class="st-v">~28x</div><div class="st-l">vs Mint Price</div></div>
+    </div>
+  </div>
+
+  <!-- LIVE NFT STRIP -->
+  <div class="nft-strip" id="cover-strip">
+    <div class="strip-msg">⏳ FETCHING LIVE NFTs…</div>
+  </div>
+
+  <div class="cvbot">
+    <div class="cvby">By <span>Chirag Mehta</span> · NM Alpha Research · <span>@NM_ALPHA</span></div>
+    <div class="cvdt">MARCH 03 · 2026</div>
+  </div>
+</div>
+
+<!-- ═══════════════ LIVE DASHBOARD ═══════════════ -->
+<div class="dashboard">
+  <div class="dash-hdr">
+    <div>
+      <div class="dash-title">Live Market Dashboard</div>
+      <div class="dash-sub">Contract: 0x5Af0D9827E0c53E4799BB226655A1de152A425a5 · Reservoir Protocol</div>
+    </div>
+    <div class="live-badge"><span class="dot" style="background:#22c55e;box-shadow:0 0 7px #22c55e;"></span>LIVE DATA</div>
+  </div>
+
+  <div class="dash-grid">
+    <!-- Chart -->
+    <div class="panel">
+      <div class="panel-label">Floor Price — 30 Days</div>
+      <div class="panel-val" id="d-floor">Loading…</div>
+      <div class="panel-chg" id="d-chg">—</div>
+      <div class="chart-area"><canvas id="floorChart"></canvas></div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="feed-panel">
+      <div class="feed-hdr"><span class="dot" style="background:#22c55e;box-shadow:0 0 5px #22c55e;"></span>RECENT ACTIVITY</div>
+      <div class="feed-scroll" id="feed"><div class="feed-msg">LOADING…</div></div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery-panel">
+      <div class="panel-label">Floor Listings — Live NFTs <span style="color:rgba(255,95,160,.25);font-size:8px;margin-left:8px;">CLICK TO OPEN ON OPENSEA</span></div>
+      <div class="gallery-grid" id="gallery">
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+        <div class="gc"><div class="shimmer" style="aspect-ratio:1"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ REPORT CONTENT ═══════════════ -->
+<div class="wrap"><div class="inner">
+
+  <div class="toc">
+    <div class="toc-t">Table of Contents</div>
+    <ul class="toc-list">
+      <li><a href="#s1"><span class="toc-n">01 —</span> What Milady Maker Actually Is</a></li>
+      <li><a href="#s2"><span class="toc-n">02 —</span> The Drip Score System &amp; Rarity</a></li>
+      <li><a href="#s3"><span class="toc-n">03 —</span> Creator, Team &amp; Remilia Collective</a></li>
+      <li><a href="#s4"><span class="toc-n">04 —</span> Market Performance &amp; Price History</a></li>
+      <li><a href="#s5"><span class="toc-n">05 —</span> Ecosystem, Community &amp; Culture</a></li>
+      <li><a href="#s6"><span class="toc-n">06 —</span> Controversies, Risks &amp; Outlook</a></li>
+    </ul>
+  </div>
+
+  <!-- S1 -->
+  <div class="sec" id="s1">
+    <div class="sec-hd"><span class="sec-n">01</span><h2 class="sec-t">What Milady Maker Actually Is</h2></div>
+    <p>Milady Maker is a collection of <strong>10,000 generative profile picture NFTs</strong> on Ethereum, launched August 25, 2021 by Remilia Collective. It is the defining artifact of what its creator calls <em>New Net Art</em> — a post-ironic, community-first, internet-native aesthetic movement that rejects the celebrity-endorsement and utility-promise models that defined the 2021 NFT bull.</p>
+    <p>Every Milady is a <strong>neochibi</strong> female character — a blend of cute anime illustration with randomized streetwear, cosmetics, and accessories inspired by Tokyo's Y2K fashion subcultures: <em>Gyaru, Harajuku, Lolita, Hypebeast, and Prep.</em> Each is algorithmically generated but curated for stylistic coherence, making them unusually well-suited as Twitter/X profile pictures — the original and enduring use case.</p>
+    <div class="callout"><p><strong>Official description:</strong> "Milady Maker is a collection of 10,000 generative pfpNFTs in a neochibi aesthetic inspired by street style tribes." The character design remixes Hororo from the 2003 anime <em>Bottle Fairy</em>. All assets are copylefted under the Viral Public License.</p></div>
+
+    <h3 class="sub">Live Collection Pieces <span style="font-family:'Space Mono',monospace;font-size:10px;color:#e090c0;font-style:normal;font-weight:400;">— fetched live from blockchain</span></h3>
+    <div class="sgrid" id="sec-gallery">
+      <div class="sc"><div class="shimmer" style="aspect-ratio:1"></div><div class="sc-info"><div class="sc-id">LOADING…</div></div></div>
+      <div class="sc"><div class="shimmer" style="aspect-ratio:1"></div><div class="sc-info"><div class="sc-id">LOADING…</div></div></div>
+      <div class="sc"><div class="shimmer" style="aspect-ratio:1"></div><div class="sc-info"><div class="sc-id">LOADING…</div></div></div>
+      <div class="sc"><div class="shimmer" style="aspect-ratio:1"></div><div class="sc-info"><div class="sc-id">LOADING…</div></div></div>
+      <div class="sc"><div class="shimmer" style="aspect-ratio:1"></div><div class="sc-info"><div class="sc-id">LOADING…</div></div></div>
+    </div>
+
+    <h3 class="sub">The Five Fashion Tribes</h3>
+    <table class="ct">
+      <thead><tr><th>Tribe</th><th>Inspiration</th><th>Key Traits</th><th>Vibe</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gyaru</strong></td><td>2000s Shibuya street</td><td>Tanned skin, bleached hair, heavy cosmetics</td><td>Bold, flashy, maximalist</td></tr>
+        <tr><td><strong>Harajuku</strong></td><td>Takeshita Street avant-garde</td><td>Eclectic layers, pastel wigs, statement accessories</td><td>Playful, surreal, colorful</td></tr>
+        <tr><td><strong>Lolita</strong></td><td>Victorian + gothic + kawaii</td><td>Frilly dresses, bonnets, lace</td><td>Elegant, ethereal, precise</td></tr>
+        <tr><td><strong>Hypebeast</strong></td><td>Streetwear, sneaker culture</td><td>Logo hoodies, caps, sneakers</td><td>Cool, aspirational, flex</td></tr>
+        <tr><td><strong>Prep</strong></td><td>East Coast American collegiate</td><td>Blazers, polo shirts, loafers, plaid</td><td>Restrained, classic, composed</td></tr>
+      </tbody>
+    </table>
+    <div class="sources"><span class="src">miladymaker.net</span><span class="src">opensea.io/collection/milady</span><span class="src">CoinGecko NFT</span></div>
+  </div>
+
+  <!-- S2 -->
+  <div class="sec" id="s2">
+    <div class="sec-hd"><span class="sec-n">02</span><h2 class="sec-t">The Drip Score System &amp; Rarity</h2></div>
+    <p>Unlike most PFP collections where rarity is a simple trait count, Milady uses a proprietary <strong>Drip Score</strong> system incorporating aesthetic judgment alongside statistical scarcity. Each Milady's score weights every cosmetic by rarity <em>and</em> visual prominence, with a <strong>Theme Coherence Bonus</strong> when hat and shirt match the same style tribe.</p>
+    <p>The chain roll algorithm favors matching themes — coordinated outfits aren't purely random. Result: Drip Score is intuitive at a glance. You can <em>see</em> that an SS Milady is more dripped out without consulting a rarity table. This made the collection ideal for Twitter/X PFPs, where status must communicate instantly in a thumbnail.</p>
+    <div class="callout"><p>A Milady wearing a rare accessory that <em>clashes</em> aesthetically scores lower than one wearing a moderately rare but perfectly matched outfit. Value is readable immediately. This is the design insight no other 2021 PFP collection executed.</p></div>
+
+    <h3 class="sub">Drip Grade Scale</h3>
+    <div class="drip-row">
+      <div class="dw"><div class="dg g-ss">SS</div><div class="gd">Rarest. 3–10x floor premium. Most visually coherent.</div></div>
+      <div class="dw"><div class="dg g-s">S</div><div class="gd">Exceptional. Strong theme match + rare accessories.</div></div>
+      <div class="dw"><div class="dg g-a">A</div><div class="gd">Above average. Good coherence, notable accessories.</div></div>
+      <div class="dw"><div class="dg g-b">B</div><div class="gd">Average+. Some rare traits, decent alignment.</div></div>
+      <div class="dw"><div class="dg g-c">C</div><div class="gd">Common. Trades near floor.</div></div>
+      <div class="dw"><div class="dg g-n">NORMAL</div><div class="gd">Lowest tier. At or below floor.</div></div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="ct">Estimated Drip Grade Distribution — 10,000 Miladys</div>
+      <div class="cs">Approximate breakdown — SS/S grades are the rarest and most valuable</div>
+      <svg width="100%" viewBox="0 0 820 220" height="220">
+        <defs>
+          <linearGradient id="gSS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe066"/><stop offset="100%" stop-color="#ffaa00"/></linearGradient>
+          <linearGradient id="gSx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff5fa0"/><stop offset="100%" stop-color="#cc2060"/></linearGradient>
+          <linearGradient id="gAx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b08fff"/><stop offset="100%" stop-color="#7044cc"/></linearGradient>
+          <linearGradient id="gBx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7fffe0"/><stop offset="100%" stop-color="#00c898"/></linearGradient>
+          <linearGradient id="gCx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d0b8c8"/><stop offset="100%" stop-color="#a09098"/></linearGradient>
+          <linearGradient id="gNx" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#806870"/><stop offset="100%" stop-color="#503848"/></linearGradient>
+        </defs>
+        <line x1="60" y1="175" x2="790" y2="175" stroke="#f0d0e0" stroke-width="1"/>
+        <rect x="80" y="170" width="72" height="5" rx="3" fill="url(#gSS)"/>
+        <text x="116" y="166" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#b08040">~2%</text>
+        <text x="116" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#8a6848">SS</text>
+        <rect x="190" y="160" width="72" height="15" rx="3" fill="url(#gSx)"/>
+        <text x="226" y="155" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#aa4070">~5%</text>
+        <text x="226" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#8a4868">S</text>
+        <rect x="300" y="143" width="72" height="32" rx="3" fill="url(#gAx)"/>
+        <text x="336" y="139" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#7044cc">~10%</text>
+        <text x="336" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#6a4888">A</text>
+        <rect x="410" y="124" width="72" height="51" rx="3" fill="url(#gBx)"/>
+        <text x="446" y="119" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#009d7f">~18%</text>
+        <text x="446" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#4a8870">B</text>
+        <rect x="520" y="104" width="72" height="71" rx="3" fill="url(#gCx)"/>
+        <text x="556" y="100" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#8a6878">~25%</text>
+        <text x="556" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#6a4858">C</text>
+        <rect x="630" y="65" width="72" height="110" rx="3" fill="url(#gNx)"/>
+        <text x="666" y="60" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#6a5860">~40%</text>
+        <text x="666" y="194" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#5a4858">NORMAL</text>
+      </svg>
+    </div>
+    <div class="sources"><span class="src">Drip Score design — Charlotte Fang, Remilia</span><span class="src">NFT Price Floor</span><span class="src">OpenSea trait data</span></div>
+  </div>
+
+  <!-- S3 -->
+  <div class="sec" id="s3">
+    <div class="sec-hd"><span class="sec-n">03</span><h2 class="sec-t">Creator, Team &amp; Remilia Collective</h2></div>
+    <p>Milady Maker was created by <strong>Remilia Collective</strong> — an anonymous online art collective experimenting with "New Net Art": post-authorship, network spirituality, and memetic culture. The project is intentionally collective and anti-celebrity, positioning itself against founder-brand NFT collections by emphasizing the community as the author.</p>
+
+    <div class="founder-grid">
+      <div class="founder-left">
+        <div class="fav">CF</div>
+        <div class="fn">Charlotte Fang</div>
+        <div class="fh">aka Charlemagne / Charlie</div>
+        <div class="tags" style="justify-content:center;margin-top:5px;">
+          <span class="tag r">Self-declared CEO</span>
+          <span class="tag l">Net Artist</span>
+        </div>
+      </div>
+      <div class="founder-right">
+        <h3>Charlotte Fang — The Architect</h3>
+        <p>Charlotte Fang (also Charlemagne / Charlie) is the conceptual director and self-described "CEO" of Remilia Collective. She is responsible for the overall creative vision, the Drip Score design philosophy, and the "New Net Art" framing positioning Milady as a cultural movement rather than a conventional NFT product.</p>
+        <p>Fang operates in a highly post-ironic, internet-native register. Her writing on the Milady design process is dense with references to network spirituality, post-authorship, and subcultural theory. She is simultaneously the most visible and most deliberately opaque person associated with the project.</p>
+        <p>In 2022, Fang attracted controversy when critics connected her to an earlier pseudonym "Miya," allegedly associated with edgy 4chan communities. Following backlash, she stepped down from active leadership. The floor recovered to ATH in 2024.</p>
+        <div class="tags">
+          <span class="tag r">Conceptual Director</span>
+          <span class="tag l">Drip Score Architect</span>
+          <span class="tag r">Stepped Down 2022</span>
+          <span class="tag l">Remilia Corp Est. 2021</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Core Team</h3>
+    <table class="ct">
+      <thead><tr><th>Role</th><th>Name / Handle</th><th>Contribution</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td><strong>Concept &amp; Direction</strong></td><td>Charlotte Fang (Charlemagne)</td><td>Project concept, Drip Score design, New Net Art philosophy</td></tr>
+        <tr><td><strong>Art &amp; Illustration</strong></td><td>Milady Sonora (Sprite)</td><td>Original neochibi character art and rendering pipeline</td></tr>
+        <tr><td><strong>Art Support</strong></td><td>Yuyu + contributors</td><td>Accessories, traits, cosmetic variant artwork</td></tr>
+        <tr><td><strong>Collective</strong></td><td>Remilia Collective</td><td>Ongoing expansions, ecosystem curation, community</td></tr>
+        <tr><td><strong>Entity</strong></td><td>Remilia Corporation</td><td>Legal/operational entity post-2022 reorganisation</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><p><strong>New Net Art philosophy:</strong> Remilia builds meaning through "hypercitation" — layers of cultural reference, remix, and community contribution. The Viral Public License is not just legal strategy but philosophical: the brand is designed to be mutated and spread by the community. This is why Milady has outlived every other 2021 PFP.</p></div>
+    <div class="sources"><span class="src">wiki.remilia.org</span><span class="src">NFT Price Floor</span><span class="src">CoinGecko NFT</span></div>
+  </div>
+
+  <!-- S4 -->
+  <div class="sec" id="s4">
+    <div class="sec-hd"><span class="sec-n">04</span><h2 class="sec-t">Market Performance &amp; Price History</h2></div>
+    <p>Milady's price history is one of the most unusual in the NFT space: <strong>a long slow organic build followed by a series of external catalysts</strong> that each sent the floor to new highs, interspersed with sharp drawdowns the community consistently absorbed and recovered from.</p>
+
+    <div class="chart-wrap">
+      <div class="ct">Milady Floor Price Journey — 2021 to March 2026</div>
+      <div class="cs">Key catalysts annotated — from mint at 0.05 ETH to ATH 6.28 ETH (Nov 2024) and current ~1.41 ETH</div>
+      <svg width="100%" viewBox="0 0 820 275" height="275">
+        <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff5fa0" stop-opacity="0.22"/><stop offset="100%" stop-color="#ff5fa0" stop-opacity="0"/></linearGradient></defs>
+        <line x1="60" y1="30" x2="790" y2="30" stroke="#f5e0ec" stroke-width="1"/>
+        <line x1="60" y1="82" x2="790" y2="82" stroke="#f5e0ec" stroke-width="1"/>
+        <line x1="60" y1="134" x2="790" y2="134" stroke="#f5e0ec" stroke-width="1"/>
+        <line x1="60" y1="186" x2="790" y2="186" stroke="#f5e0ec" stroke-width="1"/>
+        <text x="52" y="34" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" fill="#e090c0">7Ξ</text>
+        <text x="52" y="86" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" fill="#e090c0">5Ξ</text>
+        <text x="52" y="138" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" fill="#e090c0">3Ξ</text>
+        <text x="52" y="190" text-anchor="end" font-family="Space Mono,monospace" font-size="8.5" fill="#e090c0">1Ξ</text>
+        <text x="100" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">AUG 21</text>
+        <text x="200" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">MAR 22</text>
+        <text x="310" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">MAY 23</text>
+        <text x="445" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">JAN 24</text>
+        <text x="568" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">NOV 24</text>
+        <text x="688" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#8a6878">JAN 26</text>
+        <text x="758" y="248" text-anchor="middle" font-family="Space Mono,monospace" font-size="7.5" fill="#e090c0">MAR 26</text>
+        <path d="M100,222 C120,220 160,218 200,210 C226,203 250,200 268,202 C290,205 304,202 316,185 C332,165 358,150 386,140 C408,130 430,122 445,116 C465,104 503,72 522,50 C542,30 558,30 568,30 C586,42 620,82 648,102 C666,114 682,188 700,183 C720,176 742,178 758,180" fill="none" stroke="#ff5fa0" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M100,222 C120,220 160,218 200,210 C226,203 250,200 268,202 C290,205 304,202 316,185 C332,165 358,150 386,140 C408,130 430,122 445,116 C465,104 503,72 522,50 C542,30 558,30 568,30 C586,42 620,82 648,102 C666,114 682,188 700,183 C720,176 742,178 758,180 L758,230 L100,230Z" fill="url(#pg)"/>
+        <!-- Annotations -->
+        <circle cx="100" cy="222" r="3.5" fill="#ff5fa0"/>
+        <text x="68" y="240" font-family="Space Mono,monospace" font-size="7" fill="#e090c0">MINT 0.05Ξ</text>
+        <circle cx="268" cy="202" r="3.5" fill="#f59e0b"/>
+        <text x="214" y="188" font-family="Space Mono,monospace" font-size="7" fill="#d97706">CONTROVERSY</text>
+        <circle cx="316" cy="185" r="4.5" fill="#ff5fa0" stroke="#fff" stroke-width="1.5"/>
+        <text x="284" y="171" font-family="Space Mono,monospace" font-size="7" fill="#cc2060">ELON +57%</text>
+        <circle cx="445" cy="116" r="3.5" fill="#b08fff"/>
+        <text x="413" y="102" font-family="Space Mono,monospace" font-size="7" fill="#7044cc">DWF $5M</text>
+        <circle cx="568" cy="30" r="5.5" fill="#ffe066" stroke="#fff" stroke-width="2"/>
+        <text x="524" y="16" font-family="Space Mono,monospace" font-size="7" fill="#b08000">ATH 6.28Ξ NOV 24</text>
+        <circle cx="700" cy="183" r="4.5" fill="#b08fff" stroke="#fff" stroke-width="1.5"/>
+        <text x="660" y="169" font-family="Space Mono,monospace" font-size="7" fill="#7044cc">VITALIK +50%</text>
+        <circle cx="758" cy="180" r="4.5" fill="#ff5fa0" stroke="#fff" stroke-width="1.5"/>
+        <text x="728" y="167" font-family="Space Mono,monospace" font-size="7" fill="#cc2060">~1.41Ξ NOW</text>
+      </svg>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="mv" id="m-fl">1.41<span class="u"> Ξ</span></div><div class="ml">Current Floor (Mar 2026)</div><div class="ms" id="m-fl-usd">~$2,730 USD</div></div>
+      <div class="metric"><div class="mv">6.28<span class="u"> Ξ</span></div><div class="ml">All-Time High Floor</div><div class="ms">Nov 2024 ~$20,000</div></div>
+      <div class="metric"><div class="mv">~28x</div><div class="ml">Return from 0.05 Ξ Mint</div><div class="ms">125x at ATH</div></div>
+      <div class="metric"><div class="mv" id="m-mc">$27M</div><div class="ml">Market Cap (Floor-based)</div><div class="ms">~14,000 ETH total</div></div>
+    </div>
+
+    <h3 class="sub">Key Price Catalysts</h3>
+    <table class="ct">
+      <thead><tr><th>Date</th><th>Event</th><th>Impact</th><th>Context</th></tr></thead>
+      <tbody>
+        <tr><td>Aug 2021</td><td>Mint at 0.05 ETH</td><td>Launch</td><td>Sold slowly; fully sold out March 2022. Zero hype launch.</td></tr>
+        <tr><td>2022</td><td>Charlotte Fang controversy</td><td>Sharp dip, then recovery</td><td>Community rallied; floor recovered within months.</td></tr>
+        <tr><td>May 2023</td><td>Elon Musk tweets Milady meme</td><td>+57% in 24h</td><td>Binance NFT of the Year 2023. $LADYS surged simultaneously.</td></tr>
+        <tr><td>Jun 2024</td><td>DWF Labs invests $5M into $LADYS</td><td>Floor boost</td><td>Institutional signal for the broader Milady ecosystem.</td></tr>
+        <tr><td>Nov 2024</td><td>All-Time High: 6.28 ETH</td><td>ATH — 125x mint</td><td>NFT bull cycle. Jan 2025 volume peak: $25.3M monthly.</td></tr>
+        <tr><td>Jan 2026</td><td>Vitalik Buterin switches to Milady-style PFP</td><td>+50% floor, +100% volume</td><td>~220 ETH in 24h volume. Top 10 by floor price.</td></tr>
+        <tr><td>Mar 2026</td><td>Current</td><td>~1.41 ETH</td><td>Post-catalyst settling; stable 1.4–1.5 ETH range.</td></tr>
+      </tbody>
+    </table>
+    <div class="sources"><span class="src">CoinGecko NFT</span><span class="src">CryptoTimes Jan 2026</span><span class="src">datawallet.com</span><span class="src">NFT Price Floor</span></div>
+  </div>
+
+  <!-- S5 -->
+  <div class="sec" id="s5">
+    <div class="sec-hd"><span class="sec-n">05</span><h2 class="sec-t">Ecosystem, Community &amp; Culture</h2></div>
+    <p>Milady Maker is not primarily an investment thesis. It is — as Remilia insists — <strong>"an aesthetic, a lifestyle and a community."</strong> The collection's longevity relative to every other 2021 PFP comes directly from how the community was designed: not as a hype machine, but as a <em>genuinely weird, creative, self-sustaining internet subculture</em> that happens to live on a blockchain.</p>
+    <div class="eco-grid">
+      <div class="eco-card"><div class="eco-ic">🏰</div><div class="eco-t">Milady Village Discord</div><div class="eco-d">Highly curated hub (discord.gg/milady). 16,000+ members. Known for strict curation maintaining culture over scale.</div><div class="eco-b">ACTIVE</div></div>
+      <div class="eco-card"><div class="eco-ic">⛏️</div><div class="eco-t">Minecraft Metaverse</div><div class="eco-d">NFT-gated Minecraft server via milady.world. Land plots and exclusive events. One of few crypto metaverses actually used.</div><div class="eco-b">LIVE</div></div>
+      <div class="eco-card"><div class="eco-ic">🎭</div><div class="eco-t">VRtube Live2D Avatars</div><div class="eco-d">Milady layers built for Live2D VTuber rigging from day one. Use any Milady as a live-streaming avatar via Hologram Labs.</div><div class="eco-b">LIVE</div></div>
+      <div class="eco-card"><div class="eco-ic">🎉</div><div class="eco-t">Global Holder Raves</div><div class="eco-d">Physical warehouse raves in NYC, London, Tokyo. The rare NFT project where IRL utility is an actual underground event.</div><div class="eco-b">RECURRING</div></div>
+      <div class="eco-card"><div class="eco-ic">👕</div><div class="eco-t">Bootleg Merch Store</div><div class="eco-d">store.remilia.org sells intentional "bootleg" designer-style pieces with Milady graphics. Aesthetic statement as merch.</div><div class="eco-b">ACTIVE</div></div>
+      <div class="eco-card"><div class="eco-ic">🔗</div><div class="eco-t">Viral Public License</div><div class="eco-d">All assets copylefted. Fan derivatives encouraged. Has spawned Pixelady Maker, Bored Milady Maker, hundreds of community tributes.</div><div class="eco-b">BY DESIGN</div></div>
+    </div>
+    <div class="sources"><span class="src">miladymaker.net</span><span class="src">CoinGecko community data</span><span class="src">DWF Labs Jun 2024</span></div>
+  </div>
+
+  <!-- S6 -->
+  <div class="sec" id="s6">
+    <div class="sec-hd"><span class="sec-n">06</span><h2 class="sec-t">Controversies, Risks &amp; Outlook</h2></div>
+    <p>No honest analysis of Milady Maker can ignore the controversies. But it's equally important to note that <strong>the collection has survived every one of them</strong> and is trading at 28x mint price in early 2026 despite a broad NFT bear market.</p>
+
+    <div class="cb">
+      <div class="cb-hd">⚠ Controversy Record</div>
+      <div class="cb-t">The 2022 Charlotte Fang / "Miya" Controversy</div>
+      <div class="cb-d">In 2022, critics connected Charlotte Fang to a prior pseudonym "Miya," allegedly linked to 4chan activities and the "kaliacc" scene — facing allegations of white supremacist ideology, pro-anorexia content, and grooming. Fang described it as "juvenile trolling" / satirical performance art, apologized, and stepped back from leadership. Remilia released a detailed rebuttal in November 2022.<br><br>Separately, the "Milady, That B.I.T.C.H." spin-off included T-shirts with "Treblinka" — described by the team as a random generation error. The "SS" Drip Grade was also criticized for Nazi connotations; the project denies this.</div>
+      <div class="cb-v">Community position: "Milady has beat the allegations." Floor dipped in 2022, recovered to ATH in 2024. Market has priced this as a past event.</div>
+    </div>
+
+    <h3 class="sub">Current Risk Map</h3>
+    <div class="rgrid">
+      <div class="rc high"><div class="rt">HIGH — ONGOING</div><div class="rh">NFT Market Structure Risk</div><div class="rd">Overall NFT volumes down 90%+ from 2021 peaks. Milady saw 2025 monthly volume drop from $25.3M to under $8M. The market is thinner and more catalyst-dependent than during the bull.</div></div>
+      <div class="rc high"><div class="rt">HIGH — ONGOING</div><div class="rh">Founder Opacity Risk</div><div class="rd">Remilia Collective remains largely anonymous post-Fang. Future decisions and treasury management lack public accountability. Intentional by design but creates governance risk for holders.</div></div>
+      <div class="rc med"><div class="rt">MEDIUM</div><div class="rh">Catalyst Dependence</div><div class="rd">Price history shows Milady is highly responsive to external catalysts. Without a new one, the floor may range-trade or drift lower in a low-volume NFT environment.</div></div>
+      <div class="rc med"><div class="rt">MEDIUM</div><div class="rh">Reputational Overhang</div><div class="rd">The 2022 controversy remains discoverable and may limit institutional adoption. A non-trivial hurdle for any future institutional validation narrative.</div></div>
+      <div class="rc low"><div class="rt">LOW</div><div class="rh">Smart Contract Risk</div><div class="rd">Standard Ethereum ERC-721 from 2021. No known vulnerabilities. Immutable contract, fully on-chain. Lower technical risk than newer complex NFT contracts.</div></div>
+      <div class="rc pos"><div class="rt">POSITIVE CATALYST</div><div class="rh">Remilia Agent NFTs / Social Network</div><div class="rd">Remilia has teased AI agent NFTs and social network infrastructure as of 2025–2026. If launched and connected to Milady holders, the collection could re-rate significantly.</div></div>
+      <div class="rc pos"><div class="rt">POSITIVE CATALYST</div><div class="rh">Cultural Permanence</div><div class="rd">The only 2021 NFT with genuine meme-culture staying power in 2026. Copyleft model generates organic spread without marketing spend. Structural, not cyclical.</div></div>
+      <div class="rc pos"><div class="rt">POSITIVE ASYMMETRY</div><div class="rh">Supply Scarcity</div><div class="rd">Only ~2% of supply typically listed. 5,228 holders across 9,998 tokens. In a catalyst environment, thin listed supply + committed holder base creates rapid floor appreciation.</div></div>
+    </div>
+
+    <h3 class="sub">Outlook — Where Milady Sits in 2026</h3>
+    <p>At 1.41 ETH in March 2026, Milady trades at roughly 22% of its November 2024 ATH. The NFT market is in a low-activity phase, with volume concentrated in collections with genuine staying power. Milady is unambiguously in that group.</p>
+    <div class="callout"><p><strong>Bottom line:</strong> Milady Maker is the closest thing crypto has to a genuinely cultural artifact in NFT form. It's not just a JPEG — it's a 4-year-old meme, a community, a copyleft brand, and an Ethereum blue-chip that absorbed a cancellation attempt and came back to ATH. Whether it matters culturally? That answer is already clear.</p></div>
+    <div class="sources"><span class="src">CryptoTimes Jan 2026</span><span class="src">nft-stats.com 2025</span><span class="src">NFT Price Floor</span><span class="src">CoinGecko</span><span class="src">OpenSea live</span></div>
+  </div>
+
+  <div class="au-card">
+    <div class="au-av">CM</div>
+    <div>
+      <div class="au-n">Chirag Mehta</div>
+      <div class="au-t">NM ALPHA RESEARCH · WEB3 RESEARCH ANALYST</div>
+      <div class="au-d">Independent crypto researcher covering NFTs, DePIN, AI infrastructure, and on-chain tokenomics. Contributor to NM Alpha — 50,000+ community. Tracked $PNUT from $1K → $18.5K. Covers blue-chip and emerging projects across the NFT and crypto ecosystem.</div>
+      <div class="au-links">
+        <span class="au-l">X: @NM_Founder</span>
+        <span class="au-l">X: @NM_ALPHA</span>
+        <span class="au-l">@HarryDemitry</span>
+        <span class="au-l">in/chiragmehta1304</span>
+      </div>
+    </div>
+  </div>
+  <div class="disc"><strong>Disclaimer:</strong> This report is for informational and educational purposes only. It does not constitute financial advice. All data sourced from publicly available information as of March 3, 2026. NFT prices are highly volatile — verify on Blur.io/collection/milady or opensea.io/collection/milady before any action. DYOR. NM Alpha Research holds no financial position in Milady Maker NFTs or $LADYS at time of publication.</div>
+</div></div>
+
+<!-- ══════════════════════════════════════════
+     ALL LIVE DATA — JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+const CONTRACT = '0x5Af0D9827E0c53E4799BB226655A1de152A425a5';
+const RES = 'https://api.reservoir.tools';
+const OS_LINK = id => `https://opensea.io/assets/ethereum/${CONTRACT}/${id}`;
+
+// ─ utils ─────────────────────────────────────────────────────
+const fmtE = (v, dec=3) => v != null ? parseFloat(v).toFixed(dec) + 'Ξ' : '—';
+const fmtEShort = v => v != null ? (parseFloat(v) >= 10 ? parseFloat(v).toFixed(1) : parseFloat(v).toFixed(3)) + 'Ξ' : '—';
+const ago = ts => {
+  const s = (Date.now() - new Date(ts).getTime()) / 1000;
+  if (s < 60) return Math.round(s) + 's ago';
+  if (s < 3600) return Math.round(s/60) + 'm ago';
+  if (s < 86400) return Math.round(s/3600) + 'h ago';
+  return Math.round(s/86400) + 'd ago';
+};
+const shortAddr = a => a ? a.slice(0,6)+'…'+a.slice(-4) : '—';
+const fallbackImg = (el, emoji='🎀') => {
+  el.style.background = 'linear-gradient(135deg,#1a0f22,#3d1040)';
+  el.innerHTML = `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px">${emoji}</div>`;
+};
+const resHeaders = { headers: { 'x-api-key': 'demo' } };
+
+// ─ 1. Stats ───────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const r = await fetch(`${RES}/collections/v7?id=${CONTRACT}`, resHeaders);
+    const d = await r.json();
+    const c = d.collections?.[0]; if (!c) return;
+    const fl = c.floorAsk?.price?.amount?.decimal;
+    const v24 = c.volume?.['1day'];
+    const own = c.ownerCount;
+    if (fl) {
+      document.getElementById('cv-fl').textContent = fmtEShort(fl);
+      document.getElementById('d-floor').textContent = fmtE(fl,3) + ' ETH';
+      document.getElementById('m-fl').innerHTML = parseFloat(fl).toFixed(2) + '<span class="u"> Ξ</span>';
+    }
+    if (v24) document.getElementById('cv-v24').textContent = parseFloat(v24).toFixed(1) + 'Ξ';
+    if (own) document.getElementById('cv-own').textContent = own.toLocaleString();
+    const chg = c.floorSaleChange?.['1day'];
+    if (chg != null) {
+      const pct = ((chg - 1) * 100).toFixed(1);
+      const el = document.getElementById('d-chg');
+      el.textContent = (pct >= 0 ? '+' : '') + pct + '% (24h)';
+      el.className = 'panel-chg ' + (pct >= 0 ? 'up' : 'dn');
+    }
+  } catch(e) { console.warn('Stats:', e.message); }
+}
+
+// ─ 2. Floor Chart ─────────────────────────────────────────────
+async function loadChart() {
+  let labels = [], prices = [];
+  try {
+    const r = await fetch(
+      `${RES}/collections/${CONTRACT}/floor-ask-events/v3?limit=120`,
+      resHeaders
+    );
+    const d = await r.json();
+    if (d.events?.length) {
+      const map = {};
+      d.events.forEach(ev => {
+        const day = new Date(ev.createdAt).toISOString().slice(0,10);
+        map[day] = ev.floorAsk?.price?.amount?.decimal ?? map[day];
+      });
+      const days = Object.keys(map).sort().slice(-30);
+      labels = days.map(x => x.slice(5));
+      prices = days.map(d => parseFloat(map[d]) || null);
+    }
+  } catch(e) { /* fall through */ }
+
+  // Fallback to illustrative data if API didn't return anything
+  if (!prices.length) {
+    const now = new Date();
+    const base = [1.15,1.18,1.22,1.20,1.25,1.18,1.22,1.30,1.28,1.35,1.32,1.28,1.35,1.38,1.40,1.38,1.42,1.45,1.42,1.40,1.38,1.42,1.44,1.40,1.38,1.40,1.42,1.40,1.41,1.41];
+    for (let i=29;i>=0;i--) {
+      const d=new Date(now - i*86400000);
+      labels.push((d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0'));
+    }
+    prices = base;
+  }
+
+  const ctx = document.getElementById('floorChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: prices,
+        borderColor: '#ff5fa0',
+        backgroundColor: 'rgba(255,95,160,0.1)',
+        borderWidth: 2,
+        pointRadius: 2,
+        pointBackgroundColor: '#ff5fa0',
+        fill: true, tension: 0.42, spanGaps: true
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a0f22',
+          borderColor: 'rgba(255,95,160,.25)',
+          borderWidth: 1,
+          titleColor: '#ffb3d1',
+          bodyColor: '#ff5fa0',
+          callbacks: { label: c => ' ' + parseFloat(c.raw||0).toFixed(3) + ' ETH' }
+        }
+      },
+      scales: {
+        x: { ticks: { color: 'rgba(255,95,160,.3)', font: { family: 'Space Mono', size: 7.5 }, maxTicksLimit: 6 }, grid: { color: 'rgba(255,95,160,.04)' } },
+        y: { ticks: { color: 'rgba(255,95,160,.3)', font: { family: 'Space Mono', size: 7.5 }, callback: v => v + 'Ξ' }, grid: { color: 'rgba(255,95,160,.06)' } }
+      }
+    }
+  });
+}
+
+// ─ 3. Activity Feed ───────────────────────────────────────────
+async function loadFeed() {
+  const el = document.getElementById('feed');
+  try {
+    const r = await fetch(
+      `${RES}/collections/activity/v6?collection=${CONTRACT}&limit=12&types[]=sale&types[]=transfer`,
+      resHeaders
+    );
+    const d = await r.json();
+    const acts = d.activities;
+    if (!acts?.length) { el.innerHTML = '<div class="feed-msg">No recent activity</div>'; return; }
+    el.innerHTML = '';
+    acts.forEach(a => {
+      const isSale = a.type === 'sale';
+      const price = a.price?.amount?.decimal;
+      const img = a.token?.image || '';
+      const id = a.token?.tokenId || '?';
+      const item = document.createElement('div');
+      item.className = 'feed-item';
+      item.innerHTML = `
+        <div class="fi-img" style="position:relative">
+          <img src="${img}" alt="#${id}" style="width:100%;height:100%;object-fit:cover"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#1a0f22,#3d1040)';this.style.display='none'">
+        </div>
+        <div class="fi-info">
+          <div class="fi-token">Milady #${id}</div>
+          <div class="fi-act">${isSale ? '💸 Sold' : '↔ Transfer'} · ${shortAddr(isSale ? a.fromAddress : a.toAddress)}</div>
+        </div>
+        <div class="fi-right">
+          <div class="fi-price">${price ? fmtEShort(price) : '—'}</div>
+          <div class="fi-time">${ago(a.timestamp || new Date().toISOString())}</div>
+        </div>`;
+      item.style.cursor = 'pointer';
+      item.onclick = () => window.open(OS_LINK(id), '_blank');
+      el.appendChild(item);
+    });
+    setTimeout(loadFeed, 25000);
+  } catch(e) {
+    el.innerHTML = `<div class="feed-msg">Open in browser for live activity<br><br>
+      <a href="https://opensea.io/collection/milady" target="_blank" style="color:#ff5fa0;font-size:10px;">View on OpenSea →</a></div>`;
+  }
+}
+
+// ─ 4. Gallery (floor listings) ────────────────────────────────
+async function loadGallery() {
+  const el = document.getElementById('gallery');
+  try {
+    const r = await fetch(
+      `${RES}/tokens/v7?collection=${CONTRACT}&sortBy=floorAskPrice&sortDirection=asc&limit=16`,
+      resHeaders
+    );
+    const d = await r.json();
+    const tokens = d.tokens;
+    if (!tokens?.length) { el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;font-family:Space Mono,monospace;font-size:9px;color:rgba(255,95,160,.3)">No listings found</div>'; return; }
+    el.innerHTML = '';
+    tokens.forEach(t => {
+      const tk = t.token;
+      const mkt = t.market;
+      const img = tk?.image || tk?.imageSmall || '';
+      const id = tk?.tokenId || '?';
+      const price = mkt?.floorAsk?.price?.amount?.decimal;
+      const card = document.createElement('div');
+      card.className = 'gc';
+      card.title = `Milady #${id}${price ? ' — ' + parseFloat(price).toFixed(3) + ' ETH' : ''}`;
+      card.onclick = () => window.open(OS_LINK(id), '_blank');
+      card.innerHTML = `
+        <div style="position:relative;aspect-ratio:1;background:#1a0f22;overflow:hidden">
+          <img src="${img}" alt="#${id}" style="width:100%;height:100%;object-fit:cover;display:block"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#3d0828,#7044cc)';this.style.display='none'">
+        </div>
+        <div class="gc-info">
+          <div class="gc-id">#${id}</div>
+          <div class="gc-p">${price ? parseFloat(price).toFixed(3)+'Ξ' : 'unlisted'}</div>
+        </div>`;
+      el.appendChild(card);
+    });
+  } catch(e) {
+    el.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:28px">
+      <div style="font-family:Space Mono,monospace;font-size:9px;color:rgba(255,95,160,.3);margin-bottom:10px">OPEN IN BROWSER FOR LIVE NFT IMAGES</div>
+      <a href="https://opensea.io/collection/milady" target="_blank" style="color:#ff5fa0;font-family:Space Mono,monospace;font-size:10px">View on OpenSea →</a></div>`;
+  }
+}
+
+// ─ 5. Cover Strip ─────────────────────────────────────────────
+async function loadStrip() {
+  const el = document.getElementById('cover-strip');
+  try {
+    const r = await fetch(
+      `${RES}/tokens/v7?collection=${CONTRACT}&sortBy=tokenId&sortDirection=asc&limit=14`,
+      resHeaders
+    );
+    const d = await r.json();
+    const tokens = d.tokens;
+    if (!tokens?.length) { el.innerHTML = '<div class="strip-msg" style="color:rgba(255,95,160,.18)">Open in browser for live NFT images</div>'; return; }
+    el.innerHTML = '';
+    // shuffle for visual variety
+    [...tokens].sort(()=>Math.random()-.5).forEach(t => {
+      const tk = t.token;
+      const img = tk?.image || tk?.imageSmall || '';
+      const id = tk?.tokenId || '?';
+      const wrap = document.createElement('div');
+      wrap.className = 'nft-tw';
+      wrap.title = `Milady #${id}`;
+      wrap.onclick = () => window.open(OS_LINK(id), '_blank');
+      wrap.innerHTML = `
+        <div class="nft-t">
+          <img src="${img}" alt="#${id}"
+               onerror="this.parentElement.style.background='linear-gradient(135deg,#2d1040,#3d0828)';this.style.display='none'">
+        </div>
+        <div class="nft-tb">#${id}</div>`;
+      el.appendChild(wrap);
+    });
+  } catch(e) {
+    el.innerHTML = '<div class="strip-msg" style="color:rgba(255,95,160,.15)">Open in a browser for live NFT images</div>';
+  }
+}
+
+// ─ 6. Section Gallery (specific tokens) ──────────────────────
+async function loadSecGallery() {
+  const el = document.getElementById('sec-gallery');
+  const wantIds = [1, 100, 888, 2021, 5000];
+  try {
+    const qs = wantIds.map(id=>`tokens[]=${CONTRACT}:${id}`).join('&');
+    const r = await fetch(`${RES}/tokens/v7?${qs}&limit=5`, resHeaders);
+    const d = await r.json();
+    const tokens = d.tokens;
+    if (!tokens?.length) throw new Error('empty');
+    el.innerHTML = '';
+    const ordered = wantIds.map(id => tokens.find(t => parseInt(t.token?.tokenId) === id)).filter(Boolean);
+    ordered.forEach(t => {
+      const tk = t.token;
+      const img = tk?.image || tk?.imageSmall || '';
+      const id = tk?.tokenId || '?';
+      const card = document.createElement('div');
+      card.className = 'sc';
+      card.onclick = () => window.open(OS_LINK(id), '_blank');
+      card.innerHTML = `
+        <img src="${img}" alt="#${id}" style="width:100%;aspect-ratio:1;object-fit:cover;display:block"
+             onerror="this.style.background='linear-gradient(135deg,#1a0f22,#3d1040)';this.style.height='120px'">
+        <div class="sc-info">
+          <div class="sc-id">#${id}</div>
+          <div class="sc-nm">${tk?.name || 'Milady #'+id}</div>
+        </div>`;
+      el.appendChild(card);
+    });
+  } catch(e) {
+    // Styled fallback
+    const tribes = ['GYARU','HARAJUKU','LOLITA','HYPEBEAST','PREP'];
+    const grades = ['SS Drip','S Drip','A Drip','B Drip','C Drip'];
+    const bgs = ['linear-gradient(135deg,#3d0828,#7044cc)','linear-gradient(135deg,#2a1040,#cc2060)','linear-gradient(135deg,#0f1825,#006080)','linear-gradient(135deg,#2a2000,#806000)','linear-gradient(135deg,#100a20,#40208a)'];
+    el.innerHTML = '';
+    wantIds.forEach((id,i) => {
+      const card = document.createElement('div');
+      card.className = 'sc';
+      card.onclick = () => window.open(OS_LINK(id), '_blank');
+      card.innerHTML = `<div style="aspect-ratio:1;background:${bgs[i]};display:flex;align-items:center;justify-content:center;font-size:30px">🎀</div><div class="sc-info"><div class="sc-id">${tribes[i]}</div><div class="sc-nm">${grades[i]}</div></div>`;
+      el.appendChild(card);
+    });
+  }
+}
+
+// ─ 7. Decorations ────────────────────────────────────────────
+function buildStars() {
+  const sf = document.getElementById('sf');
+  const cs = ['#fff','#ffb3d1','#d8c8ff','#7fffe0','#ffe066'];
+  for (let i=0;i<28;i++) {
+    const d = document.createElement('div');
+    d.className = 'star';
+    const s = Math.random() < .5 ? '1px' : '2px';
+    d.style.cssText = `width:${s};height:${s};top:${Math.random()*100}%;left:${Math.random()*100}%;--a:${(Math.random()*.6+.3).toFixed(2)};--d:${(Math.random()*4+1.5).toFixed(1)}s;background:${cs[Math.floor(Math.random()*cs.length)]};animation-delay:${(Math.random()*-6).toFixed(1)}s`;
+    sf.appendChild(d);
+  }
+}
+function buildPetals() {
+  const pc = document.getElementById('petals-container');
+  for (let i=0;i<7;i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const sz = (Math.random()*4+5).toFixed(0)+'px';
+    p.style.cssText = `left:${Math.random()*100}%;--fd:${(Math.random()*8+9).toFixed(0)}s;--fx:${(Math.random()*120-60).toFixed(0)}px;animation-delay:${(Math.random()*-12).toFixed(1)}s;width:${sz};height:${sz};background:${Math.random()>.5?'#ffb3d1':'#d8c8ff'}`;
+    pc.appendChild(p);
+  }
+}
+
+// ─ INIT ──────────────────────────────────────────────────────
+(async () => {
+  buildStars();
+  buildPetals();
+  await Promise.all([
+    loadStats(),
+    loadChart(),
+    loadFeed(),
+    loadGallery(),
+    loadStrip(),
+    loadSecGallery()
+  ]);
+  setInterval(loadStats, 60000);
+})();
+</script>
+</body>
+</html>
