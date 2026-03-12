@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="https://s3.tradingview.com/tv.js"></script>
 <style>
 /* ══════════════════════════════════════════════════
    DESIGN TOKENS — Premium Light Cream Theme v5
@@ -713,6 +714,107 @@ input,select{font-family:inherit}
   box-shadow:0 4px 20px rgba(212,168,67,.4);
   align-items:center;justify-content:center;cursor:pointer;border:none;
 }
+
+/* ══ CHART COIN SEARCH ══ */
+.chart-search-wrap{position:relative;display:flex;align-items:center;gap:6px}
+.chart-coin-input{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:5px 10px;font-size:12px;
+  color:var(--ink);font-family:var(--font-b);outline:none;
+  width:160px;transition:all .2s;
+}
+.chart-coin-input:focus{border-color:rgba(184,134,11,.6);background:#fff;box-shadow:0 0 0 3px rgba(184,134,11,.08)}
+.chart-coin-input::placeholder{color:var(--ink4)}
+.coin-dropdown{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);box-shadow:0 8px 32px rgba(0,0,0,.14);
+  z-index:500;max-height:280px;overflow-y:auto;min-width:260px;
+}
+.coin-suggest{
+  display:flex;align-items:center;gap:8px;padding:9px 12px;
+  cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(0,0,0,.04);
+}
+.coin-suggest:hover{background:rgba(184,134,11,.06)}
+.coin-suggest:last-child{border-bottom:none}
+.cs-icon{
+  width:26px;height:26px;border-radius:50%;background:var(--surface2);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:700;
+  color:var(--ink2);flex-shrink:0;
+}
+.cs-info{flex:1;min-width:0}
+.cs-sym{font-size:12px;font-weight:700;color:var(--ink);font-family:var(--font-m)}
+.cs-name{font-size:10px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-price{font-family:var(--font-m);font-size:11px;font-weight:600;color:var(--ink2);text-align:right}
+.cs-ch{font-family:var(--font-m);font-size:9.5px;font-weight:600;text-align:right;min-width:52px}
+.tv-chart-container{
+  height:300px;border-radius:0 0 var(--r3) var(--r3);
+  overflow:hidden;background:var(--surface2);
+}
+.chart-tf-btns{display:flex;gap:2px}
+.chart-tf-btn{
+  padding:4px 9px;border-radius:5px;font-family:var(--font-m);font-size:9.5px;
+  font-weight:600;cursor:pointer;transition:all .15s;
+  color:var(--ink3);background:var(--surface2);border:1px solid var(--border);
+}
+.chart-tf-btn:hover{color:var(--ink);border-color:rgba(184,134,11,.3)}
+.chart-tf-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+/* ══ MARKET CAP INTELLIGENCE ROW ══ */
+.mcap-section{margin-bottom:16px}
+.mcap-section-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;
+}
+.mcap-section-title{font-size:13px;font-weight:700;color:var(--ink)}
+.mcap-section-sub{font-family:var(--font-m);font-size:8.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.12em;margin-top:1px}
+.mcap-scroll-row{
+  display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;
+  scrollbar-width:thin;scrollbar-color:var(--ink4) transparent;
+}
+.mcap-scroll-row::-webkit-scrollbar{height:3px}
+.mcap-scroll-row::-webkit-scrollbar-track{background:transparent}
+.mcap-scroll-row::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:2px}
+.mcap-pill{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);padding:13px 15px 11px;min-width:150px;
+  cursor:default;transition:all .22s;flex-shrink:0;
+  position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.mcap-pill:hover{
+  border-color:rgba(184,134,11,.38);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.1);
+}
+.mcap-pill::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--pill-c,var(--gold)),transparent);
+  opacity:.7;
+}
+.mcap-pill.featured{
+  background:linear-gradient(135deg,rgba(184,134,11,.06),rgba(184,134,11,.02));
+  border-color:rgba(184,134,11,.28);
+}
+.mp-icon{font-size:16px;margin-bottom:5px;line-height:1}
+.mp-label{
+  font-family:var(--font-m);font-size:8px;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink3);margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mp-value{
+  font-size:17px;font-weight:700;color:var(--ink);
+  letter-spacing:-.02em;line-height:1;font-family:var(--font-m);
+}
+.mp-change{
+  font-family:var(--font-m);font-size:9.5px;font-weight:600;
+  margin-top:5px;display:flex;align-items:center;gap:2px;
+}
+.mp-change.up{color:var(--green)}.mp-change.dn{color:var(--red)}.mp-change.neu{color:var(--ink4)}
+.mcap-loading{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  color:var(--ink3);font-family:var(--font-m);font-size:10px;
+}
 </style>
 </head>
 <body>
@@ -794,21 +896,54 @@ input,select{font-family:inherit}
     <div class="stat-card"><div class="sc-icon">🌍</div><div class="sc-label">Total Market Cap</div><div class="sc-val" id="d-mcap">—</div><div class="sc-ch" id="d-mcap-c">—</div><div class="sc-bar"></div></div>
     <div class="stat-card"><div class="sc-icon">😨</div><div class="sc-label">Fear & Greed Index</div><div class="sc-val" id="d-fng">—</div><div class="sc-ch neutral" id="d-fng-l" style="font-family:var(--font-m);font-size:10px">Loading...</div><div class="sc-bar"></div></div>
   </div>
+  <!-- ── MARKET CAP INTELLIGENCE ── -->
+  <div class="mcap-section">
+    <div class="mcap-section-hd">
+      <div>
+        <div class="mcap-section-title">Market Cap Intelligence</div>
+        <div class="mcap-section-sub">Live sector &amp; category data · CoinGecko</div>
+      </div>
+      <span class="status-badge" id="mcap-status" style="font-family:var(--font-m);font-size:9px;padding:4px 10px">Fetching…</span>
+    </div>
+    <div class="mcap-scroll-row" id="mcap-row">
+      <div class="mcap-loading">
+        <span style="animation:pulse-dot 1.5s infinite;width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block"></span>
+        Loading live market cap data…
+      </div>
+    </div>
+  </div>
+
   <div class="g-main">
     <div class="gap-y">
       <div class="card">
         <div class="card-hd">
-          <div><div class="card-title" id="main-chart-title">BTC / USDT</div><div class="card-sub">7-day price action</div></div>
-          <div class="flex-r">
-            <span class="status-badge" id="main-chart-badge" style="background:var(--green-dim);border:1px solid rgba(0,208,132,.2);color:var(--green);font-family:var(--font-m);font-size:9.5px">Loading</span>
-            <select id="home-coin-sel" onchange="loadHomeChart()" style="background:var(--surface2);border:1px solid var(--border);color:var(--ink);padding:5px 8px;border-radius:var(--r);font-size:11px;outline:none;cursor:pointer">
-              <option value="bitcoin">BTC</option><option value="ethereum">ETH</option>
-              <option value="solana">SOL</option><option value="binancecoin">BNB</option>
-              <option value="ripple">XRP</option><option value="avalanche-2">AVAX</option>
-            </select>
+          <div>
+            <div class="card-title" id="main-chart-title">BTC / USDT</div>
+            <div class="card-sub" id="main-chart-sub">Live chart · TradingView · Real-time</div>
+          </div>
+          <div class="flex-r" style="gap:8px">
+            <div class="chart-tf-btns">
+              <button class="chart-tf-btn active" id="tf-btn-60" onclick="setTVChartTF('60',this)">1H</button>
+              <button class="chart-tf-btn" id="tf-btn-240" onclick="setTVChartTF('240',this)">4H</button>
+              <button class="chart-tf-btn" id="tf-btn-D" onclick="setTVChartTF('D',this)">1D</button>
+              <button class="chart-tf-btn" id="tf-btn-W" onclick="setTVChartTF('W',this)">1W</button>
+            </div>
+            <div class="chart-search-wrap" id="chart-search-wrap">
+              <input
+                type="text"
+                id="chart-coin-input"
+                class="chart-coin-input"
+                placeholder="🔍 Search any coin…"
+                autocomplete="off"
+                oninput="chartCoinSearch(this.value)"
+                onkeydown="if(event.key==='Enter')chartPickFirst();if(event.key==='Escape')closeChartDD()"
+                onfocus="if(this.value)chartCoinSearch(this.value)"
+              />
+              <div id="chart-coin-dropdown" class="coin-dropdown" style="display:none"></div>
+            </div>
           </div>
         </div>
-        <div id="home-chart" style="height:260px"></div>
+        <div id="home-chart" class="tv-chart-container"></div>
       </div>
       <div class="card">
         <div class="card-hd"><div class="card-title">Latest Headlines</div><button class="btn-outline" style="padding:5px 12px;font-size:11px" onclick="nav('news')">View All →</button></div>
@@ -1595,6 +1730,84 @@ async function fetchFnG(){
   }catch(e){console.error('FnG:',e)}
 }
 
+/* ═══════════════════════ MARKET CAP INTELLIGENCE ═══════════════════════ */
+let catMcapData={};
+
+async function fetchCategories(){
+  try{
+    const r=await fetch(`${CG}/coins/categories?order=market_cap_desc`,{headers:CGH});
+    if(!r.ok)throw new Error('Categories '+r.status);
+    const data=await r.json();
+    const want={
+      'artificial-intelligence':{label:'AI Tokens',icon:'🤖',c:'#9B6DFF'},
+      'decentralized-finance-defi':{label:'DeFi',icon:'⬡',c:'#0B8A7A'},
+      'layer-2':{label:'Layer 2',icon:'⚡',c:'#1A6FD4'},
+      'real-world-assets-rwa':{label:'RWA',icon:'🏛️',c:'#B8860B'},
+      'meme-token':{label:'Meme Coins',icon:'🐸',c:'#C45A00'},
+      'non-fungible-tokens-nft':{label:'NFTs',icon:'🖼️',c:'#6B3CC4'},
+      'gaming':{label:'Gaming',icon:'🎮',c:'#C8192E'},
+      'liquid-staking-tokens':{label:'Liquid Staking',icon:'💧',c:'#0A8A4E'},
+      'stablecoins':{label:'Stablecoins',icon:'💵',c:'#3D7A5A'},
+      'layer-1':{label:'Layer 1',icon:'🌐',c:'#1A4F8A'},
+    };
+    data.forEach(cat=>{
+      if(want[cat.id]){
+        catMcapData[cat.id]={
+          ...want[cat.id],
+          mcap:cat.market_cap||0,
+          change24h:cat.market_cap_change_24h,
+        };
+      }
+    });
+    renderMcapRow();
+    setEl('mcap-status','● Live');
+  }catch(e){
+    console.error('Categories:',e);
+    renderMcapRow();
+    setEl('mcap-status','● Partial data');
+  }
+}
+
+function renderMcapRow(){
+  const row=$('mcap-row');if(!row)return;
+  const btc=mktData.find(c=>c.id==='bitcoin');
+  const eth=mktData.find(c=>c.id==='ethereum');
+  const sol=mktData.find(c=>c.id==='solana');
+  const totalMcap=mktData.reduce((s,c)=>s+(c.market_cap||0),0);
+  const btcMcap=btc?.market_cap||0;
+  const ethMcap=eth?.market_cap||0;
+  const total2=totalMcap-btcMcap;
+  const total3=total2-ethMcap;
+  const othersMcap=totalMcap-btcMcap-ethMcap-(sol?.market_cap||0);
+
+  const staticPills=[
+    {label:'TOTAL',icon:'🌐',val:totalMcap,chg:null,c:'#B8860B',feat:true},
+    {label:'TOTAL2 (ex-BTC)',icon:'₿',val:total2,chg:null,c:'#8B6508'},
+    {label:'TOTAL3 (ex-BTC+ETH)',icon:'Ξ',val:total3,chg:null,c:'#1A6FD4'},
+    {label:'Others (ex-BTC/ETH/SOL)',icon:'⚡',val:othersMcap,chg:null,c:'#0B8A7A'},
+    {label:'BTC Market Cap',icon:'₿',val:btcMcap,chg:btc?.price_change_percentage_24h,c:'#D4A843'},
+    {label:'ETH Market Cap',icon:'Ξ',val:ethMcap,chg:eth?.price_change_percentage_24h,c:'#9B6DFF'},
+  ];
+
+  const catOrder=['artificial-intelligence','decentralized-finance-defi','layer-1','layer-2','real-world-assets-rwa','meme-token','non-fungible-tokens-nft','gaming','liquid-staking-tokens','stablecoins'];
+  const catPills=catOrder.map(id=>catMcapData[id]).filter(Boolean).map(c=>({
+    label:c.label,icon:c.icon,val:c.mcap,chg:c.change24h,c:c.c,feat:false
+  }));
+
+  const all=[...staticPills,...catPills];
+  row.innerHTML=all.map(p=>{
+    const hasChg=p.chg!==null&&p.chg!==undefined;
+    const up=!hasChg||p.chg>=0;
+    const valStr=p.val?fmt(p.val):'—';
+    return`<div class="mcap-pill${p.feat?' featured':''}" style="--pill-c:${p.c}">
+      <div class="mp-icon">${p.icon}</div>
+      <div class="mp-label">${p.label}</div>
+      <div class="mp-value">${valStr}</div>
+      <div class="mp-change ${hasChg?(up?'up':'dn'):'neu'}">${hasChg?(up?'▲ ':'▼ ')+Math.abs(p.chg).toFixed(2)+'%':'24h n/a'}</div>
+    </div>`;
+  }).join('');
+}
+
 /* ═══════════════════════ DASHBOARD UPDATE ═══════════════════════ */
 function updateDash(){
   const btc=mktData.find(c=>c.id==='bitcoin');
@@ -1617,43 +1830,142 @@ function updateTicker(){
   });
 }
 
-/* ═══════════════════════ HOME CHART ═══════════════════════ */
-async function loadHomeChart(){
-  const coinId=$('home-coin-sel')?.value||'bitcoin';
-  const name=coinId.charAt(0).toUpperCase()+coinId.slice(1).replace('-',' ');
-  setEl('main-chart-title',name+' / USD');
-  try{
-    const r=await fetch(`${CG}/coins/${coinId}/market_chart?vs_currency=usd&days=7&interval=hourly`,{headers:CGH});
-    const d=await r.json();
-    const prices=(d.prices||[]).map(([t,p])=>({time:Math.floor(t/1000),value:p}));
-    if(!prices.length)return;
-    const el=$('home-chart');if(!el)return;
-    if(!homeChart){
-      homeChart=LightweightCharts.createChart(el,{
-        layout:{background:{color:'transparent'},textColor:'#7A6E5A'},
-        grid:{vertLines:{color:'rgba(0,0,0,.05)'},horzLines:{color:'rgba(0,0,0,.05)'}},
-        crosshair:{mode:LightweightCharts.CrosshairMode.Normal},
-        rightPriceScale:{borderColor:'rgba(0,0,0,.1)'},
-        timeScale:{borderColor:'rgba(0,0,0,.1)'},
-        handleScroll:true,handleScale:true
-      });
-      homeChart.applyOptions({width:el.offsetWidth,height:260});
-    }
-    if(homeS){try{homeChart.removeSeries(homeS)}catch(e){}}
-    const isUp=prices[prices.length-1].value>=prices[0].value;
-    homeS=homeChart.addAreaSeries({
-      lineColor:isUp?'#00D084':'#FF3366',
-      topColor:isUp?'rgba(0,208,132,.25)':'rgba(255,51,102,.25)',
-      bottomColor:isUp?'rgba(0,208,132,.01)':'rgba(255,51,102,.01)',
-      lineWidth:2,crosshairMarkerRadius:5,
-    });
-    homeS.setData(prices);
-    homeChart.timeScale().fitContent();
-    const chg=((prices[prices.length-1].value-prices[0].value)/prices[0].value*100);
-    const badge=$('main-chart-badge');
-    if(badge){badge.textContent=pct(chg)+' 7d';badge.style.background=isUp?'rgba(0,208,132,.12)':'rgba(255,51,102,.12)';badge.style.border='1px solid '+(isUp?'rgba(0,208,132,.25)':'rgba(255,51,102,.25)');badge.style.color=isUp?'var(--green)':'var(--red)'}
-  }catch(e){console.error('Home chart:',e)}
+/* ═══════════════════════ HOME CHART — TradingView ═══════════════════════ */
+let tvCurrentCoinId='bitcoin';
+let tvCurrentTF='240';
+
+/* Map CoinGecko IDs → TradingView symbols */
+function toTVSym(input){
+  const idMap={
+    bitcoin:'BINANCE:BTCUSDT',ethereum:'BINANCE:ETHUSDT',
+    solana:'BINANCE:SOLUSDT',binancecoin:'BINANCE:BNBUSDT',
+    ripple:'BINANCE:XRPUSDT','avalanche-2':'BINANCE:AVAXUSDT',
+    cardano:'BINANCE:ADAUSDT',polkadot:'BINANCE:DOTUSDT',
+    chainlink:'BINANCE:LINKUSDT',uniswap:'BINANCE:UNIUSDT',
+    'near':'BINANCE:NEARUSDT',cosmos:'BINANCE:ATOMUSDT',
+    'bittensor':'BINANCE:TAOUSDT','tao':'BINANCE:TAOUSDT',
+    sui:'BINANCE:SUIUSDT',aptos:'BINANCE:APTUSDT',
+    arbitrum:'BINANCE:ARBUSDT',optimism:'BINANCE:OPUSDT',
+    'shiba-inu':'BINANCE:SHIBUSDT',dogecoin:'BINANCE:DOGEUSDT',
+    'matic-network':'BINANCE:MATICUSDT',polygon:'BINANCE:MATICUSDT',
+    'internet-computer':'BINANCE:ICPUSDT',
+    'fetch-ai':'BINANCE:FETUSDT','render-token':'BINANCE:RENDERUSDT',
+    'injective-protocol':'BINANCE:INJUSDT',
+    celestia:'BINANCE:TIAUSDT','stacks':'BINANCE:STXUSDT',
+    'the-graph':'BINANCE:GRTUSDT',filecoin:'BINANCE:FILUSDT',
+    'lido-dao':'BINANCE:LDOUSDT',aave:'BINANCE:AAVEUSDT',
+    'curve-dao-token':'BINANCE:CRVUSDT',
+  };
+  const lo=input.toLowerCase();
+  if(idMap[lo])return idMap[lo];
+  const byId=mktData.find(c=>c.id===lo);
+  if(byId)return`BINANCE:${byId.symbol.toUpperCase()}USDT`;
+  const bySym=mktData.find(c=>c.symbol.toLowerCase()===lo);
+  if(bySym)return`BINANCE:${bySym.symbol.toUpperCase()}USDT`;
+  if(lo.includes(':'))return lo.toUpperCase();
+  return`BINANCE:${lo.toUpperCase()}USDT`;
 }
+
+function createTVWidget(sym,tf){
+  const el=$('home-chart');if(!el)return;
+  el.innerHTML='';
+  const divId='tv_'+Date.now();
+  const inner=document.createElement('div');
+  inner.id=divId;inner.style.height='100%';inner.style.width='100%';
+  el.appendChild(inner);
+  try{
+    new TradingView.widget({
+      autosize:true,symbol:sym,interval:tf||'240',
+      timezone:'Etc/UTC',theme:'light',style:'1',locale:'en',
+      toolbar_bg:'#F8F4EE',
+      enable_publishing:false,hide_side_toolbar:true,
+      allow_symbol_change:false,save_image:false,
+      withdateranges:false,hide_legend:false,
+      container_id:divId,
+    });
+  }catch(e){
+    /* fallback: direct embed */
+    el.innerHTML=`<iframe
+      src="https://www.tradingview.com/widgetsnippet/?v=2&symbol=${encodeURIComponent(sym)}&interval=${tf||'240'}&theme=light&locale=en&style=1&toolbar_bg=F8F4EE&timezone=Etc%2FUTC&hide_side_toolbar=1"
+      style="width:100%;height:100%;border:none" allowtransparency="true" frameborder="0"></iframe>`;
+  }
+}
+
+function loadTVChart(coinId,tf){
+  tvCurrentCoinId=coinId||'bitcoin';
+  tvCurrentTF=tf||tvCurrentTF||'240';
+  const sym=toTVSym(tvCurrentCoinId);
+  const label=sym.split(':')[1]?.replace('USDT','').replace('USD','')||coinId.toUpperCase();
+  setEl('main-chart-title',label+' / USDT');
+  setEl('main-chart-sub','Live chart · TradingView · Real-time');
+  /* update input placeholder */
+  const inp=$('chart-coin-input');
+  if(inp&&!inp.value){inp.placeholder='🔍 Search any coin…'}
+  if(typeof TradingView!=='undefined'){
+    createTVWidget(sym,tvCurrentTF);
+  }else{
+    const s=document.createElement('script');
+    s.src='https://s3.tradingview.com/tv.js';
+    s.onload=()=>createTVWidget(sym,tvCurrentTF);
+    document.head.appendChild(s);
+  }
+}
+
+/* Alias so old call sites still work */
+function loadHomeChart(){loadTVChart(tvCurrentCoinId);}
+
+function setTVChartTF(tf,btn){
+  tvCurrentTF=tf;
+  document.querySelectorAll('.chart-tf-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  loadTVChart(tvCurrentCoinId,tf);
+}
+
+/* ── Coin autocomplete ── */
+function chartCoinSearch(q){
+  const dd=$('chart-coin-dropdown');if(!dd)return;
+  if(!q||q.length<1){dd.style.display='none';return}
+  const s=q.toLowerCase();
+  const matches=mktData.filter(c=>
+    c.name.toLowerCase().includes(s)||c.symbol.toLowerCase().includes(s)
+  ).slice(0,8);
+  if(!matches.length){dd.style.display='none';return}
+  dd.innerHTML=matches.map(c=>{
+    const up=(c.price_change_percentage_24h||0)>=0;
+    return`<div class="coin-suggest" onclick="selectChartCoin('${c.id}','${c.symbol.toUpperCase()}')">
+      <div class="cs-icon">${c.symbol.slice(0,2).toUpperCase()}</div>
+      <div class="cs-info"><div class="cs-sym">${c.symbol.toUpperCase()}</div><div class="cs-name">${c.name}</div></div>
+      <div class="cs-price">${fmt(c.current_price)}</div>
+      <div class="cs-ch ${up?'up-c':'dn-c'}">${pct(c.price_change_percentage_24h)}</div>
+    </div>`;
+  }).join('');
+  dd.style.display='block';
+}
+
+function selectChartCoin(id,sym){
+  const inp=$('chart-coin-input');if(inp)inp.value=sym;
+  closeChartDD();
+  loadTVChart(id);
+}
+
+function chartPickFirst(){
+  const q=$('chart-coin-input')?.value?.trim();
+  if(!q)return;
+  const s=q.toLowerCase();
+  const match=mktData.find(c=>c.symbol.toLowerCase()===s||c.name.toLowerCase()===s)
+    ||mktData.find(c=>c.symbol.toLowerCase().startsWith(s));
+  if(match)selectChartCoin(match.id,match.symbol.toUpperCase());
+  else loadTVChart(q);
+}
+
+function closeChartDD(){
+  const dd=$('chart-coin-dropdown');if(dd)dd.style.display='none';
+}
+
+/* close dropdown on outside click */
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#chart-search-wrap'))closeChartDD();
+});
 
 /* ═══════════════════════ MARKETS TABLE ═══════════════════════ */
 let mktSort={col:'rank',asc:true};
@@ -1896,14 +2208,27 @@ async function fetchNews(){
     const r=await fetch(`https://cryptopanic.com/api/v1/posts/?auth_token=${CP_KEY}&public=true&kind=news`);
     if(!r.ok)throw new Error();
     const d=await r.json();
-    const items=(d.results||[]).map(n=>({
-      title:n.title,url:n.url||'#',
-      source:normSrc(n.source?.title||'CryptoPanic'),
-      time:n.published_at,
-      sentiment:getSentiment(n.votes),
-      currencies:(n.currencies||[]).map(c=>c.code),
-      category:getCategory(n.title)
-    }));
+    const items=(d.results||[]).map(n=>{
+      /* Try to get direct original source URL first */
+      let articleUrl=n.url||'#';
+      if(n.source?.domain&&n.source?.path){
+        articleUrl=`https://${n.source.domain}${n.source.path}`;
+      }else if(n.url&&!n.url.startsWith('https://cryptopanic.com')){
+        articleUrl=n.url;
+      }
+      /* CryptoPanic URL as last resort — it redirects to source */
+      return{
+        title:n.title,
+        url:articleUrl,
+        cpUrl:n.url||null,
+        source:normSrc(n.source?.title||'CryptoPanic'),
+        domain:n.source?.domain||null,
+        time:n.published_at,
+        sentiment:getSentiment(n.votes),
+        currencies:(n.currencies||[]).map(c=>c.code),
+        category:getCategory(n.title)
+      };
+    });
     if(items.length)allNews=[...items,...allNews.filter(x=>!items.find(y=>y.title===x.title))];
     if(!allNews.length)allNews=getMockNews();
     renderNewsPage();updateNewsCounts();
@@ -1922,18 +2247,18 @@ function getCategory(t){const l=t.toLowerCase();if(l.includes('btc')||l.includes
 
 function getMockNews(){
   return[
-    {title:'Bitcoin Holds Key Support as Institutional Buyers Step In on Dip',url:'#',source:'CoinDesk',time:new Date(Date.now()-900000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
-    {title:'Ethereum Layer 2 Ecosystem Hits Record $45B TVL on Surging User Activity',url:'#',source:'TheDefiant',time:new Date(Date.now()-1800000).toISOString(),sentiment:'bullish',currencies:['ETH'],category:'DEFI'},
-    {title:'SEC Coordination on Crypto Oversight Gains Momentum Among Regulators',url:'#',source:'Cointelegraph',time:new Date(Date.now()-3600000).toISOString(),sentiment:'neutral',currencies:[],category:'REGULATION'},
-    {title:'Solana DApp Activity Surges 40% Month-Over-Month as Ecosystem Grows',url:'#',source:'CryptoPotato',time:new Date(Date.now()-5400000).toISOString(),sentiment:'bullish',currencies:['SOL'],category:'MARKET'},
-    {title:'Bitcoin ETF Inflows Hit $800M This Week as Institutional Demand Stays Strong',url:'#',source:'CoinDesk',time:new Date(Date.now()-7200000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
-    {title:'DeFi Protocol Volumes Recover After Market Pullback, TVL Stabilizes',url:'#',source:'TheDefiant',time:new Date(Date.now()-9000000).toISOString(),sentiment:'neutral',currencies:[],category:'DEFI'},
-    {title:'Altcoin Season Indicators Show BTC Dominance Weakening Below Key Level',url:'#',source:'Cointelegraph',time:new Date(Date.now()-10800000).toISOString(),sentiment:'bullish',currencies:[],category:'MARKET'},
-    {title:'US Bank Lobby Considers Legal Action Over Crypto Banking Charter Policy',url:'#',source:'TheDefiant',time:new Date(Date.now()-12600000).toISOString(),sentiment:'bearish',currencies:[],category:'REGULATION'},
-    {title:'XRP Gains Momentum After Favorable Court Ruling Update',url:'#',source:'CryptoPotato',time:new Date(Date.now()-14400000).toISOString(),sentiment:'bullish',currencies:['XRP'],category:'MARKET'},
-    {title:'Polymarket Integrates AI to Monitor and Improve Prediction Market Accuracy',url:'#',source:'TheDefiant',time:new Date(Date.now()-420000).toISOString(),sentiment:'neutral',currencies:[],category:'UPDATE'},
-    {title:'Fed Rate Decision Expected to Drive Crypto Volatility This Week',url:'#',source:'CoinDesk',time:new Date(Date.now()-18000000).toISOString(),sentiment:'bearish',currencies:[],category:'MARKET'},
-    {title:'Bitcoin Leads as Altcoin Relative Strength Drops to Intriguing Lows',url:'#',source:'Cointelegraph',time:new Date(Date.now()-1620000).toISOString(),sentiment:'neutral',currencies:['BTC'],category:'MARKET'},
+    {title:'Bitcoin Holds Key Support as Institutional Buyers Step In on Dip',url:'https://www.coindesk.com/markets/',source:'CoinDesk',time:new Date(Date.now()-900000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
+    {title:'Ethereum Layer 2 Ecosystem Hits Record $45B TVL on Surging User Activity',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-1800000).toISOString(),sentiment:'bullish',currencies:['ETH'],category:'DEFI'},
+    {title:'SEC Coordination on Crypto Oversight Gains Momentum Among Regulators',url:'https://cointelegraph.com/tags/regulation',source:'Cointelegraph',time:new Date(Date.now()-3600000).toISOString(),sentiment:'neutral',currencies:[],category:'REGULATION'},
+    {title:'Solana DApp Activity Surges 40% Month-Over-Month as Ecosystem Grows',url:'https://cryptopotato.com/category/altcoins/',source:'CryptoPotato',time:new Date(Date.now()-5400000).toISOString(),sentiment:'bullish',currencies:['SOL'],category:'MARKET'},
+    {title:'Bitcoin ETF Inflows Hit $800M This Week as Institutional Demand Stays Strong',url:'https://www.coindesk.com/markets/bitcoin/',source:'CoinDesk',time:new Date(Date.now()-7200000).toISOString(),sentiment:'bullish',currencies:['BTC'],category:'BITCOIN'},
+    {title:'DeFi Protocol Volumes Recover After Market Pullback, TVL Stabilizes',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-9000000).toISOString(),sentiment:'neutral',currencies:[],category:'DEFI'},
+    {title:'Altcoin Season Indicators Show BTC Dominance Weakening Below Key Level',url:'https://cointelegraph.com/tags/altcoin',source:'Cointelegraph',time:new Date(Date.now()-10800000).toISOString(),sentiment:'bullish',currencies:[],category:'MARKET'},
+    {title:'US Bank Lobby Considers Legal Action Over Crypto Banking Charter Policy',url:'https://thedefiant.io/regulation/',source:'TheDefiant',time:new Date(Date.now()-12600000).toISOString(),sentiment:'bearish',currencies:[],category:'REGULATION'},
+    {title:'XRP Gains Momentum After Favorable Court Ruling Update',url:'https://cryptopotato.com/category/ripple-xrp/',source:'CryptoPotato',time:new Date(Date.now()-14400000).toISOString(),sentiment:'bullish',currencies:['XRP'],category:'MARKET'},
+    {title:'Polymarket Integrates AI to Monitor and Improve Prediction Market Accuracy',url:'https://thedefiant.io/defi/',source:'TheDefiant',time:new Date(Date.now()-420000).toISOString(),sentiment:'neutral',currencies:[],category:'UPDATE'},
+    {title:'Fed Rate Decision Expected to Drive Crypto Volatility This Week',url:'https://www.coindesk.com/markets/',source:'CoinDesk',time:new Date(Date.now()-18000000).toISOString(),sentiment:'bearish',currencies:[],category:'MARKET'},
+    {title:'Bitcoin Leads as Altcoin Relative Strength Drops to Intriguing Lows',url:'https://cointelegraph.com/tags/bitcoin',source:'Cointelegraph',time:new Date(Date.now()-1620000).toISOString(),sentiment:'neutral',currencies:['BTC'],category:'MARKET'},
   ];
 }
 
@@ -1967,7 +2292,7 @@ function renderNewsPage(){
     <div class="nf-body">
       <div class="nf-tags"><span class="featured-tag">FEATURED</span><span class="nf-time">🕐 ${ago(f.time)}</span>${sent}</div>
       <div class="nf-title">${f.title}</div>
-      <div class="nf-source-row"><div class="nf-src-dot" style="background:${col}">${init}</div><div class="nf-src-name">${f.source}</div></div>
+      <div class="nf-source-row"><div class="nf-src-dot" style="background:${col}">${init}</div><div class="nf-src-name">${f.source}</div><div style="margin-left:auto;background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.25);padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;color:var(--gold-dk)">Read Article ↗</div></div>
     </div>
   </div>`);
   setEl('news-grid-4',items.slice(1,13).map(n=>{
@@ -2187,18 +2512,26 @@ function resetPrefs(){if(confirm('Reset all preferences to defaults?'))location.
 function refreshAll(){
   fetchMktData();fetchGlobal();fetchFnG();
   if($('page-news').classList.contains('active'))fetchNews();
-  loadHomeChart();
+  /* chart: only reload if overview is active to avoid flash */
+  if($('page-dashboard').classList.contains('active')){
+    renderMcapRow();/* re-render with latest mktData */
+  }
 }
 
 /* ═══════════════════════ INIT ═══════════════════════ */
 async function init(){
   nav('dashboard');
   await Promise.all([fetchMktData(),fetchGlobal(),fetchFnG(),fetchNews()]);
-  loadHomeChart();
+  loadTVChart('bitcoin');
+  fetchCategories();
   setInterval(refreshAll,60000);
+  setInterval(fetchCategories,300000); /* refresh categories every 5 min */
 }
 window.addEventListener('load',init);
-window.addEventListener('resize',()=>{if(homeChart)homeChart.applyOptions({width:$('home-chart')?.offsetWidth||600})});
+window.addEventListener('resize',()=>{
+  /* TradingView widget is autosize — no manual resize needed */
+  if(rotChart)try{rotChart.applyOptions({width:$('rotation-chart-wrap')?.offsetWidth||500})}catch(e){}
+});
 </script>
 
 <script>
