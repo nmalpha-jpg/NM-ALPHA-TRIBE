@@ -21,6 +21,7 @@
 <meta name="twitter:image" content="https://nmalphatribe.com/og-image.jpg"/>
 <!-- Canonical -->
 <link rel="canonical" href="https://nmalphatribe.com/"/>
+<script defer data-domain="nmalphatribe.com" src="https://plausible.io/js/script.outbound-links.tagged-events.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" fetchpriority="low" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -2787,6 +2788,49 @@ function toggleWriting(card){
       }
     }).catch(()=>{});
   observeReveal(grid);
+})();
+
+// Lightweight analytics event hooks (Plausible)
+(function(){
+  if (!window.plausible) return;
+
+  function trackEvent(name, props) {
+    try {
+      window.plausible(name, { props: props || {} });
+    } catch (e) {
+      // fail silently
+    }
+  }
+
+  // Primary CTA buttons
+  document.querySelectorAll('.btn-dark, .btn-gold').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent.trim().slice(0, 80);
+      trackEvent('cta_click', { label });
+    });
+  });
+
+  // Nav CTA
+  var navCta = document.querySelector('.nav-cta');
+  if (navCta) {
+    navCta.addEventListener('click', () => {
+      trackEvent('nav_join_click', { label: 'Join CTA' });
+    });
+  }
+
+  // Discord / community join links
+  document.querySelectorAll('a[href*="discord.gg"], a[href*="discord.com"]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackEvent('discord_join', { href: link.href });
+    });
+  });
+
+  // Social profile clicks (X/Twitter etc.)
+  document.querySelectorAll('a[href*="x.com"], a[href*="twitter.com"], .nav-social-icon a').forEach(link => {
+    link.addEventListener('click', () => {
+      trackEvent('social_click', { href: link.href || '', label: link.textContent.trim().slice(0,80) });
+    });
+  });
 })();
 
 </script>
